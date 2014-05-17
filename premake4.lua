@@ -2,8 +2,10 @@ solution "Engine"
 	configurations {"Debug", "Release"}
 	platforms ("native", "Universal")
 	configuration "Debug"
+		flags {"Symbols"}
 		targetdir ("bin/debug")
 	configuration "Release"
+		flags {"Optimize"}
 		targetdir ("bin/release")
 	configuration {"linux", "gmake" }
 		buildoptions {"-std=c++11"}
