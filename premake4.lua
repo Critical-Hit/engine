@@ -9,10 +9,11 @@ solution "Engine"
 		targetdir ("bin/release")
 	configuration {"linux", "gmake" }
 		buildoptions {"-std=c++11"}
+		links {"libgl"}
 	configuration {"macosx", "xcode3"}
 		buildoptions {"-std=c++11 -stdlib=c++"}
 	configuration {"macosx", "gmake"}
-		buildoptions {"-std=c++11"}
+		buildoptions {"-std=c++11 -stdlib=c++"}
 	configuration {"windows", "vs2010"}
 		-- todo force c++11
 
