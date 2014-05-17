@@ -17,17 +17,23 @@ Open a command prompt and navigate to the directory containing premake4.lua. Typ
 
 Mac OSX and XCode or GNU Make
 --
-Download [Premake 4.3](http://industriousone.com/premake/download) and extract the binary from the tarball. Move this binary to somewhere in your path using a command like `mv ~/Downloads/premake4 /usr/local/bin`.
+Install Premake 4.3 using [Homebrew](http://www.brew.sh) or [MacPorts](http://www.macports.com). If this is not possible, you can manually add the binary to your path. Download [Premake 4.3](http://industriousone.com/premake/download) and extract the binary from the tarball. Move this binary to `/opt/premake4/bin`. Open ~/.bash_profile with a text editor and add a line to edit your PATH. For example:
+
+    PATH="/opt/premake4/bin:$PATH"
+
+You will have to log out and in again to apply this change.
 
 You can use either of two options to develop, XCode or the command line with GNU Make.
 
-Option 1 (XCode):
-Make sure you have XCode installed, if not install it from the Mac App store.
+XCode
+#
+Install XCode from the App Store.
 
-Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 xcode3`. An XCode project file will be generated that you can open with XCode.
+Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 xcode3`. An XCode project file will be generated. Open it with XCode
 
-Option 2 (Command Line):
-Make sure you have the OSX command line tools installed, if not download them [here](https://developer.apple.com/downloads/index.action) and install them.
+GNU Make
+#
+Install the Command Line Tools from [developer.apple.com](https://developer.apple.com/downloads/index.action) (Apple Developer account required).
 
 Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 gmake`. A Makefile will be generated. Type `make help` for usage information, or simply `make` to run the default debug build.
 
