@@ -8,6 +8,9 @@
 Makefile
 *.make
 
+# Xcode
+*.xcodeproj
+
 ## Ignore C++ binaries
 
 # Compiled Object files
