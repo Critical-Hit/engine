@@ -16,14 +16,6 @@ solution "Engine"
 	configuration {"windows", "vs2010"}
 		-- todo force c++11
 
-project "Modules"
-  kind "StaticLib"
-  language "C++"
-  files {
-    "modules/**.h",
-    "modules/**.cpp"
-  }
-
 project "Core"
 	kind "ConsoleApp"
 	language "C++"
@@ -37,5 +29,13 @@ project "Core"
   includedirs "modules/**"
   links {
     "Modules"
+  }
+
+project "Modules"
+  kind "StaticLib"
+  language "C++"
+  files {
+    "modules/**.h",
+    "modules/**.cpp"
   }
 
