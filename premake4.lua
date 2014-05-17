@@ -10,7 +10,9 @@ solution "Engine"
 	configuration {"linux", "gmake" }
 		buildoptions {"-std=c++11"}
 	configuration {"macosx", "xcode3"}
-		-- todo force c++11
+		buildoptions {"-std=c++11"}
+	configuration {"macosx", "gmake"}
+		buildoptions {"-std=c++11"}
 	configuration {"windows", "vs2010"}
 		-- todo force c++11
 

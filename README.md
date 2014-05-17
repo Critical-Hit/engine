@@ -15,9 +15,21 @@ Download [Premake 4.3](http://industriousone.com/premake/download) and extract t
 
 Open a command prompt and navigate to the directory containing premake4.lua. Type `premake4 vs2010`. Visual Studio 2010 project files will be generated. Open the .sln file in Visual Studio 2013. You will be prompted to migrate the project to VS2013- click yes.
 
-Mac OSX and XCode
+Mac OSX and XCode or GNU Make
 --
-Coming soon...
+Download [Premake 4.3](http://industriousone.com/premake/download) and extract the binary from the tarball. Move this binary to somewhere in your path using a command like `mv ~/Downloads/premake4 /usr/local/bin`.
+
+You can use either of two options to develop, XCode or the command line with GNU Make.
+
+Option 1 (XCode):
+Make sure you have XCode installed, if not install it from the Mac App store.
+
+Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 xcode3`. An XCode project file will be generated that you can open with XCode.
+
+Option 2 (Command Line):
+Make sure you have the OSX command line tools installed, if not download them [here](https://developer.apple.com/downloads/index.action) and install them.
+
+Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 gmake`. A Makefile will be generated. Type `make help` for usage information, or simply `make` to run the default debug build.
 
 Linux and GNU Make
 --
