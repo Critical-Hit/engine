@@ -10,11 +10,19 @@ solution "Engine"
 	configuration {"linux", "gmake" }
 		buildoptions {"-std=c++11"}
 	configuration {"macosx", "xcode3"}
-		buildoptions {"-std=c++11 -stdlib=c++"}
+		buildoptions {"-std=c++11"}
 	configuration {"macosx", "gmake"}
 		buildoptions {"-std=c++11"}
 	configuration {"windows", "vs2010"}
 		-- todo force c++11
+
+project "Modules"
+  kind "StaticLib"
+  language "C++"
+  files {
+    "modules/**.h",
+    "modules/**.cpp"
+  }
 
 project "Core"
 	kind "ConsoleApp"
@@ -26,4 +34,8 @@ project "Core"
 	flags {
 		"ExtraWarnings"
 	}
+  includedirs "modules/**"
+  links {
+    "Modules"
+  }
 
