@@ -8,15 +8,21 @@ solution "Engine"
 		flags {"Optimize"}
 		targetdir ("bin/release")
 	configuration {"linux", "gmake" }
+		platforms {"x64"}
 		buildoptions {"-std=c++11"}
 		links {"GL", "sfml-system", "sfml-window", "GLEW"}
 	configuration {"macosx", "xcode3"}
+		platforms {"Universal64"}
 		buildoptions {"-std=c++11"}
 	configuration {"macosx", "gmake"}
+		platforms {"Universal64"}
 		buildoptions {"-std=c++11"}
 		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
 	configuration {"windows", "vs2010"}
-		links {"OpenGL32"}
+		platforms {"x64"}
+		links {"OpenGL32", "glfw3"}
+		libdirs {"lib"}
+		includedirs {"include"}
 project "Core"
 	kind "ConsoleApp"
 	language "C++"
