@@ -12,8 +12,10 @@ solution "Engine"
 		links {"GL", "sfml-system", "sfml-window", "GLEW"}
 	configuration {"macosx", "xcode3"}
 		buildoptions {"-std=c++11"}
+		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
 	configuration {"macosx", "gmake"}
 		buildoptions {"-std=c++11"}
+		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
 	configuration {"windows", "vs2010"}
 		links {"OpenGL32"}
 project "Core"
