@@ -14,7 +14,6 @@ solution "Engine"
 	configuration {"macosx", "xcode3"}
 		platforms {"Universal64"}
 		buildoptions {"-std=c++11"}
-		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
 	configuration {"macosx", "gmake"}
 		platforms {"Universal64"}
 		buildoptions {"-std=c++11"}
@@ -34,7 +33,15 @@ project "Core"
 	flags {
 		"ExtraWarnings"
 	}
-  includedirs "modules/**"
+  includedirs {
+    "modules/**",
+    "/usr/local/include"
+  }
+  libdirs {
+    "/usr/local/lib"
+  }
+	configuration {"macosx", "xcode3"}
+		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
   links {
     "Modules"
   }
