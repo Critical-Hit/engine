@@ -12,7 +12,6 @@ solution "Engine"
 		links {"GL", "sfml-system", "sfml-window", "GLEW"}
 	configuration {"macosx", "xcode3"}
 		buildoptions {"-std=c++11"}
-		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
 	configuration {"macosx", "gmake"}
 		buildoptions {"-std=c++11"}
 		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
@@ -28,7 +27,15 @@ project "Core"
 	flags {
 		"ExtraWarnings"
 	}
-  includedirs "modules/**"
+  includedirs {
+    "modules/**",
+    "/usr/local/include"
+  }
+  libdirs {
+    "/usr/local/lib"
+  }
+	configuration {"macosx", "xcode3"}
+		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
   links {
     "Modules"
   }
