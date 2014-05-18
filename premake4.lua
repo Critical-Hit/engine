@@ -10,7 +10,7 @@ solution "Engine"
 	configuration {"linux", "gmake" }
 		platforms {"x64"}
 		buildoptions {"-std=c++11"}
-		links {"GL", "sfml-system", "sfml-window", "GLEW"}
+		links {"GL", "glfw"}
 	configuration {"macosx", "xcode3"}
 		platforms {"Universal64"}
 		buildoptions {"-std=c++11"}
