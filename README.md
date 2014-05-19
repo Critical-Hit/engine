@@ -74,7 +74,7 @@ Install the Command Line Tools from [developer.apple.com](https://developer.appl
 Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 gmake`. A Makefile will be generated. Type `make help` for usage information, or simply `make` to run the default debug build.
 
 
-##Linux and GNU Make
+##Linux
 
 Use your distribution's package manager to install the build dependencies:
 
