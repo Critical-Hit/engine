@@ -1,6 +1,4 @@
 solution "Engine"
-	configurations {"Debug", "Release"}
-	platforms ("native", "Universal")
 	configuration "Debug"
 		flags {"Symbols"}
 		targetdir ("bin/debug")
@@ -33,24 +31,24 @@ project "Core"
 	flags {
 		"ExtraWarnings"
 	}
-  includedirs {
-    "modules/**",
-    "/usr/local/include"
-  }
-  libdirs {
-    "/usr/local/lib"
-  }
+	includedirs {
+		"modules/**",
+		"/usr/local/include"
+	}
+	libdirs {
+		"/usr/local/lib"
+	}
 	configuration {"macosx", "xcode3"}
 		links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
-  links {
-    "Modules"
-  }
+	links {
+		"Modules"
+	}
 
 project "Modules"
-  kind "StaticLib"
-  language "C++"
-  files {
-    "modules/**.h",
-    "modules/**.cpp"
-  }
+	kind "StaticLib"
+	language "C++"
+	files {
+		"modules/**.h",
+		"modules/**.cpp"
+	}
 
