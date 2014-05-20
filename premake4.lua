@@ -1,4 +1,5 @@
 solution "Engine"
+	configurations {"Debug", "Release"}
 	configuration "Debug"
 		flags {"Symbols"}
 		targetdir ("bin/debug")
