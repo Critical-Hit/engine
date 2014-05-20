@@ -30,7 +30,6 @@ Generate the Visual Studio Project and run the build:
 
 ##Mac OSX
 
-
 ###Libraries
 
 We highly recommend using [Homebrew](http://www.brew.sh) when developing on Mac OSX. [MacPorts](http://www.macports.com) is another alternative. If this is not possible, you can download the required libraries and edit the PATH manually.
@@ -72,7 +71,6 @@ Open a terminal and navigate to the directory containing premake4.lua. Type `pre
 Install the Command Line Tools from [developer.apple.com](https://developer.apple.com/downloads/index.action) (Apple Developer account required).
 
 Open a terminal and navigate to the directory containing premake4.lua. Type `premake4 gmake`. A Makefile will be generated. Type `make help` for usage information, or simply `make` to run the default debug build.
-
 
 ##Linux
 
