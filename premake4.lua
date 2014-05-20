@@ -26,8 +26,8 @@ project "Core"
 	kind "ConsoleApp"
 	language "C++"
 	files {
-		"src/core/*.h",
-		"src/core/*.cpp"
+		"src/**.h",
+		"src/**.cpp"
 	}
 	flags {
 		"ExtraWarnings"

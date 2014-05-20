@@ -1,4 +1,4 @@
-#include "sample.h"
+#include "Sample.h"
 
 int five()
 {
