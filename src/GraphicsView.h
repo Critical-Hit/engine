@@ -20,7 +20,7 @@ public:
     /**
      * Updates the GraphicsView.
      */
-    void Update(float green);
+    void Update(float colorValue);
     
     /**
      * Function to call if the user attempts to close the GLFW Window.
