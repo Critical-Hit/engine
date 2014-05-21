@@ -1,5 +1,9 @@
 #include <GLFW/glfw3.h>
 
+/**
+ * Entry point for the application/engine.
+ * Displays a green screen until the user closes the window.
+ */
 int main(void)
 {
     GLFWwindow* window;
