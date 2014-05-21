@@ -6,6 +6,8 @@
 #include <thread>
 
 #include "GraphicsView.h"
+#include "GameStateManager.h"
+#include "InitialState.h"
 
 class Controller
 {

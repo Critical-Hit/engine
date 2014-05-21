@@ -28,18 +28,16 @@ void Controller::Start()
 
 void Controller::gameLoop()
 {
-    int sign = -1;
-    float increment = 0.016667f;
+    GameStateManager manager;
+    manager.Initialize(new InitialState());
+    
+    int i = 0;
     while(!this->shouldExit)
     {
+        i++;
         double startTime = glfwGetTime();
-        
-        // For now just alternate between a 0 and 1 color value to flash a color.
-        if(this->colorValue <= 0.0f || this->colorValue >= 1.0f)
-        {
-            sign *= -1;
-        }
-        this->colorValue += (sign * increment);
+
+        colorValue = manager.Update();
         
         while((glfwGetTime() - startTime) <= Controller::UPDATE_RATE)
         { }
