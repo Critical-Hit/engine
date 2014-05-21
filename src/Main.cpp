@@ -4,7 +4,7 @@ int main(void)
 {
     GLFWwindow* window;
 
-    // Initialize the library 
+    // Initialize the GLFW library 
     if (!glfwInit())
     {
         return -1;
@@ -24,11 +24,11 @@ int main(void)
     // Loop until the user closes the window 
     while (!glfwWindowShouldClose(window))
     {
-        /// Render here 
+        /// Render the color green
         glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
-        // Swap front and back buffers 
+        // Swap the front and back buffers 
         glfwSwapBuffers(window);
 
         // Poll for and process events 
