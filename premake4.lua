@@ -22,7 +22,10 @@ solution "Engine"
         links {"OpenGL32", "glfw3"}
         libdirs {"lib"}
         includedirs {"include"}
+
 project "Core"
+    
+    
     kind "ConsoleApp"
     language "C++"
     files {
@@ -39,11 +42,14 @@ project "Core"
     libdirs {
         "/usr/local/lib"
     }
+    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
+        links {
+            "Modules"
+        }
+    end
     configuration {"macosx", "xcode3"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
-    links {
-        "Modules"
-    }
+
 
 project "Modules"
     kind "StaticLib"
