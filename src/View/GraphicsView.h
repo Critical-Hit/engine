@@ -4,6 +4,12 @@
 #include <GLFW/glfw3.h>
 #include <functional>
 
+/**
+ * Provides a full set of logic for displaying graphics.
+ * 
+ * Currently, this is simply cleraing to a particular color, given to the
+ * update method.
+ */
 class GraphicsView
 {
 public:
@@ -18,7 +24,8 @@ public:
     void Initialize(GLFWwindow* window);
     
     /**
-     * Updates the GraphicsView.
+     * Updates the GraphicsView, causing it to clear the screen to the
+	 * given color value.
      */
     void Update(float colorValue);
     

@@ -4,14 +4,16 @@
 #include "GameStateManager.h"
 class GameStateManager;
 
+/**
+ * Contains logic for managing underlying functions used by the GameStateManager
+ * for management of states.  When these virtual methods are overriden, the base
+ * should ALWAYS be called at the beginning of the method.
+ *
+ * Currently provides nothing special.
+ */
 class GameState
 {
 public:
-    /**
-     * Default constructor that creates a new instance of a GameState.
-     */
-    GameState() { }
-    
     /**
      * Initializes the GameState with the given GameStateManager.
      */
@@ -23,7 +25,7 @@ public:
     /**
      * Updates this State.
      */
-    virtual float Update() { return 0; }
+	virtual float Update() = 0;
     
     /**
      * Pauses this State to be resumed later.
@@ -41,10 +43,6 @@ public:
     virtual void Destroy() { }
     
 private:
-    // Private constructors to disallow access.
-    GameState(GameState const &other);
-    GameState operator=(GameState other);
-    
     /**
      * The GameStateManager managing this State.
      */

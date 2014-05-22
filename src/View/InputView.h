@@ -1,6 +1,11 @@
 #ifndef Core_InputView_h
 #define Core_InputView_h
 
+/**
+ * Provides a full set of logic for accessing input.
+ * 
+ * Currently does nothing, though.
+ */
 class InputView
 {
 public:

@@ -6,6 +6,10 @@
 #include "GameState.h"
 class GameState;
 
+/**
+ * Manages a stack of GameStates, allowing smooth transitioning between states,
+ * including saving old states that remain "underneath" the current state. 
+ */
 class GameStateManager
 {
 public:

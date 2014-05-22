@@ -3,6 +3,10 @@
 
 #include "GameState.h"
 
+/**
+ * The entry point used the GameState system. It should be modified to house
+ * the entry point for a user's game logic.
+ */
 class InitialState : public GameState
 {
 public:

@@ -1,6 +1,11 @@
 #ifndef Core_SoundView_h
 #define Core_SoundView_h
 
+/**
+ * Provides a full set of logic for achieving sound effects.
+ * 
+ * Currently does nothing.
+ */
 class SoundView
 {
 public:
