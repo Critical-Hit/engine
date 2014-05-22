@@ -1,0 +1,120 @@
+struct Key
+{
+    // USB HID 1.12 key codes for US keyboard
+    static constexpr int KEYBOARD_A = 4;
+    static constexpr int KEYBOARD_B = 5;
+    static constexpr int KEYBOARD_C = 6;
+    static constexpr int KEYBOARD_D = 7;
+    static constexpr int KEYBOARD_E = 8;
+    static constexpr int KEYBOARD_F = 9;
+    static constexpr int KEYBOARD_G = 10;
+    static constexpr int KEYBOARD_H = 11;
+    static constexpr int KEYBOARD_I = 12;
+    static constexpr int KEYBOARD_J = 13;
+    static constexpr int KEYBOARD_K = 14;
+    static constexpr int KEYBOARD_L = 15;
+    static constexpr int KEYBOARD_M = 16;
+    static constexpr int KEYBOARD_N = 17;
+    static constexpr int KEYBOARD_O = 18;
+    static constexpr int KEYBOARD_P = 19;
+    static constexpr int KEYBOARD_Q = 20;
+    static constexpr int KEYBOARD_R = 21;
+    static constexpr int KEYBOARD_S = 22;
+    static constexpr int KEYBOARD_T = 23;
+    static constexpr int KEYBOARD_U = 24;
+    static constexpr int KEYBOARD_V = 25;
+    static constexpr int KEYBOARD_W = 26;
+    static constexpr int KEYBOARD_X = 27;
+    static constexpr int KEYBOARD_Y = 28;
+    static constexpr int KEYBOARD_Z = 29;
+    static constexpr int KEYBOARD_1 = 30;
+    static constexpr int KEYBOARD_2 = 31;
+    static constexpr int KEYBOARD_3 = 32;
+    static constexpr int KEYBOARD_4 = 33;
+    static constexpr int KEYBOARD_5 = 34;
+    static constexpr int KEYBOARD_6 = 35;
+    static constexpr int KEYBOARD_7 = 36;
+    static constexpr int KEYBOARD_8 = 37;
+    static constexpr int KEYBOARD_9 = 38;
+    static constexpr int KEYBOARD_0 = 39;
+    static constexpr int KEYBOARD_ENTER = 40;
+    static constexpr int KEYBOARD_ESCAPE = 41;
+    static constexpr int KEYBOARD_BACKSPACE = 42;
+    static constexpr int KEYBOARD_TAB = 43;
+    static constexpr int KEYBOARD_SPACEBAR = 44;
+    static constexpr int KEYBOARD_MINUS = 45;
+    static constexpr int KEYBOARD_EQUALS = 46;
+    static constexpr int KEYBOARD_LEFT_BRACKET = 47;
+    static constexpr int KEYBOARD_RIGHT_BRACKET = 48;
+    static constexpr int KEYBOARD_BACKSLASH = 49;
+    static constexpr int KEYBOARD_SEMICOLON = 51;
+    static constexpr int KEYBOARD_QUOTE = 52;
+    static constexpr int KEYBOARD_GRAVE_ACCENT = 53;
+    static constexpr int KEYBOARD_COMMA = 54;
+    static constexpr int KEYBOARD_PERIOD = 55;
+    static constexpr int KEYBOARD_FORWARD_SLASH = 56;
+    static constexpr int KEYBOARD_CAPS_LOCK = 55;
+    static constexpr int KEYBOARD_F1 = 58;
+    static constexpr int KEYBOARD_F2 = 59;
+    static constexpr int KEYBOARD_F3 = 60;
+    static constexpr int KEYBOARD_F4 = 61;
+    static constexpr int KEYBOARD_F5 = 62;
+    static constexpr int KEYBOARD_F6 = 63;
+    static constexpr int KEYBOARD_F7 = 64;
+    static constexpr int KEYBOARD_F8 = 65;
+    static constexpr int KEYBOARD_F9 = 66;
+    static constexpr int KEYBOARD_F10 = 67;
+    static constexpr int KEYBOARD_F11 = 68;
+    static constexpr int KEYBOARD_F12 = 69;
+    static constexpr int KEYBOARD_PRINT_SCREEN = 70;
+    static constexpr int KEYBOARD_SCROLL_LOCK = 71;
+    static constexpr int KEYBOARD_PAUSE = 72;
+    static constexpr int KEYBOARD_INSERT = 73;
+    static constexpr int KEYBOARD_HOME = 74;
+    static constexpr int KEYBOARD_PAGE_UP = 75;
+    static constexpr int KEYBOARD_DELETE = 76;
+    static constexpr int KEYBOARD_END = 77;
+    static constexpr int KEYBOARD_PAGE_DOWN = 78;
+    static constexpr int KEYBOARD_RIGHT_ARROW = 79;
+    static constexpr int KEYBOARD_LEFT_ARROW = 80;
+    static constexpr int KEYBOARD_DOWN_ARROW = 81;
+    static constexpr int KEYBOARD_UP_ARROW = 82;
+    static constexpr int KEYBOARD_NUM_LOCK = 83;
+    static constexpr int KEYBOARD_NUM_FORWARD_SLASH = 84;
+    static constexpr int KEYBOARD_NUM_ASTERISK = 85;
+    static constexpr int KEYBOARD_NUM_MINUS = 86;
+    static constexpr int KEYBOARD_NUM_PLUS = 87;
+    static constexpr int KEYBOARD_NUM_ENTER = 88;
+    static constexpr int KEYBOARD_NUM_1 = 89;
+    static constexpr int KEYBOARD_NUM_2 = 90;
+    static constexpr int KEYBOARD_NUM_3 = 91;
+    static constexpr int KEYBOARD_NUM_4 = 92;
+    static constexpr int KEYBOARD_NUM_5 = 93;
+    static constexpr int KEYBOARD_NUM_6 = 94;
+    static constexpr int KEYBOARD_NUM_7 = 95;
+    static constexpr int KEYBOARD_NUM_8 = 96;
+    static constexpr int KEYBOARD_NUM_9 = 97;
+    static constexpr int KEYBOARD_NUM_0 = 98;
+    static constexpr int KEYBOARD_NUM_PERIOD = 99;
+    static constexpr int KEYBOARD_NUM_EQUALS = 103;
+    static constexpr int KEYBOARD_LEFT_CONTROL = 224;
+    static constexpr int KEYBOARD_LEFT_SHIFT = 225;
+    static constexpr int KEYBOARD_LEFT_ALT = 226;
+    static constexpr int KEYBOARD_LEFT_SUPER = 227;
+    static constexpr int KEYBOARD_RIGHT_CONTROL = 228;
+    static constexpr int KEYBOARD_RIGHT_SHIFT = 229;
+    static constexpr int KEYBOARD_RIGHT_ALT = 230;
+    static constexpr int KEYBOARD_RIGHT_SUPER = 231;
+
+    Key(int keyCode);
+    
+    // The key code reported to the Controller.
+    // Based on the USB HID Usage Tables version 1.12.
+    int KeyCode;
+    // The key code reporter by GLFW.
+    int GlfwKeyCode;
+    // The key's current state.
+    // 0 = release
+    // 1 = press
+    int State;
+};
