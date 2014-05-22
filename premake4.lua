@@ -21,7 +21,6 @@ solution "Engine"
         platforms {"x64"}
         links {"OpenGL32", "glfw3"}
         libdirs {"lib"}
-        includedirs {"include"}
 
 project "Core"
     
