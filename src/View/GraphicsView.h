@@ -28,6 +28,7 @@ public:
     std::function<void(void)> OnWindowClose;
     
 private:
+    // Private constructors to disallow access.
     GraphicsView(GraphicsView const &other);
     GraphicsView operator=(GraphicsView other);
     

@@ -41,6 +41,7 @@ public:
     virtual void Destroy() { }
     
 private:
+    // Private constructors to disallow access.
     GameState(GameState const &other);
     GameState operator=(GameState other);
     

@@ -23,6 +23,7 @@ public:
     void Start();
     
 private:
+    // Private constructors to disallow access.
     Controller(Controller const &other);
     Controller operator=(Controller other);
     

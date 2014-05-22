@@ -34,6 +34,7 @@ project "Core"
 	}
 	includedirs {
 		"modules/**",
+        "src/**",
 		"/usr/local/include"
 	}
 	libdirs {

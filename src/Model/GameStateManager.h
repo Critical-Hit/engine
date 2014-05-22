@@ -40,6 +40,7 @@ public:
     void SwapState(GameState* state);
     
 private:
+    // Private constructors to disallow access.
     GameStateManager(GameStateManager const &other);
     GameStateManager operator=(GameStateManager other);
     

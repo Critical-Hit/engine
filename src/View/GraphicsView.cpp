@@ -1,11 +1,3 @@
-//
-//  GraphicsView.cpp
-//  Core
-//
-//  Created by Daniel Setser on 5/20/14.
-//
-//
-
 #include "GraphicsView.h"
 
 GraphicsView::GraphicsView()
