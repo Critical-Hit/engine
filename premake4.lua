@@ -13,8 +13,9 @@ solution "Engine"
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-    configuration {"macosx", "gmake"}
         includedirs {"/usr/local/include"}
+        libdirs {"/usr/local/lib"}
+    configuration {"macosx", "gmake"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
@@ -35,10 +36,8 @@ project "Core"
         "ExtraWarnings"
     }
     includedirs {
+        "src/**",
         "modules/**"
-    }
-    libdirs {
-        "/usr/local/lib"
     }
     if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
         links {
