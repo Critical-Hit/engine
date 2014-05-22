@@ -1,30 +1,64 @@
 solution "Engine"
-	configurations {"Debug", "Release"}
-	platforms ("native", "Universal")
-	configuration "Debug"
-		flags {"Symbols"}
-		targetdir ("bin/debug")
-	configuration "Release"
-		flags {"Optimize"}
-		targetdir ("bin/release")
-	configuration {"linux", "gmake" }
-		buildoptions {"-std=c++11"}
-		links {"libgl"}
-	configuration {"macosx", "xcode3"}
-		buildoptions {"-std=c++11 -stdlib=c++"}
-	configuration {"macosx", "gmake"}
-		buildoptions {"-std=c++11 -stdlib=c++"}
-	configuration {"windows", "vs2010"}
-		-- todo force c++11
+    configurations {"Debug", "Release"}
+    configuration "Debug"
+        flags {"Symbols"}
+        targetdir ("bin/debug")
+    configuration "Release"
+        flags {"Optimize"}
+        targetdir ("bin/release")
+    configuration {"linux", "gmake" }
+        platforms {"x64"}
+        buildoptions {"-std=c++11"}
+        links {"GL", "glfw"}
+    configuration {"macosx", "xcode3"}
+        platforms {"Universal64"}
+        buildoptions {"-std=c++11"}
+    configuration {"macosx", "gmake"}
+        platforms {"Universal64"}
+        buildoptions {"-std=c++11"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+    configuration {"windows", "vs2010"}
+        platforms {"x64"}
+        links {"OpenGL32", "glfw3"}
+        libdirs {"lib"}
 
 project "Core"
-	kind "ConsoleApp"
-	language "C++"
-	files {
-		"src/core/*.h",
-		"src/core/*.cpp"
-	}
-	flags {
-		"ExtraWarnings"
-	}
+    
+    
+    kind "ConsoleApp"
+    language "C++"
+    files {
+        "src/**.h",
+        "src/**.cpp"
+    }
+    flags {
+        "ExtraWarnings"
+    }
+    includedirs {
+        "modules/**",
+        "/usr/local/include"
+    }
+    libdirs {
+        "/usr/local/lib"
+    }
+    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
+        links {
+            "Modules"
+        }
+    end
+    configuration {"macosx", "xcode3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+
+
+project "Modules"
+    kind "StaticLib"
+    language "C++"
+    files {
+        "modules/**.h",
+        "modules/**.cpp"
+    }
+    flags {
+        "ExtraWarnings"
+    }
+    
 
