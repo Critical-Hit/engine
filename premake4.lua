@@ -14,17 +14,17 @@ solution "Engine"
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
     configuration {"macosx", "gmake"}
+        includedirs {"/usr/local/include"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         links {"OpenGL32", "glfw3"}
+        includedirs{"include"}
         libdirs {"lib"}
 
 project "Core"
-    
-    
     kind "ConsoleApp"
     language "C++"
     files {
@@ -35,8 +35,7 @@ project "Core"
         "ExtraWarnings"
     }
     includedirs {
-        "modules/**",
-        "/usr/local/include"
+        "modules/**"
     }
     libdirs {
         "/usr/local/lib"
