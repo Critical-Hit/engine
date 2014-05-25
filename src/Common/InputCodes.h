@@ -1,6 +1,7 @@
-struct Key
+class InputCodes
 {
-    // USB HID 1.12 key codes for US keyboard
+    public:
+	// USB HID 1.12 key codes for US keyboard
     static constexpr int KEYBOARD_A = 4;
     static constexpr int KEYBOARD_B = 5;
     static constexpr int KEYBOARD_C = 6;
@@ -105,16 +106,4 @@ struct Key
     static constexpr int KEYBOARD_RIGHT_SHIFT = 229;
     static constexpr int KEYBOARD_RIGHT_ALT = 230;
     static constexpr int KEYBOARD_RIGHT_SUPER = 231;
-
-    Key(int keyCode);
-    
-    // The key code reported to the Controller.
-    // Based on the USB HID Usage Tables version 1.12.
-    int KeyCode;
-    // The key code reporter by GLFW.
-    int GlfwKeyCode;
-    // The key's current state.
-    // 0 = release
-    // 1 = press
-    int State;
-};
+}
