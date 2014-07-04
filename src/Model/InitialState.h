@@ -16,14 +16,14 @@ public:
     InitialState();
     
     /**
-     * Initializes the GraphicsView.
+     * Initializes the State.
      */
-    virtual void Initialize(GameStateManager* manager);
+    virtual void Initialize(GameStateManager* manager, ControllerPackage* controllerPackage);
     
     /**
      * Updates this State.
      */
-    virtual float Update();
+    virtual void Update();
     
     /**
      * Pauses this State to be resumed later.
@@ -45,12 +45,16 @@ private:
     InitialState(InitialState const &other);
     InitialState operator=(InitialState other);
     
+	/**
+	 * The GraphicsManager to update
+	 */
+	GraphicsManager* graphicsManager;
+
     /**
      * Test variables for the initial state.
      */
     int sign;
     float increment;
-    float colorValue;
 };
 
 #endif

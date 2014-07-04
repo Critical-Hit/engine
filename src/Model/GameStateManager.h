@@ -3,6 +3,7 @@
 
 #include <stack>
 
+#include "ControllerPackage.h"
 #include "GameState.h"
 class GameState;
 
@@ -13,11 +14,11 @@ class GameState;
 class GameStateManager
 {
 public:
-    /**
-     * Default constructor that creates a new instance of a GameStateManager.
-     */
-    GameStateManager();
-    
+	/**
+	 * Constructor that creates a new GameStateManager with a pointer to a ControllerPackage
+	 */
+	GameStateManager(ControllerPackage* controllerPackage);
+
     /**
      * Adds and initializes the given state to the GameStatemanager.
      */
@@ -26,7 +27,7 @@ public:
     /**
      * Updates the current state.
      */
-    float Update();
+    void Update();
     
     /**
      * Pauses the current state and starts the given state.
@@ -52,6 +53,11 @@ private:
      * Contains the current stack of game states.
      */
     std::stack<GameState*> gameStates;
+
+	/**
+	 * Pointer to the controller package
+	 */
+	ControllerPackage* controllerPackage;
 };
 
 #endif

@@ -5,7 +5,7 @@ class SoundManager
 {
 public:
     /**
-     * Default constructor that creates a new instance of a Controller.
+     * Default constructor that creates a new instance of a SoundManager.
      */
     SoundManager();
     

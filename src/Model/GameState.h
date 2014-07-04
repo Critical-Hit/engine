@@ -17,15 +17,16 @@ public:
     /**
      * Initializes the GameState with the given GameStateManager.
      */
-    virtual void Initialize(GameStateManager* manager)
+    virtual void Initialize(GameStateManager* manager, ControllerPackage* controllerPackage)
     {
         this->manager = manager;
+		this->controllerPackage = controllerPackage;
     }
     
     /**
      * Updates this State.
      */
-	virtual float Update() = 0;
+	virtual void Update() = 0;
     
     /**
      * Pauses this State to be resumed later.
@@ -42,11 +43,16 @@ public:
      */
     virtual void Destroy() { }
     
-private:
+protected:
     /**
      * The GameStateManager managing this State.
      */
     GameStateManager* manager;
+
+	/**
+	 * Pointer to the ControllerPackage for the state
+	 */
+	ControllerPackage* controllerPackage;
     
 };
 
