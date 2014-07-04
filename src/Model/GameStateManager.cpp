@@ -1,19 +1,19 @@
 #include "GameStateManager.h"
 
-GameStateManager::GameStateManager()
+GameStateManager::GameStateManager(ControllerPackage* controllerPackage)
 {
-    
+	this->controllerPackage = controllerPackage;
 }
 
 void GameStateManager::Initialize(GameState* state)
 {
-    state->Initialize(this);
+    state->Initialize(this, this->controllerPackage);
     gameStates.push(state);
 }
 
-float GameStateManager::Update()
+void GameStateManager::Update()
 {
-    return gameStates.top()->Update();
+    gameStates.top()->Update();
 }
 
 void GameStateManager::PushState(GameState* state)
@@ -23,7 +23,7 @@ void GameStateManager::PushState(GameState* state)
         gameStates.top()->Pause();
     }
     gameStates.push(state);
-    gameStates.top()->Initialize(this);
+    gameStates.top()->Initialize(this, this->controllerPackage);
 }
 
 GameState* GameStateManager::PopState()

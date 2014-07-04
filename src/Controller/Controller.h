@@ -8,6 +8,7 @@
 #include "GraphicsView.h"
 #include "GameStateManager.h"
 #include "InitialState.h"
+#include "ControllerPackage.h"
 
 class Controller
 {
@@ -57,10 +58,10 @@ private:
      */
     bool shouldExit;
     
-    /**
-     * Test value that is updated by the game logic and drawn by the GraphicsView.
-     */
-    float colorValue;
+	/**
+	 * The package containing all the data owned by the controller
+	 */
+	ControllerPackage* controllerPackage;
 };
 
 #endif

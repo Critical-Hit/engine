@@ -1,24 +1,25 @@
 #include "ControllerPackage.h"
 
-ControllerPackage::ControllerPackage(const GraphicsManager* graphicsManager, const InputManager* inputManager, const SoundManager* soundManager)
+ControllerPackage::ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager)
+: graphicsManager(graphicsManager),
+inputManager(inputManager),
+soundManager(soundManager)
 {
-	this->graphicsManager = graphicsManager;
-	this->inputManager = inputManager;
-	this->soundManager = soundManager;
+	
 }
 
-const GraphicsManager* ControllerPackage::GetGraphicsManager()
+GraphicsManager* const ControllerPackage::GetGraphicsManager()
 {
 	return this->graphicsManager;
 }
 
 
-const InputManager* ControllerPackage::GetInputManager()
+InputManager* const ControllerPackage::GetInputManager()
 {
 	return this->inputManager;
 }
 
-const SoundManager* ControllerPackage::GetSoundManager()
+SoundManager* const ControllerPackage::GetSoundManager()
 {
 	return this->soundManager;
 }

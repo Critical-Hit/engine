@@ -1,9 +1,13 @@
 #include "Controller.h"
+#include "GraphicsManager.h"
+#include "InputManager.h"
+#include "SoundManager.h"
 
 Controller::Controller()
 {
-    this->colorValue = 0.0f;
     this->shouldExit = false;
+
+	this->controllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), new SoundManager());
 }
 
 void Controller::Start()
@@ -28,7 +32,7 @@ void Controller::Start()
 
 void Controller::gameLoop()
 {
-    GameStateManager manager;
+    GameStateManager manager(this->controllerPackage);
     manager.Initialize(new InitialState());
     
     int i = 0;
@@ -37,7 +41,7 @@ void Controller::gameLoop()
         i++;
         double startTime = glfwGetTime();
 
-        colorValue = manager.Update();
+        manager.Update();
         
         while((glfwGetTime() - startTime) <= Controller::UPDATE_RATE)
         { }
@@ -46,7 +50,7 @@ void Controller::gameLoop()
 
 void Controller::graphicsLoop(GLFWwindow* window)
 {
-    GraphicsView graphicsView;
+    GraphicsView graphicsView(this->controllerPackage);
     graphicsView.Initialize(window);
     graphicsView.OnWindowClose = [this] () { this->shouldExit = true; };
     
@@ -54,7 +58,7 @@ void Controller::graphicsLoop(GLFWwindow* window)
     {
         double startTime = glfwGetTime();
         
-        graphicsView.Update(this->colorValue);
+        graphicsView.Update();
         
         while((glfwGetTime() - startTime) <= Controller::FRAMERATE)
         { }

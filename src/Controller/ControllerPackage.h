@@ -16,22 +16,22 @@ public:
     /**
      * Default constructor that creates a new instance of a ControllerPackage.
      */
-    ControllerPackage(const GraphicsManager* graphicsManager, const InputManager* inputManager, const SoundManager* soundManager);
+    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager);
     
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
-    const GraphicsManager* GetGraphicsManager();
+    GraphicsManager* const GetGraphicsManager();
     
     /**
      * Returns a pointer to the game's InputManager.
      */
-    const InputManager* GetInputManager();
+    InputManager* const GetInputManager();
     
     /**
      * Returns a pointer to the game's SoundManager.
      */
-    const SoundManager* GetSoundManager();
+    SoundManager* const GetSoundManager();
     
 private:
     // Private constructors to disallow access.
@@ -39,9 +39,9 @@ private:
     ControllerPackage operator=(ControllerPackage other);
 
 	// The managers to be provided to the game manager
-	const GraphicsManager* graphicsManager;
-	const InputManager* inputManager;
-	const SoundManager* soundManager;
+	GraphicsManager* const graphicsManager;
+	InputManager* const inputManager;
+	SoundManager* const soundManager;
 };
 
 #endif

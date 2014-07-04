@@ -1,8 +1,9 @@
 #include "GraphicsView.h"
 
-GraphicsView::GraphicsView()
+GraphicsView::GraphicsView(ControllerPackage* controllerPackage)
+: graphicsManager(controllerPackage->GetGraphicsManager())
 {
-    
+
 }
 
 void GraphicsView::Initialize(GLFWwindow* window)
@@ -10,10 +11,9 @@ void GraphicsView::Initialize(GLFWwindow* window)
     this->window = window;
 }
 
-void GraphicsView::Update(float colorValue)
+void GraphicsView::Update()
 {
-    // Update and render your GraphicsView here.
-    glClearColor(0.0f, colorValue, colorValue, 1.0f);
+	glClearColor(0.0f, this->graphicsManager->GetClearColor(), this->graphicsManager->GetClearColor(), 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(this->window);
     glfwPollEvents();
