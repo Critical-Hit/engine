@@ -20,7 +20,7 @@ public:
 	GameStateManager(ControllerPackage* controllerPackage);
 
     /**
-     * Adds and initializes the given state to the GameStatemanager.
+     * Adds and initializes the given state to the GameStateManager.
      */
     void Initialize(GameState* state);
     

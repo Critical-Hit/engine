@@ -9,7 +9,6 @@ class GameStateManager;
  * for management of states.  When these virtual methods are overriden, the base
  * should ALWAYS be called at the beginning of the method.
  *
- * Currently provides nothing special.
  */
 class GameState
 {
@@ -19,8 +18,12 @@ public:
      */
     virtual void Initialize(GameStateManager* manager, ControllerPackage* controllerPackage)
     {
+		this->cachedControllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), new SoundManager());
         this->manager = manager;
 		this->controllerPackage = controllerPackage;
+		this->graphicsManager = this->controllerPackage->GetGraphicsManager();
+		this->inputManager = this->controllerPackage->GetInputManager();
+		this->soundManager = this->controllerPackage->GetSoundManager();
     }
     
     /**
@@ -29,14 +32,26 @@ public:
 	virtual void Update() = 0;
     
     /**
-     * Pauses this State to be resumed later.
+     * Pauses this State to be resumed later, saves the ControllerPackage.
      */
-    virtual void Pause() { }
+    virtual void Pause() 
+	{
+		this->cachedControllerPackage->CopyFrom(this->controllerPackage);
+		this->graphicsManager = this->cachedControllerPackage->GetGraphicsManager();
+		this->inputManager = this->cachedControllerPackage->GetInputManager();
+		this->soundManager = this->cachedControllerPackage->GetSoundManager();
+	}
     
     /**
      * Resumes this State after being paused.
      */
-    virtual void Resume() { }
+    virtual void Resume() 
+	{
+		this->controllerPackage->CopyFrom(this->cachedControllerPackage);
+		this->graphicsManager = this->controllerPackage->GetGraphicsManager();
+		this->inputManager = this->controllerPackage->GetInputManager();
+		this->soundManager = this->controllerPackage->GetSoundManager();
+	}
     
     /**
      * Destroys this State because it won't be used again.
@@ -50,9 +65,18 @@ protected:
     GameStateManager* manager;
 
 	/**
-	 * Pointer to the ControllerPackage for the state
+	 * Pointers to the managers of the controller package
+	 */
+	GraphicsManager* graphicsManager;
+	InputManager* inputManager;
+	SoundManager* soundManager;
+
+private:
+	/**
+	 * ControllerPackages that the managers belong to
 	 */
 	ControllerPackage* controllerPackage;
+	ControllerPackage* cachedControllerPackage;
     
 };
 

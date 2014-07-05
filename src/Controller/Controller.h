@@ -22,6 +22,11 @@ public:
      * Starts the game. Initializes systems and starts updating them.
      */
     void Start();
+
+	void SetCP(ControllerPackage* cp)
+	{
+		this->controllerPackage = cp;
+	}
     
 private:
     // Private constructors to disallow access.
@@ -34,7 +39,7 @@ private:
     void gameLoop();
     
     /**
-     * Helper function that initializes the GLFW window.
+     * Helper method that initializes the GLFW window.
      */
     GLFWwindow* initializeGraphics();
     

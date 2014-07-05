@@ -32,6 +32,7 @@ GameState* GameStateManager::PopState()
     top->Pause();
     top->Destroy();
     gameStates.pop();
+	gameStates.top()->Resume();
     return top;
 }
 

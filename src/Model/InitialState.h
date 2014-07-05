@@ -11,7 +11,7 @@ class InitialState : public GameState
 {
 public:
     /**
-     * Default constructor that creates a new instance of a Controller.
+     * Default constructor that creates a new instance of an InitialState.
      */
     InitialState();
     
@@ -44,11 +44,6 @@ private:
     // Private constructors to disallow access.
     InitialState(InitialState const &other);
     InitialState operator=(InitialState other);
-    
-	/**
-	 * The GraphicsManager to update
-	 */
-	GraphicsManager* graphicsManager;
 
     /**
      * Test variables for the initial state.
