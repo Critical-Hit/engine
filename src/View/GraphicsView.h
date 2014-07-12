@@ -18,17 +18,22 @@ public:
     /**
      * Constructs a GraphicsView with a given controller package.
      */
-    GraphicsView(ControllerPackage* controllerPackage);
+    GraphicsView();
     
+    /**
+     * Destructor for GraphicsView
+     */
+    ~GraphicsView();
+
     /**
      * Initializes the GraphicsView.
      */
-    void Initialize(GLFWwindow* window);
+    void Initialize();
     
     /**
      * Updates the GraphicsView.
      */
-    void Update();
+    void Update(GraphicsManager* graphicsManager);
     
     /**
      * Function to call if the user attempts to close the GLFW Window.
@@ -44,11 +49,6 @@ private:
      * The GLFW Window to draw to.
      */
     GLFWwindow* window;
-
-	/**
-	 * GraphicsManager with information about what to draw
-	 */
-	GraphicsManager* const graphicsManager;
 };
 
 #endif

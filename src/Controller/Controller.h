@@ -6,6 +6,8 @@
 #include <thread>
 
 #include "GraphicsView.h"
+#include "InputView.h"
+#include "SoundView.h"
 #include "GameStateManager.h"
 #include "InitialState.h"
 #include "ControllerPackage.h"
@@ -22,11 +24,6 @@ public:
      * Starts the game. Initializes systems and starts updating them.
      */
     void Start();
-
-	void SetCP(ControllerPackage* cp)
-	{
-		this->controllerPackage = cp;
-	}
     
 private:
     // Private constructors to disallow access.
@@ -46,7 +43,7 @@ private:
     /**
      * The method that updates the GraphicsView.
      */
-    void graphicsLoop(GLFWwindow* window);
+    void viewLoop();
     
     /**
      * How quickly the game logic updates. 1 over the number of updates per second.
@@ -62,11 +59,6 @@ private:
      * Boolean that represents whether the game should exit or not.
      */
     bool shouldExit;
-    
-	/**
-	 * The package containing all the data owned by the controller
-	 */
-	ControllerPackage* controllerPackage;
 };
 
 #endif

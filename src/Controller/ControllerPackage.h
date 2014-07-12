@@ -42,6 +42,17 @@ public:
 	 * Returns a clone of this ControllerPackage
 	 */
 	void CopyFrom(ControllerPackage* copy);
+
+    /**
+     * Activates this ControllerPackage so it will be used by
+     * by the engine's view.
+     */
+    void Activate();
+
+    /**
+     * Gets the active ControllerPackage
+     */
+    static ControllerPackage* GetActiveControllerPackage();
     
 private:
     // Private constructors to disallow access.
@@ -52,6 +63,8 @@ private:
 	GraphicsManager* graphicsManager;
 	InputManager* inputManager;
 	SoundManager* soundManager;
+
+    static ControllerPackage* activeControllerPackage;
 };
 
 #endif

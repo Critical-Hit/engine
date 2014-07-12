@@ -18,7 +18,7 @@ public:
     /**
      * Initializes the State.
      */
-    virtual void Initialize(GameStateManager* manager, ControllerPackage* controllerPackage);
+    virtual void Initialize(GameStateManager* manager);
     
     /**
      * Updates this State.

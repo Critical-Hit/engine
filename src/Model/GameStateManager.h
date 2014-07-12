@@ -17,7 +17,7 @@ public:
 	/**
 	 * Constructor that creates a new GameStateManager with a pointer to a ControllerPackage
 	 */
-	GameStateManager(ControllerPackage* controllerPackage);
+	GameStateManager();
 
     /**
      * Adds and initializes the given state to the GameStateManager.
@@ -53,11 +53,6 @@ private:
      * Contains the current stack of game states.
      */
     std::stack<GameState*> gameStates;
-
-	/**
-	 * Pointer to the controller package
-	 */
-	ControllerPackage* controllerPackage;
 };
 
 #endif

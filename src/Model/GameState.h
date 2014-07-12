@@ -16,15 +16,7 @@ public:
     /**
      * Initializes the GameState with the given GameStateManager.
      */
-    virtual void Initialize(GameStateManager* manager, ControllerPackage* controllerPackage)
-    {
-		this->cachedControllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), new SoundManager());
-        this->manager = manager;
-		this->controllerPackage = controllerPackage;
-		this->graphicsManager = this->controllerPackage->GetGraphicsManager();
-		this->inputManager = this->controllerPackage->GetInputManager();
-		this->soundManager = this->controllerPackage->GetSoundManager();
-    }
+    virtual void Initialize(GameStateManager* manager);
     
     /**
      * Updates this State.
@@ -34,29 +26,17 @@ public:
     /**
      * Pauses this State to be resumed later, saves the ControllerPackage.
      */
-    virtual void Pause() 
-	{
-		this->cachedControllerPackage->CopyFrom(this->controllerPackage);
-		this->graphicsManager = this->cachedControllerPackage->GetGraphicsManager();
-		this->inputManager = this->cachedControllerPackage->GetInputManager();
-		this->soundManager = this->cachedControllerPackage->GetSoundManager();
-	}
+    virtual void Pause();
     
     /**
      * Resumes this State after being paused.
      */
-    virtual void Resume() 
-	{
-		this->controllerPackage->CopyFrom(this->cachedControllerPackage);
-		this->graphicsManager = this->controllerPackage->GetGraphicsManager();
-		this->inputManager = this->controllerPackage->GetInputManager();
-		this->soundManager = this->controllerPackage->GetSoundManager();
-	}
+    virtual void Resume();
     
     /**
      * Destroys this State because it won't be used again.
      */
-    virtual void Destroy() { }
+    virtual void Destroy();
     
 protected:
     /**
@@ -76,7 +56,6 @@ private:
 	 * ControllerPackages that the managers belong to
 	 */
 	ControllerPackage* controllerPackage;
-	ControllerPackage* cachedControllerPackage;
     
 };
 

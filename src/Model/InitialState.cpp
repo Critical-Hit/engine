@@ -5,11 +5,12 @@ InitialState::InitialState()
     
 }
 
-void InitialState::Initialize(GameStateManager* manager, ControllerPackage* controllerPackage)
+void InitialState::Initialize(GameStateManager* manager)
 {
+    GameState::Initialize(manager);
+
     this->sign = -1;
     this->increment = 0.016667f;
-    GameState::Initialize(manager, controllerPackage);
 }
 
 void InitialState::Update()
