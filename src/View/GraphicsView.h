@@ -12,7 +12,7 @@
  * 
  * Currently, this is simply clearing to a particular color.
  */
-class GraphicsView
+class GraphicsView final
 {
 public:
     /**
