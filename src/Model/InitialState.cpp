@@ -6,14 +6,12 @@ InitialState::InitialState()
     
 }
 
-void InitialState::Initialize(GameStateManager* manager, ControllerPackage* controllerPackage)
+void InitialState::Initialize(GameStateManager* manager)
 {
+    GameState::Initialize(manager);
+
     this->sign = -1;
     this->increment = 0.016667f;
-	
-	this->graphicsManager = controllerPackage->GetGraphicsManager();
-
-    GameState::Initialize(manager, controllerPackage);
 }
 
 void InitialState::Update()
@@ -40,5 +38,5 @@ void InitialState::Resume()
 
 void InitialState::Destroy()
 {
-    
+	GameState::Destroy();
 }

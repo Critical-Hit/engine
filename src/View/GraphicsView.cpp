@@ -1,23 +1,36 @@
 #include "GraphicsView.h"
 #include "Sprite.h"
 
-GraphicsView::GraphicsView(ControllerPackage* controllerPackage)
-: graphicsManager(controllerPackage->GetGraphicsManager())
+GraphicsView::GraphicsView()
 {
 
 }
 
-void GraphicsView::Initialize(GLFWwindow* window)
+GraphicsView::~GraphicsView()
 {
+    glfwTerminate();
+}
+
+void GraphicsView::Initialize()
+{
+    // Initialize the graphics library.
+    GLFWwindow* window;
+    glfwInit();
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window)
+{
+        glfwTerminate();
+    }
+    glfwMakeContextCurrent(window);
     this->window = window;
 }
 
-void GraphicsView::Update()
+void GraphicsView::Update(GraphicsManager* graphicsManager)
 {
 	// Clear the screen
 	Color clearColor = graphicsManager->GetClearColor();
 	glClearColor(clearColor.red, clearColor.green, clearColor.blue, clearColor.alpha);
-	glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
 	bool doTestTexturing = false;
 	GLuint texture;
@@ -114,7 +127,7 @@ void GraphicsView::Update()
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indexBuffer);
 	
 	// Swap the buffers
-	glfwSwapBuffers(this->window);
+    glfwSwapBuffers(this->window);
     glfwPollEvents();
     
     // Call OnWindowClose if the user closed the Window.

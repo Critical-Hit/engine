@@ -8,7 +8,12 @@ GraphicsManager::GraphicsManager() : clearColor(0.0f, 0.0f, 0.0f, 1.0f)
 
 }
 
-Color GraphicsManager::GetClearColor()
+GraphicsManager::~GraphicsManager()
+{
+
+}
+
+float GraphicsManager::GetClearColor()
 {
 	return this->clearColor;
 }

@@ -1,7 +1,6 @@
 #include "SoundView.h"
 
-SoundView::SoundView(ControllerPackage* controllerPackage)
-: soundManager(controllerPackage->GetSoundManager())
+SoundView::SoundView()
 {
     
 }
@@ -11,7 +10,7 @@ void SoundView::Initialize()
     
 }
 
-void SoundView::Update()
+void SoundView::Update(SoundManager* soundManager)
 {
     
 }

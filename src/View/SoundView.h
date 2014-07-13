@@ -14,7 +14,7 @@ public:
     /**
      * Constructs a SoundView given a controller package.
      */
-    SoundView(ControllerPackage* controllerPackage);
+    SoundView();
     
     /**
      * Initializes the SoundView.
@@ -24,17 +24,12 @@ public:
     /**
      * Updates the SoundView.
      */
-    void Update();
+    void Update(SoundManager* soundManager);
     
 private:
     // Private constructors to disallow access.
     SoundView(SoundView const &other);
     SoundView operator=(SoundView other);
-
-	/**
-	 * SoundManager with information about sounds.
-	 */
-	SoundManager* const soundManager;
 };
 
 #endif

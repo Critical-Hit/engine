@@ -24,9 +24,14 @@ class GraphicsManager
 {
 public:
     /**
-     * Default constructor that creates a new instance of a Controller.
+     * Default constructor that creates a new instance of a GraphicsManager.
      */
     GraphicsManager();
+
+	/**
+	 * Destructor
+	 */
+	~GraphicsManager();
 
 	/**
 	 * Gets the clear color
@@ -37,10 +42,10 @@ public:
 	 * Sets the clear color
 	 */
 	void SetClearColor(Color clearColor);
-
+	
 	/**
-	* Sets the clear color
-	*/
+	 * Sets the clear color
+	 */
 	void SetClearColor(float red, float blue, float green, float alpha);
 
 	/**
@@ -70,6 +75,11 @@ public:
 	 * each sprite (16 * GetSpriteCount()).
 	 */
 	void AddSpritesToVCICharBuffer(float* vertexBuffer, float* colorBuffer, char* indexBuffer, int dataStartIndex);
+    
+	/**
+	 * Sets all variables of this instance to match the other instance.
+	 */
+	void CopyFrom(GraphicsManager* other);
     
 private:
     // Private constructors to disallow access.
