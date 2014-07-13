@@ -38,6 +38,4 @@ private:
 	void inline validateChannels();
 };
 
-#include "ColorInline.h"
-
 #endif

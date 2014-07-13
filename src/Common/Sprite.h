@@ -20,69 +20,85 @@ public:
 	 *
 	 * Width and height must both be greater than zero.
 	 */
-	inline Sprite(float x, float y, float width, float height, Color);
+	Sprite(float x, float y, float width, float height, Color color);
+
+	/**
+	 * Basic constructor for the sprite class, setting x and y to 0.
+	 *
+	 * Width and height must both be greater than zero.
+	 */
+	Sprite(float width, float height, Color color);
 
 	/**
 	 * Moves the sprite to the given location
 	 */
-	void inline MoveTo(float x, float y);
+	void MoveTo(float x, float y);
 
 	/**
 	 * Moves the sprite by the given amount in the x and y
 	 * direction
 	 */
-	void inline MoveBy(float dx, float dy);
+	void MoveBy(float dx, float dy);
 
 	/**
 	 * Changes the width to the given value
 	 *
 	 * Width must be greater than zero.
 	 */
-	void inline ChangeWidth(float width);
+	void ChangeWidth(float width);
 
 	/**
 	 * Changes the height to the given value
 	 *
 	 * Height must be greater than zero.
 	 */
-	void inline ChangeHeight(float height);
+	void ChangeHeight(float height);
 
 	/**
 	 * Changes the dimensions of the sprite to the given value
 	 *
 	 * Width and height must both be greater than zero.
 	 */
-	void inline ChangeDimensions(float width, float height);
+	void ChangeDimensions(float width, float height);
 
 	/**
 	 * Changes the color of the sprite
 	 */
-	void inline ChangeColor(Color color);
+	void ChangeColor(Color color);
 
 	/**
 	 * Obtains x
 	 */
-	float inline GetX();
+	float GetX();
 
 	/**
 	 * Obtains y
 	 */
-	float inline GetY();
+	float GetY();
 
 	/**
 	 * Obtains width
 	 */
-	float inline GetWidth();
+	float GetWidth();
 
 	/**
 	 * Obtains height
 	 */
-	float inline GetHeight();
+	float GetHeight();
 
 	/**
 	 * Obtains the sprite's color
 	 */
-	Color inline GetColor();
+	Color GetColor();
+
+	/**
+	 * Pushes OpenGL vertex and index information into the given arrays beginning
+	 * with the given start index.  Passing in the size of the array in the two
+	 * BufferSize variables will prevent buffer overflow.
+	 *
+	 * A 
+	 */
+	bool PushVertices(float* vertexBuffer, int vertexStart, int vertexBufferSize, int* indeces, int indexStart, int indexBufferSize);
 
 protected:
 	float x;
@@ -94,13 +110,11 @@ protected:
 	/**
 	 * Validates that width and height are greater than zero.
 	 */
-	void inline validateDimensions();
+	void validateDimensions();
 
 private:
 	Sprite operator=(Sprite& other);
 	Sprite(Sprite& other);
 };
-
-#include "SpriteInline.h"
 
 #endif
