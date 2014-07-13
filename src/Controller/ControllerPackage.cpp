@@ -1,11 +1,20 @@
 #include "ControllerPackage.h"
 
+ControllerPackage* ControllerPackage::activeControllerPackage = nullptr;
+
 ControllerPackage::ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager)
 : graphicsManager(graphicsManager),
 inputManager(inputManager),
 soundManager(soundManager)
 {
 	
+}
+
+ControllerPackage::~ControllerPackage()
+{
+	delete this->graphicsManager;
+	delete this->inputManager;
+	delete this->soundManager;
 }
 
 GraphicsManager* const ControllerPackage::GetGraphicsManager()
@@ -22,4 +31,21 @@ InputManager* const ControllerPackage::GetInputManager()
 SoundManager* const ControllerPackage::GetSoundManager()
 {
 	return this->soundManager;
+}
+
+void ControllerPackage::CopyFrom(ControllerPackage* copy)
+{
+	this->graphicsManager->CopyFrom(copy->graphicsManager);
+	this->inputManager->CopyFrom(copy->inputManager);
+	this->soundManager->CopyFrom(copy->soundManager);
+}
+
+void ControllerPackage::Activate()
+{
+    ControllerPackage::activeControllerPackage = this;
+}
+
+ControllerPackage* ControllerPackage::GetActiveControllerPackage()
+{
+    return ControllerPackage::activeControllerPackage;
 }

@@ -14,7 +14,7 @@ public:
     /**
      * Default constructor that creates a new instance of an InputView.
      */
-    InputView(ControllerPackage* controllerPackage);
+    InputView();
     
     /**
      * Initializes the InputView.
@@ -24,17 +24,12 @@ public:
     /**
      * Updates the InputView.
      */
-    void Update();
+    void Update(InputManager* inputManager);
     
 private:
     // Private constructors to disallow access.
     InputView(InputView const &other);
     InputView operator=(InputView other);
-
-	/**
-	 * InputManager with information about input
-	 */
-	InputManager* const inputManager;
 };
 
 #endif

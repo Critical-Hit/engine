@@ -14,10 +14,15 @@ class ControllerPackage
 {
 public:
     /**
-     * Default constructor that creates a new instance of a ControllerPackage.
+     * Constructor that creates a new instance of a ControllerPackage given managers.
      */
     ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager);
     
+	/**
+	 * Destructor
+	 */
+	~ControllerPackage();
+
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
@@ -32,6 +37,22 @@ public:
      * Returns a pointer to the game's SoundManager.
      */
     SoundManager* const GetSoundManager();
+
+	/**
+	 * Returns a clone of this ControllerPackage
+	 */
+	void CopyFrom(ControllerPackage* copy);
+
+    /**
+     * Activates this ControllerPackage so it will be used by
+     * by the engine's view.
+     */
+    void Activate();
+
+    /**
+     * Gets the active ControllerPackage
+     */
+    static ControllerPackage* GetActiveControllerPackage();
     
 private:
     // Private constructors to disallow access.
@@ -39,9 +60,11 @@ private:
     ControllerPackage operator=(ControllerPackage other);
 
 	// The managers to be provided to the game manager
-	GraphicsManager* const graphicsManager;
-	InputManager* const inputManager;
-	SoundManager* const soundManager;
+	GraphicsManager* graphicsManager;
+	InputManager* inputManager;
+	SoundManager* soundManager;
+
+    static ControllerPackage* activeControllerPackage;
 };
 
 #endif

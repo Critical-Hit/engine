@@ -6,33 +6,19 @@
 Controller::Controller()
 {
     this->shouldExit = false;
-
-	this->controllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), new SoundManager());
 }
 
 void Controller::Start()
 {
-    // Initialize the graphics library.
-    GLFWwindow* window;
-    glfwInit();
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-    }
-    glfwMakeContextCurrent(window);
-    
     // Start the main game loop on a different thread.
     std::thread gameThread(&Controller::gameLoop, this);
-    this->graphicsLoop(window);
+    this->viewLoop();
     gameThread.join();
-    
-    glfwTerminate();
 }
 
 void Controller::gameLoop()
 {
-    GameStateManager manager(this->controllerPackage);
+    GameStateManager manager;
     manager.Initialize(new InitialState());
     
     int i = 0;
@@ -48,17 +34,23 @@ void Controller::gameLoop()
     }
 }
 
-void Controller::graphicsLoop(GLFWwindow* window)
+void Controller::viewLoop()
 {
-    GraphicsView graphicsView(this->controllerPackage);
-    graphicsView.Initialize(window);
+    GraphicsView graphicsView; 
+    graphicsView.Initialize();
     graphicsView.OnWindowClose = [this] () { this->shouldExit = true; };
-    
+    InputView inputView;
+    inputView.Initialize();
+    SoundView soundView;
+    soundView.Initialize();
+
     while(!this->shouldExit)
     {
         double startTime = glfwGetTime();
         
-        graphicsView.Update();
+        graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
+        inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
+        soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
         
         while((glfwGetTime() - startTime) <= Controller::FRAMERATE)
         { }

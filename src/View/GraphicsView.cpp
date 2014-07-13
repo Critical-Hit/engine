@@ -1,19 +1,32 @@
 #include "GraphicsView.h"
 
-GraphicsView::GraphicsView(ControllerPackage* controllerPackage)
-: graphicsManager(controllerPackage->GetGraphicsManager())
+GraphicsView::GraphicsView()
 {
 
 }
 
-void GraphicsView::Initialize(GLFWwindow* window)
+GraphicsView::~GraphicsView()
 {
+    glfwTerminate();
+}
+
+void GraphicsView::Initialize()
+{
+    // Initialize the graphics library.
+    GLFWwindow* window;
+    glfwInit();
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+    }
+    glfwMakeContextCurrent(window);
     this->window = window;
 }
 
-void GraphicsView::Update()
+void GraphicsView::Update(GraphicsManager* graphicsManager)
 {
-	glClearColor(0.0f, this->graphicsManager->GetClearColor(), this->graphicsManager->GetClearColor(), 1.0f);
+    glClearColor(0.0f, graphicsManager->GetClearColor(), graphicsManager->GetClearColor(), 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(this->window);
     glfwPollEvents();

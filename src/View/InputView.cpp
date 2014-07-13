@@ -1,7 +1,6 @@
 #include "InputView.h"
 
-InputView::InputView(ControllerPackage* controllerPackage)
-: inputManager(controllerPackage->GetInputManager())
+InputView::InputView()
 {
     
 }
@@ -11,7 +10,7 @@ void InputView::Initialize()
     
 }
 
-void InputView::Update()
+void InputView::Update(InputManager* inputManager)
 {
     
 }
