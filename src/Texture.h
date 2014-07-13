@@ -1,7 +1,7 @@
 #ifndef Core_Texture_h
 #define Core_Texture_h
 
-#include "SOIL.h"
+#include <ImageLoader/SOIL.h>
 
 class Texture
 {

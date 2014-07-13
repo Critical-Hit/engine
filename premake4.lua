@@ -13,8 +13,8 @@ solution "Engine"
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib"}
+        includedirs {"/usr/local/include", "include"}
+        libdirs {"/usr/local/lib", "lib"}
     configuration {"macosx", "gmake"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
