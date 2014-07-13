@@ -13,18 +13,18 @@ public:
 	 *
 	 * No color values may be less than zero.
 	 */
-	inline Color(float red, float green, float blue, float alpha);
+	Color(float red, float green, float blue, float alpha);
 
 	/**
 	 * Creates a color with the given values and an alpha of 1.0
 	 *
 	 * No color values may be less than zero.
 	 */
-	inline Color(float red, float green, float blue);
+	Color(float red, float green, float blue);
 
-	inline Color(Color& other);
+	Color(Color& other);
 
-	inline Color operator=(Color& other);
+	Color operator=(Color& other);
 
 	const float red;
 	const float green;
@@ -35,7 +35,7 @@ private:
 	/**
 	 * Validates that no color channels are less than zero.
 	 */
-	void inline validateChannels();
+	void validateChannels();
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "InitialState.h"
+#include "Color.h"
 
 InitialState::InitialState()
 {
@@ -17,13 +18,14 @@ void InitialState::Initialize(GameStateManager* manager, ControllerPackage* cont
 
 void InitialState::Update()
 {
-	float clearColor = graphicsManager->GetClearColor();
+	float clearColorValue = (graphicsManager->GetClearColor()).blue;
     // For now just alternate between a 0 and 1 color value to flash a color.
-    if(clearColor <= 0.0f || clearColor >= 1.0f)
+    if(clearColorValue <= 0.0f || clearColorValue >= 1.0f)
     {
         sign *= -1;
     }
-	this->controllerPackage->GetGraphicsManager()->SetClearColor((this->sign * this->increment) + clearColor);
+	clearColorValue = (this->sign * this->increment) + clearColorValue;
+	this->graphicsManager->SetClearColor(Color(0.0f, clearColorValue, clearColorValue, 1.0f));
 }
 
 void InitialState::Pause()

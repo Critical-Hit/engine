@@ -92,13 +92,37 @@ public:
 	Color GetColor();
 
 	/**
-	 * Pushes OpenGL vertex and index information into the given arrays beginning
-	 * with the given start index.  Passing in the size of the array in the two
-	 * BufferSize variables will prevent buffer overflow.
+	 * Puts OpenGL vertex information into the given array.
+	 * 
+	 * DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 16 ADDITIONAL
+	 * VALUES WITHIN THE ARRAY.
 	 *
-	 * A 
+	 * Typically this function isn't needed outside the game engine's
+	 * core graphics system, and thus it shouldn't be needed by users.
 	 */
-	bool PushVertices(float* vertexBuffer, int vertexStart, int vertexBufferSize, int* indeces, int indexStart, int indexBufferSize);
+	void PutGLVertexInfo(float* vertexBuffer);
+
+	/**
+	* Puts OpenGL color information into the given array.
+	*
+	* DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 12 ADDITIONAL
+	* VALUES WITHIN THE ARRAY.
+	*
+	* Typically this function isn't needed outside the game engine's
+	* core graphics system, and thus it shouldn't be needed by users.
+	*/
+	void PutGLColorInfo(float* colorBuffer);
+
+	/**
+	* Puts OpenGL index information into the given array.  It 
+	*
+	* DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 6 ADDITIONAL
+	* VALUES WITHIN THE ARRAY.
+	*
+	* Typically this function isn't needed outside the game engine's
+	* core graphics system, and thus it shouldn't be needed by users.
+	*/
+	void PutGLIndexInfoChar(char* indexBuffer, int dataStartIndex);
 
 protected:
 	float x;
@@ -113,6 +137,7 @@ protected:
 	void validateDimensions();
 
 private:
+	static const int vertexCount = 6;
 	Sprite operator=(Sprite& other);
 	Sprite(Sprite& other);
 };
