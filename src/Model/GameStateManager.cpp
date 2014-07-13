@@ -7,7 +7,8 @@ GameStateManager::GameStateManager()
 
 void GameStateManager::Initialize(GameState* state)
 {
-    this->PushState(state);
+    state->Initialize(this);
+    gameStates.push(state);
 }
 
 void GameStateManager::Update()
@@ -31,10 +32,7 @@ GameState* GameStateManager::PopState()
     top->Pause();
     top->Destroy();
     gameStates.pop();
-    if (gameStates.size() != 0)
-    {
-        gameStates.top()->Resume();
-    }
+	gameStates.top()->Resume();
     return top;
 }
 
