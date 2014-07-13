@@ -43,6 +43,8 @@ void Controller::viewLoop()
     inputView.Initialize();
     SoundView soundView;
     soundView.Initialize();
+    ResourceView resourceView;
+    resourceView.Initialize();
 
     while(!this->shouldExit)
     {
@@ -51,6 +53,7 @@ void Controller::viewLoop()
         graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
         inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
         soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
+        resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
         
         while((glfwGetTime() - startTime) <= Controller::FRAMERATE)
         { }

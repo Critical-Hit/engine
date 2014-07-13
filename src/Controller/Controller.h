@@ -8,6 +8,7 @@
 #include "GraphicsView.h"
 #include "InputView.h"
 #include "SoundView.h"
+#include "ResourceView.h"
 #include "GameStateManager.h"
 #include "InitialState.h"
 #include "ControllerPackage.h"
