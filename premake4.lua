@@ -25,8 +25,32 @@ solution "Engine"
         includedirs{"include"}
         libdirs {"lib"}
 
-project "Core"
+project "Snake"
     kind "ConsoleApp"
+    language "C++"
+    files {
+        "snake/**.h",
+        "snake/**.cpp",
+	   "src/**.h",
+        "src/**.cpp"
+    }
+    flags {
+        "ExtraWarnings"
+    }
+    includedirs {
+        "src/**",
+        "modules/**",
+        "snake/**"
+    }
+    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
+        links {
+            "Modules",
+            "Core"
+        }
+    end
+
+project "Core"
+    kind "StaticLib"
     language "C++"
     files {
         "src/**.h",
