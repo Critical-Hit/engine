@@ -8,10 +8,9 @@ Controller::Controller()
     this->shouldExit = false;
 }
 
-void Controller::Start(GameState* initialState)
+void Controller::Start()
 {
     // Start the main game loop on a different thread.
-    this->startState = initialState;
     std::thread gameThread(&Controller::gameLoop, this);
     this->viewLoop();
     gameThread.join();
@@ -20,7 +19,7 @@ void Controller::Start(GameState* initialState)
 void Controller::gameLoop()
 {
     GameStateManager manager;
-    manager.Initialize(this->startState);
+    manager.Initialize(new InitialState());
     
     int i = 0;
     while(!this->shouldExit)

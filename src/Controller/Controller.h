@@ -24,7 +24,7 @@ public:
     /**
      * Starts the game. Initializes systems and starts updating them.
      */
-    void Start(GameState* initialState);
+    void Start();
     
 private:
     // Private constructors to disallow access.
@@ -60,11 +60,6 @@ private:
      * Boolean that represents whether the game should exit or not.
      */
     bool shouldExit;
-
-    /** 
-     * The state to start with
-     */
-    GameState* startState;
 };
 
 #endif
