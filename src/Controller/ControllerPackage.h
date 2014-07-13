@@ -4,6 +4,7 @@
 #include "GraphicsManager.h"
 #include "InputManager.h"
 #include "SoundManager.h"
+#include "ResourceManager.h"
 
 /**
  * This class is used to gather together access to the various managers
@@ -16,7 +17,7 @@ public:
     /**
      * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager);
+    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager, ResourceManager* const resourceManager);
     
 	/**
 	 * Destructor
@@ -37,6 +38,11 @@ public:
      * Returns a pointer to the game's SoundManager.
      */
     SoundManager* const GetSoundManager();
+
+    /**
+     * Returns a pointer to the game's ResourceManager.
+     */
+    ResourceManager* const GetResourceManager();
 
 	/**
 	 * Returns a clone of this ControllerPackage
@@ -63,6 +69,7 @@ private:
 	GraphicsManager* graphicsManager;
 	InputManager* inputManager;
 	SoundManager* soundManager;
+    ResourceManager* resourceManager;
 
     static ControllerPackage* activeControllerPackage;
 };

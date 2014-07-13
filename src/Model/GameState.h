@@ -50,6 +50,7 @@ protected:
 	GraphicsManager* graphicsManager;
 	InputManager* inputManager;
 	SoundManager* soundManager;
+    ResourceManager* resourceManager;
 
 private:
 	/**
