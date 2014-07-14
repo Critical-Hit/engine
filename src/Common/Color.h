@@ -1,6 +1,8 @@
 #ifndef Core_Color_h
 #define Core_Color_h
 
+class string;
+
 /**
  * A color is an immutable clas made up of a red, green, blue,
  * and alpha value.
@@ -8,6 +10,11 @@
 class Color final
 {
 public:
+	/**
+	 * Default constructor, creating black
+	 */
+	Color();
+
 	/**
 	 * Creates a color with the given values.
 	 *
@@ -22,14 +29,32 @@ public:
 	 */
 	Color(float red, float green, float blue);
 
-	Color(Color& other);
+	/**
+	 * Basic copy constructor
+	 */
+	Color(const Color& other);
 
-	Color operator=(Color& other);
+	/**
+	 * Basic assignment constructor
+	 */
+	Color operator=(const Color& other);
 
-	const float red;
-	const float green;
-	const float blue;
-	const float alpha;
+	/**
+	 * Basic destructor
+	 */
+	~Color();
+	
+	/**
+	 * Turns the color into a string formatted as:
+	 *
+	 * "(red, blue, green, alpha)"
+	 */
+	std::string ToString();
+
+	float red;
+	float green;
+	float blue;
+	float alpha;
 
 private:
 	/**

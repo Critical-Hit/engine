@@ -48,7 +48,12 @@ private:
     /**
      * The GLFW Window to draw to.
      */
-    GLFWwindow* window;
+	GLFWwindow* window;
+
+	/**
+	 * Utility function for checking OpenGL errors
+	 */
+	void CheckOpenGLError();
 };
 
 #endif

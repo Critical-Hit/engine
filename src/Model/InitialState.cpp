@@ -1,5 +1,6 @@
 #include "InitialState.h"
 #include "Color.h"
+#include "Sprite.h"
 
 InitialState::InitialState()
 {
@@ -11,7 +12,11 @@ void InitialState::Initialize(GameStateManager* manager)
     GameState::Initialize(manager);
 
     this->sign = -1;
-    this->increment = 0.016667f;
+	this->increment = 0.016667f;
+	this->graphicsManager->RegisterSprite(new Sprite(-0.5, 0.5f, 0.5f, 0.5f, Color(1.0f, 0.0f, 0.0f, 1.0f)));
+	//this->graphicsManager->RegisterSprite(new Sprite( 0.0, 0.5f, 0.5f, 0.5f, Color(0.0f, 1.0f, 0.0f, 1.0f)));
+	//this->graphicsManager->RegisterSprite(new Sprite(-0.5, 0.0f, 0.5f, 0.5f, Color(0.0f, 0.0f, 1.0f, 1.0f)));
+	//this->graphicsManager->RegisterSprite(new Sprite( 0.0, 0.0f, 0.5f, 0.5f, Color(1.0f, 1.0f, 0.0f, 1.0f)));
 }
 
 void InitialState::Update()
@@ -23,7 +28,8 @@ void InitialState::Update()
         sign *= -1;
     }
 	clearColorValue = (this->sign * this->increment) + clearColorValue;
-	this->graphicsManager->SetClearColor(Color(0.0f, clearColorValue, clearColorValue, 1.0f));
+	Color newClearColor(0.0f, clearColorValue, clearColorValue, 1.0f);
+	this->graphicsManager->SetClearColor(newClearColor);
 }
 
 void InitialState::Pause()

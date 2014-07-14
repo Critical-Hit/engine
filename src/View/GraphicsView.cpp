@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "GraphicsView.h"
 #include "Sprite.h"
 
@@ -30,101 +31,25 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	// Clear the screen
 	Color clearColor = graphicsManager->GetClearColor();
 	glClearColor(clearColor.red, clearColor.green, clearColor.blue, clearColor.alpha);
+	
     glClear(GL_COLOR_BUFFER_BIT);
 
-	bool doTestTexturing = false;
-	GLuint texture;
-	float* textureCoords;
-
-	if (doTestTexturing)
-	{
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-		int width;
-		int height;
-		GLubyte data[] =
-		{
-			255, 0, 0, 255, 0, 255, 0, 255,
-
-			0, 0, 255, 255, 255, 255, 0, 255,
-		};
-
-		float coords[] =
-		{
-			1.0f, 0.0f,
-			1.0f, 1.0f,
-			0.0f, 1.0f,
-			0.0f, 0.0f,
-		};
-		textureCoords = coords;
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	}
-
-	bool spriteTest = true;
-	Sprite sprite(-0.5f, 0.5f, 1.0f, 1.0f, Color(0.0f, 1.0f, 0.0f, 1.0f));
+	int spriteNumber = graphicsManager->GetSpriteCount();
 	float* vertexBuffer;
 	float* colorBuffer;
-	GLubyte* indexBuffer;
+	unsigned short* indexBuffer;
+	vertexBuffer = new float[spriteNumber * 4 * 4]; // 4 vertices; 4 coordinates per vertex
+	colorBuffer = new float[spriteNumber * 4 * 4]; // 4 vertieces; 4 channels per vertex
+	indexBuffer = new unsigned short[spriteNumber * 2 * 3]; // 2 triangles; 3 indeces per triangle
 
-	if (!spriteTest)
-	{
-		float vertex[] =
-		{
-			0.5f, 0.5f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 1.0f,
-			-0.5f, -0.5f, 0.0f, 1.0f,
-			-0.5f, 0.5f, 0.0f, 1.0f,
-		};
-		float color[] =
-		{
-			0.0f, 0.0f, 1.0f, 1.0f,
-			0.0f, 0.0f, 1.0f, 1.0f,
-			0.0f, 0.0f, 1.0f, 1.0f,
-			0.0f, 0.0f, 1.0f, 1.0f,
-		};
-		GLubyte indeces[] =
-		{
-			0, 1, 2, 2, 3, 0
-		};
-		vertexBuffer = vertex;
-		colorBuffer = color;
-		indexBuffer = indeces;
-	}
-	else
-	{
-		vertexBuffer = new float[16];
-		sprite.PutGLVertexInfo(vertexBuffer);
-		colorBuffer = new float[16];
-		sprite.PutGLColorInfo(colorBuffer);
-		indexBuffer = new GLubyte[6];
-		sprite.PutGLIndexInfoChar((char*)indexBuffer, 0);
-	}
+	graphicsManager->AddSpritesToVCIBuffer(vertexBuffer, colorBuffer, indexBuffer, 0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(4, GL_FLOAT, 0, vertexBuffer);
-	if (!doTestTexturing)
-	{
-		glEnableClientState(GL_COLOR_ARRAY);
-		glColorPointer(4, GL_FLOAT, 0, colorBuffer);
-	}
-	else
-	{
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_FLOAT, 0, textureCoords);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colorBuffer);
 
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, texture);
-	}
-
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indexBuffer);
+	glDrawElements(GL_TRIANGLES, 6 * spriteNumber, GL_UNSIGNED_SHORT, indexBuffer);
 	
 	// Swap the buffers
     glfwSwapBuffers(this->window);
@@ -135,4 +60,26 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     {
         this->OnWindowClose();
     }
+}
+
+void GraphicsView::CheckOpenGLError()
+{
+	GLenum error = glGetError();
+	switch (error)
+	{
+	case GL_NO_ERROR:
+		return;
+	case GL_INVALID_ENUM:
+		throw new std::logic_error("There was an OpenGL Invalid Enum error.");
+	case GL_INVALID_VALUE:
+		throw new std::logic_error("There was an OpenGL Invalid Value error.");
+	case GL_INVALID_OPERATION:
+		throw new std::logic_error("There was an OpenGL Invalid Operation error.");
+	case GL_OUT_OF_MEMORY:
+		throw new std::logic_error("There was an OpenGL Out of Memory error.");
+	case GL_STACK_UNDERFLOW:
+		throw new std::logic_error("There was an OpenGL Stack Underflow error.");
+	case GL_STACK_OVERFLOW:
+		throw new std::logic_error("There was an OpenGL Stack Overflow error.");
+	}
 }

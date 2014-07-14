@@ -39,13 +39,6 @@ ResourceManager* const ControllerPackage::GetResourceManager()
     return this->resourceManager;
 }
 
-void ControllerPackage::CopyFrom(ControllerPackage* copy)
-{
-	this->graphicsManager->CopyFrom(copy->graphicsManager);
-	this->inputManager->CopyFrom(copy->inputManager);
-	this->soundManager->CopyFrom(copy->soundManager);
-}
-
 void ControllerPackage::Activate()
 {
     ControllerPackage::activeControllerPackage = this;

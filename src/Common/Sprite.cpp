@@ -141,7 +141,7 @@ void Sprite::PutGLColorInfo(float* colorBuffer)
 	colorBuffer[15] = alpha;
 }
 
-void Sprite::PutGLIndexInfoChar(char* indexBuffer, int dataStartIndex)
+void Sprite::PutGLIndexInfo(unsigned short* indexBuffer, unsigned short dataStartIndex)
 {
 	// TopRight Triangle
 	//  Top/Left

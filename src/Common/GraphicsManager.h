@@ -74,12 +74,7 @@ public:
 	 * DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 16 values for
 	 * each sprite (16 * GetSpriteCount()).
 	 */
-	void AddSpritesToVCICharBuffer(float* vertexBuffer, float* colorBuffer, char* indexBuffer, int dataStartIndex);
-    
-	/**
-	 * Sets all variables of this instance to match the other instance.
-	 */
-	void CopyFrom(GraphicsManager* other);
+	void AddSpritesToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
     
 private:
     // Private constructors to disallow access.

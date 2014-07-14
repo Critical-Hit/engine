@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <string>
 #include "Color.h"
 
 Color::Color(float red, float green, float blue, float alpha) : red(red), green(green), blue(blue), alpha(alpha)
@@ -11,14 +12,31 @@ Color::Color(float red, float green, float blue) : red(red), green(green), blue(
 
 }
 
-Color::Color(Color& other) : red(other.red), green(other.green), blue(other.blue), alpha(other.alpha)
+Color::Color(const Color& other) : red(other.red), green(other.green), blue(other.blue), alpha(other.alpha)
 {
 
 }
 
-Color Color::operator=(Color& other)
+Color Color::operator=(const Color& other)
 {
-	return Color(other);
+	if (this != &other)
+	{
+		this->red = other.red;
+		this->green = other.green;
+		this->blue = other.blue;
+		this->alpha = other.alpha;
+	}
+	return *this;
+}
+
+Color::~Color()
+{
+
+}
+
+std::string Color::ToString()
+{
+	return "(" + std::to_string(this->red) + ", " + std::to_string(this->green) + ", " + std::to_string(this->blue) + ", " + std::to_string(this->alpha) + ")";
 }
 
 void Color::validateChannels()

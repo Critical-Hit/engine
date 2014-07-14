@@ -122,7 +122,7 @@ public:
 	* Typically this function isn't needed outside the game engine's
 	* core graphics system, and thus it shouldn't be needed by users.
 	*/
-	void PutGLIndexInfoChar(char* indexBuffer, int dataStartIndex);
+	void PutGLIndexInfo(unsigned short* indexBuffer, unsigned short dataStartIndex);
 
 protected:
 	float x;

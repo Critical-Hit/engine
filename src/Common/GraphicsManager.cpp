@@ -13,7 +13,7 @@ GraphicsManager::~GraphicsManager()
 
 }
 
-float GraphicsManager::GetClearColor()
+Color GraphicsManager::GetClearColor()
 {
 	return this->clearColor;
 }
@@ -48,14 +48,14 @@ int GraphicsManager::GetSpriteCount()
 	return this->registeredSprites.size();
 }
 
-void GraphicsManager::AddSpritesToVCICharBuffer(float* vertexBuffer, float* colorBuffer, char* indexBuffer, int dataStartIndex)
+void GraphicsManager::AddSpritesToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex)
 {
 	int spriteNumber = 0;
 	for each (Sprite* sprite in this->registeredSprites)
 	{
 		sprite->PutGLVertexInfo(&(vertexBuffer[16 * spriteNumber])); // 16 = 4 vertices * 4 coordinates
 		sprite->PutGLColorInfo(&(colorBuffer[16 * spriteNumber])); // 16 = 4 vertices * 4 channels
-		sprite->PutGLIndexInfoChar(indexBuffer, dataStartIndex + 6 * spriteNumber); // 6 = 2 triangles * 3 coordinates
+		sprite->PutGLIndexInfo(indexBuffer, dataStartIndex + 6 * spriteNumber); // 6 = 2 triangles * 3 coordinates
 		spriteNumber++;
 	}
 }
