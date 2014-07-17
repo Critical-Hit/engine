@@ -1,9 +1,15 @@
-#include "InputEvent.h"
+#ifndef Common_Events_KeyEvent_H
+#define Common_Events_KeyEvent_H
 
-class KeyEvent : InputEvent
+#include "InputEvent.h"
+#include "InputCode.h"
+
+class KeyEvent : public InputEvent
 {
-    private:
-        int keyCode;
+    protected:
+        KeyCode* keyCode;
     public:
-        int GetKeyCode();
+        virtual KeyCode GetKeyCode();
 };
+
+#endif

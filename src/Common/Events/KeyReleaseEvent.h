@@ -1,4 +1,12 @@
+#ifndef Common_Events_KeyReleaseEvent_H
+#define Common_Events_KeyReleaseEvent_H
+
 #include "KeyEvent.h"
-class KeyReleaseEvent : KeyEvent
+#include "InputCode.h"
+class KeyReleaseEvent : public KeyEvent
 {
+	public:
+		KeyReleaseEvent(KeyCode* KeyCode);
 };
+
+#endif

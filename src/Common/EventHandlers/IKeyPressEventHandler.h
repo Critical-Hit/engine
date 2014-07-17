@@ -1,7 +1,12 @@
+#ifndef Core_IKeyPressEventHandler_h
+#define Core_IKeyPressEventHandler_h
+
 #include "IKeyEventHandler.h"
-#include "KeyPressEvent.h"
+class KeyPressEvent;
 class IKeyPressEventHandler : IKeyEventHandler
 {
     public:
-        void OnKeyPressEvent(KeyPressEvent event);
+        void OnKeyPressEvent(KeyPressEvent* event);
 };
+
+#endif
