@@ -6,7 +6,7 @@ class KeyPressEvent;
 class IKeyPressEventHandler : IKeyEventHandler
 {
     public:
-        void OnKeyPressEvent(KeyPressEvent* event);
+        virtual void OnKeyPressEvent(KeyPressEvent* event) = 0;
 };
 
 #endif

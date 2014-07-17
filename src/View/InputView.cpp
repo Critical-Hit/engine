@@ -4,17 +4,26 @@
 #include "KeyReleaseEvent.h"
 #include <set>
 #include "assert.h"
+InputView* InputView::instance;
+
+void InputView::keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods)
+{
+    if (InputView::instance)
+    {
+        InputView::instance->keyCallback(window, key, scanCode, action, mods);
+    }
+}
 
 InputView::InputView(GLFWwindow* window)
 {
     this->window = window;
+    InputView::instance = this;
+    glfwSetInputMode(window, GLFW_CURSOR_NORMAL, GL_FALSE);
+	glfwSetKeyCallback(window, InputView::keyCallbackDispatcher);
 };
 
 void InputView::Initialize(GLFWwindow* window)
 {
-    instance = this;
-    glfwSetInputMode(window, GLFW_CURSOR_NORMAL, GL_FALSE);
-	glfwSetKeyCallback(window, keyCallbackDispatcher);
 }
 
 void InputView::Update()
@@ -61,14 +70,6 @@ bool InputView::isKeyReleased(KeyCode keyCode)
 	return (state == GLFW_RELEASE);
 }
 
-void keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods)
-{
-    if (InputView::instance)
-    {
-        InputView::instance->keyCallback(window, key, scanCode, action, mods);
-    }
-}
-
 void InputView::keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
     assert(window && scanCode && action && mods);
@@ -85,7 +86,7 @@ void InputView::keyCallback(GLFWwindow* window, int key, int scanCode, int actio
 	}
 }
 
-KeyCode keyCode(int glfwKeyCode)
+KeyCode InputView::keyCode(int glfwKeyCode)
 {
 	switch (glfwKeyCode) {
 		case GLFW_KEY_A:
@@ -303,7 +304,7 @@ KeyCode keyCode(int glfwKeyCode)
 	}
 }
 
-int glfwKeyCode(KeyCode keyCode) 
+int InputView::glfwKeyCode(KeyCode keyCode) 
 {
 	switch (keyCode) {
 		case KeyCode::KEYBOARD_A:

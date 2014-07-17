@@ -6,7 +6,7 @@ class KeyReleaseEvent;
 class IKeyReleaseEventHandler : IKeyEventHandler
 {
     public:
-        void OnKeyReleaseEvent(KeyReleaseEvent* event);
+        virtual void OnKeyReleaseEvent(KeyReleaseEvent* event) = 0;
 };
 
 #endif

@@ -46,9 +46,15 @@ public:
 
     void deregisterKeyRelease(KeyCode keyCode);
     
-    static InputView* instance;
-    
     void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);
+
+    /**
+     * Workaround for using C++ callbacks with GLFW.
+     * See: http://www.glfw.org/faq.html#how-do-i-use-c-methods-as-callbacks
+     */
+    static InputView* instance;
+
+    static void keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods);
 private:
     // Private constructors to disallow access.
     InputView(InputView const &other);
@@ -74,7 +80,6 @@ private:
 
     bool isKeyReleased(KeyCode keyCode);
 
-    static void keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods);
 };
 
 #endif
