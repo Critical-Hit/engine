@@ -14,9 +14,14 @@ void InitialState::Initialize(GameStateManager* manager)
     this->sign = -1;
 	this->increment = 0.016667f;
 	this->graphicsManager->RegisterSprite(new Sprite(-0.5, 0.5f, 0.5f, 0.5f, Color(1.0f, 0.0f, 0.0f, 1.0f)));
-	//this->graphicsManager->RegisterSprite(new Sprite( 0.0, 0.5f, 0.5f, 0.5f, Color(0.0f, 1.0f, 0.0f, 1.0f)));
-	//this->graphicsManager->RegisterSprite(new Sprite(-0.5, 0.0f, 0.5f, 0.5f, Color(0.0f, 0.0f, 1.0f, 1.0f)));
-	//this->graphicsManager->RegisterSprite(new Sprite( 0.0, 0.0f, 0.5f, 0.5f, Color(1.0f, 1.0f, 0.0f, 1.0f)));
+	this->graphicsManager->RegisterSprite(new Sprite( 0.0, 0.5f, 0.5f, 0.5f, Color(0.0f, 1.0f, 0.0f, 1.0f)));
+	this->graphicsManager->RegisterSprite(new Sprite(-0.5, 0.0f, 0.5f, 0.5f, Color(0.0f, 0.0f, 1.0f, 1.0f)));
+	this->graphicsManager->RegisterSprite(new Sprite(0.0, 0.0f, 0.5f, 0.5f, Color(1.0f, 1.0f, 0.0f, 1.0f)));
+
+	this->graphicsManager->RegisterSprite(new Sprite(-1.0, 1.0f, 0.5f, 0.5f, Color(1.0f, 0.0f, 0.0f, 1.0f)));
+	this->graphicsManager->RegisterSprite(new Sprite(0.5, 1.0f, 0.5f, 0.5f, Color(0.0f, 1.0f, 0.0f, 1.0f)));
+	this->graphicsManager->RegisterSprite(new Sprite(-1.0, -0.5f, 0.5f, 0.5f, Color(0.0f, 0.0f, 1.0f, 1.0f)));
+	this->graphicsManager->RegisterSprite(new Sprite(0.5, -0.5f, 0.5f, 0.5f, Color(1.0f, 1.0f, 0.0f, 1.0f)));
 }
 
 void InitialState::Update()

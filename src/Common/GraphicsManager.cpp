@@ -1,4 +1,6 @@
 #include <stdexcept>
+#include <thread>
+#include <chrono>
 #include "GraphicsManager.h"
 #include "Color.h"
 #include "Sprite.h"
@@ -25,22 +27,26 @@ void GraphicsManager::SetClearColor(Color clearColor)
 
 void GraphicsManager::RegisterSprite(Sprite* sprite)
 {
+	this->registeredSpritesMutex.lock();
 	int registeredCountBeforeAdd = this->registeredSprites.size();
 	this->registeredSprites.insert(sprite);
 	if ((registeredCountBeforeAdd + 1) != this->registeredSprites.size())
 	{
 		throw new std::invalid_argument("A sprite was registered that was already registered.");
 	}
+	this->registeredSpritesMutex.unlock();
 }
 
 void GraphicsManager::UnRegisterSprite(Sprite* sprite)
 {
+	this->registeredSpritesMutex.lock();
 	int registeredCountBeforeAdd = this->registeredSprites.size();
 	this->registeredSprites.erase(sprite);
 	if ((registeredCountBeforeAdd - 1) != this->registeredSprites.size())
 	{
 		throw new std::invalid_argument("A sprite was unregistered that wasn't registered.");
 	}
+	this->registeredSpritesMutex.unlock();
 }
 
 int GraphicsManager::GetSpriteCount()
@@ -48,14 +54,23 @@ int GraphicsManager::GetSpriteCount()
 	return this->registeredSprites.size();
 }
 
-void GraphicsManager::AddSpritesToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex)
+void GraphicsManager::PrepareToAddSprites()
 {
-	int spriteNumber = 0;
-	for each (Sprite* sprite in this->registeredSprites)
+	this->registeredSpritesMutex.lock();
+	this->spriteIterator = this->registeredSprites.begin();
+}
+
+bool GraphicsManager::AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex)
+{
+	if (this->spriteIterator == this->registeredSprites.end())
 	{
-		sprite->PutGLVertexInfo(&(vertexBuffer[16 * spriteNumber])); // 16 = 4 vertices * 4 coordinates
-		sprite->PutGLColorInfo(&(colorBuffer[16 * spriteNumber])); // 16 = 4 vertices * 4 channels
-		sprite->PutGLIndexInfo(indexBuffer, dataStartIndex + 6 * spriteNumber); // 6 = 2 triangles * 3 coordinates
-		spriteNumber++;
+		this->registeredSpritesMutex.unlock();
+		return false;
 	}
+	Sprite* sprite = *(this->spriteIterator);
+	sprite->PutGLVertexInfo(vertexBuffer); // 16 = 4 vertices * 4 coordinates
+	sprite->PutGLColorInfo(colorBuffer); // 16 = 4 vertices * 4 channels
+	sprite->PutGLIndexInfo(indexBuffer, dataStartIndex); // 6 = 2 triangles * 3 coordinates
+	this->spriteIterator++;
+	return true;
 }

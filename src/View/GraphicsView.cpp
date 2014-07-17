@@ -34,22 +34,23 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	
     glClear(GL_COLOR_BUFFER_BIT);
 
-	int spriteNumber = graphicsManager->GetSpriteCount();
 	float* vertexBuffer;
 	float* colorBuffer;
 	unsigned short* indexBuffer;
-	vertexBuffer = new float[spriteNumber * 4 * 4]; // 4 vertices; 4 coordinates per vertex
-	colorBuffer = new float[spriteNumber * 4 * 4]; // 4 vertieces; 4 channels per vertex
-	indexBuffer = new unsigned short[spriteNumber * 2 * 3]; // 2 triangles; 3 indeces per triangle
-
-	graphicsManager->AddSpritesToVCIBuffer(vertexBuffer, colorBuffer, indexBuffer, 0);
+	vertexBuffer = new float[4 * 4]; // 4 vertices; 4 coordinates per vertex
+	colorBuffer = new float[4 * 4]; // 4 vertieces; 4 channels per vertex
+	indexBuffer = new unsigned short[2 * 3]; // 2 triangles; 3 indeces per triangle
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(4, GL_FLOAT, 0, vertexBuffer);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glColorPointer(4, GL_FLOAT, 0, colorBuffer);
 
-	glDrawElements(GL_TRIANGLES, 6 * spriteNumber, GL_UNSIGNED_SHORT, indexBuffer);
+	graphicsManager->PrepareToAddSprites();
+	while(graphicsManager->AddSpriteToVCIBuffer(vertexBuffer, colorBuffer, indexBuffer, 0))
+	{
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indexBuffer);
+	}
 	
 	// Swap the buffers
     glfwSwapBuffers(this->window);

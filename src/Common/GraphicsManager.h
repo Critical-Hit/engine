@@ -2,6 +2,8 @@
 #define Core_GraphicsManager_h
 
 #include <set>
+#include <iterator>
+#include <mutex>
 #include "Color.h"
 
 class Sprite;
@@ -68,13 +70,22 @@ public:
 	int GetSpriteCount();
 
 	/**
-	 * Adds all sprites' vertex, color, and index information to the
+	 * Prepares to add all sprites with the AddSpriteToVCIBuffer method
+	 */
+	void PrepareToAddSprites();
+
+	/**
+	 * Adds the next sprite's vertex, color, and index information to the
 	 * given vertex buffer.
+	 *
+	 * Returns true if the sprite's data was successfully added; false if
+	 * there are no more sprites to be added or PrepareToAddSprites hasn't
+	 * been called.
 	 * 
 	 * DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 16 values for
 	 * each sprite (16 * GetSpriteCount()).
 	 */
-	void AddSpritesToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
+	bool AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
     
 private:
     // Private constructors to disallow access.
@@ -82,11 +93,13 @@ private:
     GraphicsManager operator=(GraphicsManager other);
 
 	/**
-	* Clear color of screen
-	*/
+	 * Clear color of screen
+	 */
 	Color clearColor;
 	
 	std::set<Sprite*> registeredSprites;
+	std::mutex registeredSpritesMutex;
+	std::set<Sprite*>::iterator spriteIterator;
 };
 
 #endif
