@@ -22,6 +22,8 @@ public:
      */
     InputManager();
 
+    void Update();
+
     /**
      * Associate an InputView with this InputManager. The InputView specified here will fire input
      * events to this InputManager and will be used to poll input state. 
@@ -100,8 +102,6 @@ public:
     void OnKeyPressEvent(KeyPressEvent* event);
 
     void OnKeyReleaseEvent(KeyReleaseEvent* event);
-
-    void Update();
 
 private:
     // Private constructors to disallow access.

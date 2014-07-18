@@ -76,6 +76,7 @@ public:
      */
     void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);
 
+private:
     /**
      * Workaround for using C++ callbacks with GLFW.
      * See: http://www.glfw.org/faq.html#how-do-i-use-c-methods-as-callbacks
@@ -87,7 +88,7 @@ public:
      * See: http://www.glfw.org/faq.html#how-do-i-use-c-methods-as-callbacks
      */
     static void keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods);
-private:
+
     // Private constructors to disallow access.
     InputView(InputView const &other);
     InputView operator=(InputView other);
