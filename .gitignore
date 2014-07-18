@@ -37,6 +37,9 @@ Makefile
 
 ## Ignore files related to Vim and popular vim plugins
 
+# Swapfiles
+*.swp
+
 # Project .vimrc
 .vimrc
 
