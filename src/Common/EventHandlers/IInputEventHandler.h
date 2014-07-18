@@ -1,5 +1,5 @@
-#ifndef Common_EventHandlers_IInputEventHandler_H
-#define Common_EventHandlers_IInputEventHandler_H
+#ifndef Core_IInputEventHandler_h
+#define Core_IInputEventHandler_h
 
 #include "IEventHandler.h"
 

@@ -5,4 +5,3 @@ KeyCode KeyEvent::GetKeyCode()
 {
     return *(this->keyCode);
 }
-

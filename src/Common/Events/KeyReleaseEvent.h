@@ -1,12 +1,21 @@
-#ifndef Common_Events_KeyReleaseEvent_H
-#define Common_Events_KeyReleaseEvent_H
+#ifndef Core_KeyReleaseEvent_h
+#define Core_KeyReleaseEvent_h
 
 #include "KeyEvent.h"
 #include "InputCode.h"
+
+/**
+ * Event fired when a keyboard key is released.
+ */
 class KeyReleaseEvent : public KeyEvent
 {
-	public:
-		KeyReleaseEvent(KeyCode* KeyCode);
+public:
+	// Default constructor.
+	KeyReleaseEvent(KeyCode* KeyCode);
+private:
+    // Private constructors to disallow access.
+	KeyReleaseEvent(KeyReleaseEvent const &other);
+	KeyReleaseEvent operator=(KeyReleaseEvent other);
 };
 
 #endif

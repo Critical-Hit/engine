@@ -1,5 +1,5 @@
-#ifndef Common_InputKeyState_H
-#define Common_InputKeyState_H
+#ifndef Core_InputState_h
+#define Core_InputState_h
 
 enum class KeyState
 {

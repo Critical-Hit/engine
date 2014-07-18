@@ -3,6 +3,10 @@
 
 #include "IKeyEventHandler.h"
 class KeyPressEvent;
+
+/**
+ * Interface for handling KeyPressEvents.
+ */
 class IKeyPressEventHandler : IKeyEventHandler
 {
     public:

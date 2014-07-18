@@ -1,7 +1,11 @@
-#ifndef Common_EventHandlers_IKeyEventHandler_H
-#define Common_EventHandlers_IKeyEventHandler_H
+#ifndef Core_IKeyEventHandler_h
+#define Core_IKeyEventHandler_h
 
 #include "IInputEventHandler.h"
+
+/**
+ * Marker interface for keyboard key event handler interfaces.
+ */
 class IKeyEventHandler : public IInputEventHandler
 {
 };
