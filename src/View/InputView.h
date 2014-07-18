@@ -38,7 +38,7 @@ public:
      * the keyboard and game states when the game starts. However, most input should be handled through
      * the more efficient event- based system. 
      */
-    KeyState GetKeyState(KeyCode keyCode);
+    InputState GetKeyState(KeyCode keyCode);
 
     /**
      * Associate an InputManager with this InputView. The InputManager specified here will receive input
@@ -113,9 +113,9 @@ private:
     int glfwKeyCode(KeyCode keyCode);
 
     /**
-     * Converts a GLFW key state to an engine key state.
+     * Converts a GLFW input state to an engine input state.
      */
-    KeyState keyState(int glfwKeyState);
+    InputState keyState(int glfwInputState);
 
 };
 

@@ -92,10 +92,10 @@ public:
     /**
      * Poll the current state of a key.
      * @param keyCode Key code corresponding to a keyboard key.
-     * @return KeyState indicating the current state of a key.
+     * @return InputState indicating the current state of a key.
      * If an invalid key code was passed, KeyState::Invalid is returned.
      */
-    KeyState GetKeyState(KeyCode keyCode);
+    InputState GetKeyState(KeyCode keyCode);
 
     void OnKeyPressEvent(KeyPressEvent* event);
 

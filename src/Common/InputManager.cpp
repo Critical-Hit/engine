@@ -56,14 +56,14 @@ void InputManager::DeregisterKeyReleaseEventHandler(IKeyReleaseEventHandler* han
 	}
 };
 
-KeyState InputManager::GetKeyState(KeyCode keyCode)
+InputState InputManager::GetKeyState(KeyCode keyCode)
 {
     return inputView->GetKeyState(keyCode);
 }
 
 void InputManager::OnKeyPressEvent(KeyPressEvent* event) 
 {
-    int intCode = static_cast<int>(event->GetKeyCode())
+    int intCode = static_cast<int>(event->GetKeyCode());
     std::set<IKeyPressEventHandler*> handlers = this->registeredKeyPressEventHandlers[intCode];
     for (IKeyPressEventHandler* handler : handlers)
     {

@@ -73,24 +73,24 @@ void InputView::keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode,
     }
 }
 
-KeyState InputView::GetKeyState(KeyCode keyCode)
+InputState InputView::GetKeyState(KeyCode keyCode)
 {
     int glfwKeyCode = InputView::glfwKeyCode(keyCode);
     int state = glfwGetKey(this->window, glfwKeyCode);
     return InputView::keyState(state);
 }
 
-KeyState InputView::keyState(int glfwKeyState)
+InputState InputView::keyState(int glfwKeyState)
 {
     switch (glfwKeyState) {
         case GLFW_RELEASE:
-            return KeyState::RELEASED;
+            return InputState::RELEASED;
         case GLFW_PRESS:
-            return KeyState::PRESSED;
+            return InputState::PRESSED;
         case GLFW_REPEAT:
-            return KeyState::PRESSED;
+            return InputState::PRESSED;
         default:
-            return KeyState::INVALID;
+            return InputState::INVALID;
     }
 }
 

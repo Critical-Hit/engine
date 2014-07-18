@@ -1,11 +1,10 @@
 #ifndef Core_InputState_h
 #define Core_InputState_h
 
-enum class KeyState
+enum class InputState
 {
     PRESSED,
     RELEASED,
-    UNKNOWN,
     INVALID
 };
 
