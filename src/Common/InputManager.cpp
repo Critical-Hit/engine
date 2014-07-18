@@ -8,8 +8,11 @@ InputManager::InputManager()
 
 void InputManager::SetView(InputView* inputView)
 {
-	this->inputView = inputView;
-	inputView->SetManager(this);
+	if (this->inputView != inputView)
+	{
+		this->inputView = inputView;
+		inputView->SetManager(this);
+	}
 }
 
 void InputManager::RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes)

@@ -25,8 +25,11 @@ void InputView::Update()
 
 void InputView::SetManager(InputManager* inputManager)
 {
-	this->inputManager = inputManager;
-	inputManager->SetView(this);
+	if (this->inputManager != inputManager)
+	{
+		this->inputManager = inputManager;
+		inputManager->SetView(this);
+	}
 }
 
 void InputView::registerKeyPress(KeyCode keyCode)
@@ -51,7 +54,6 @@ void InputView::deregisterKeyRelease(KeyCode keyCode)
 
 void InputView::keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
-    assert(window && scanCode && action && mods);
    	KeyCode keyCode = InputView::keyCode(key);
 	if ((registeredKeyPressCodes.count(keyCode) != 0) && (action == GLFW_PRESS))
 	{
