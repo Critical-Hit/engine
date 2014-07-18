@@ -52,8 +52,11 @@ void InputView::deregisterKeyRelease(KeyCode keyCode)
 	registeredKeyReleaseCodes.erase(keyCode);
 }
 
+// @TODO: Intentionally unused variables here. If these are still unused on iniital public release,
+// remove declarations.
 void InputView::keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
+	assert(window);
    	KeyCode keyCode = InputView::keyCode(key);
 	if ((registeredKeyPressCodes.count(keyCode) != 0) && (action == GLFW_PRESS))
 	{
@@ -67,6 +70,8 @@ void InputView::keyCallback(GLFWwindow* window, int key, int scanCode, int actio
 	}
 }
 
+// @TODO: Intentionally unused variables here. If these are still unused on iniital public release,
+// remove declarations.
 void InputView::keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
     if (InputView::instance)
