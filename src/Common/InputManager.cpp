@@ -8,8 +8,11 @@ InputManager::InputManager()
 
 void InputManager::SetView(InputView* inputView)
 {
-	this->inputView = inputView;
-	inputView->SetManager(this);
+	if (this->inputView != inputView)
+	{
+		this->inputView = inputView;
+		inputView->SetManager(this);
+	}
 }
 
 void InputManager::RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes)
@@ -20,6 +23,7 @@ void InputManager::RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, 
 		std::set<IKeyPressEventHandler*> handlers = this->registeredKeyPressEventHandlers[intCode];
 		handlers.insert(handler);
 		this->registeredKeyPressEventHandlers[intCode] = handlers;
+		(this->inputView)->registerKeyPress(keyCode);
 	}
 };
 
@@ -31,6 +35,7 @@ void InputManager::DeregisterKeyPressEventHandler(IKeyPressEventHandler* handler
 		std::set<IKeyPressEventHandler*> handlers = this->registeredKeyPressEventHandlers[intCode];
         handlers.erase(handler);
 		this->registeredKeyPressEventHandlers[intCode] = handlers;
+		(this->inputView)->deregisterKeyPress(keyCode);
 	}
 };
 
@@ -42,6 +47,7 @@ void InputManager::RegisterKeyReleaseEventHandler(IKeyReleaseEventHandler* handl
 		std::set<IKeyReleaseEventHandler*> handlers =  this->registeredKeyReleaseEventHandlers[intCode];
 		handlers.erase(handler);
 		this->registeredKeyReleaseEventHandlers[intCode] = handlers;
+		(this->inputView)->registerKeyRelease(keyCode);
 	}
 };
 
@@ -53,6 +59,7 @@ void InputManager::DeregisterKeyReleaseEventHandler(IKeyReleaseEventHandler* han
 		std::set<IKeyReleaseEventHandler*> handlers = this->registeredKeyReleaseEventHandlers[intCode];
 		handlers.erase(handler);
 		this->registeredKeyReleaseEventHandlers[intCode] = handlers;
+		(this->inputView)->deregisterKeyRelease(keyCode);
 	}
 };
 
