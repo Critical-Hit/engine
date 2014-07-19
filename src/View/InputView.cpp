@@ -6,21 +6,22 @@
 #include "assert.h"
 InputView* InputView::instance;
 
-InputView::InputView(GLFWwindow* window)
+InputView::InputView()
 {
-    this->window = window;
+    this->inputManager = nullptr;
     InputView::instance = this;
-    glfwSetInputMode(window, GLFW_CURSOR_NORMAL, GL_FALSE);
-	glfwSetKeyCallback(window, InputView::keyCallbackDispatcher);
 };
 
 void InputView::Initialize(GLFWwindow* window)
 {
+    this->window = window;
+    glfwSetInputMode(window, GLFW_CURSOR_NORMAL, GL_FALSE);
+	glfwSetKeyCallback(window, InputView::keyCallbackDispatcher);
 }
 
-void InputView::Update()
+void InputView::Update(InputManager* inputManager)
 {
-	
+	this->inputManager = inputManager;
 }
 
 void InputView::SetManager(InputManager* inputManager)
@@ -52,26 +53,25 @@ void InputView::deregisterKeyRelease(KeyCode keyCode)
 	registeredKeyReleaseCodes.erase(keyCode);
 }
 
-// @TODO: Intentionally unused variables here. If these are still unused on iniital public release,
-// remove declarations.
-void InputView::keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
+void InputView::keyCallback(GLFWwindow* window, int key, int, int action, int)
 {
 	assert(window);
-   	KeyCode keyCode = InputView::keyCode(key);
-	if ((registeredKeyPressCodes.count(keyCode) != 0) && (action == GLFW_PRESS))
-	{
-		KeyPressEvent event(&keyCode);
-		inputManager->OnKeyPressEvent(&event);
-	} 
-	else if ((registeredKeyReleaseCodes.count(keyCode) != 0) && (action = GLFW_RELEASE))
-	{
-		KeyReleaseEvent event(&keyCode);
-		inputManager->OnKeyReleaseEvent(&event);
-	}
+    if (inputManager != nullptr)
+    {
+   	    KeyCode keyCode = InputView::keyCode(key);
+	    if ((registeredKeyPressCodes.count(keyCode) != 0) && (action == GLFW_PRESS))
+	    {
+		    KeyPressEvent event(&keyCode);
+		    inputManager->OnKeyPressEvent(&event);
+	    } 
+	    else if ((registeredKeyReleaseCodes.count(keyCode) != 0) && (action == GLFW_RELEASE))
+	    {
+	    	KeyReleaseEvent event(&keyCode);
+	    	inputManager->OnKeyReleaseEvent(&event);
+	    }
+    }
 }
 
-// @TODO: Intentionally unused variables here. If these are still unused on iniital public release,
-// remove declarations.
 void InputView::keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
     if (InputView::instance)

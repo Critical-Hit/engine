@@ -11,19 +11,19 @@ class InitialState : public GameState
 {
 public:
     /**
-     * Default constructor that creates a new instance of a Controller.
+     * Default constructor that creates a new instance of an InitialState.
      */
     InitialState();
     
     /**
-     * Initializes the GraphicsView.
+     * Initializes the State.
      */
     virtual void Initialize(GameStateManager* manager);
     
     /**
      * Updates this State.
      */
-    virtual float Update();
+    virtual void Update();
     
     /**
      * Pauses this State to be resumed later.
@@ -44,13 +44,12 @@ private:
     // Private constructors to disallow access.
     InitialState(InitialState const &other);
     InitialState operator=(InitialState other);
-    
+
     /**
      * Test variables for the initial state.
      */
     int sign;
     float increment;
-    float colorValue;
 };
 
 #endif

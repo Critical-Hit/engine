@@ -1,24 +1,57 @@
 #include "ControllerPackage.h"
 
-ControllerPackage::ControllerPackage(const GraphicsManager* graphicsManager, const InputManager* inputManager, const SoundManager* soundManager)
+ControllerPackage* ControllerPackage::activeControllerPackage = nullptr;
+
+ControllerPackage::ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager, ResourceManager* const resourceManager)
+: graphicsManager(graphicsManager),
+inputManager(inputManager),
+soundManager(soundManager),
+resourceManager(resourceManager)
 {
-	this->graphicsManager = graphicsManager;
-	this->inputManager = inputManager;
-	this->soundManager = soundManager;
+	
 }
 
-const GraphicsManager* ControllerPackage::GetGraphicsManager()
+ControllerPackage::~ControllerPackage()
+{
+	delete this->graphicsManager;
+	delete this->inputManager;
+	delete this->soundManager;
+}
+
+GraphicsManager* const ControllerPackage::GetGraphicsManager()
 {
 	return this->graphicsManager;
 }
 
 
-const InputManager* ControllerPackage::GetInputManager()
+InputManager* const ControllerPackage::GetInputManager()
 {
 	return this->inputManager;
 }
 
-const SoundManager* ControllerPackage::GetSoundManager()
+SoundManager* const ControllerPackage::GetSoundManager()
 {
 	return this->soundManager;
+}
+
+ResourceManager* const ControllerPackage::GetResourceManager()
+{
+    return this->resourceManager;
+}
+
+void ControllerPackage::CopyFrom(ControllerPackage* copy)
+{
+	this->graphicsManager->CopyFrom(copy->graphicsManager);
+	this->inputManager->CopyFrom(copy->inputManager);
+	this->soundManager->CopyFrom(copy->soundManager);
+}
+
+void ControllerPackage::Activate()
+{
+    ControllerPackage::activeControllerPackage = this;
+}
+
+ControllerPackage* ControllerPackage::GetActiveControllerPackage()
+{
+    return ControllerPackage::activeControllerPackage;
 }

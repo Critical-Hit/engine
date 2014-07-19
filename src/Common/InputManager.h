@@ -22,11 +22,13 @@ public:
      */
     InputManager();
 
+    virtual ~InputManager();
+
     void Update();
 
     /**
-     * Associate an InputView with this InputManager. The InputView specified here will fire input
-     * events to this InputManager and will be used to poll input state. 
+     * Associate an InputView with this InputManager. The InputView specified 
+     * here will be used to poll input state on demand. 
      * Only one InputView may be associated with an InputManager at a time.
      */
     void SetView(InputView* inputView);
@@ -62,6 +64,11 @@ public:
     void DeregisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes);
 
     /**
+     * Get a container which contains all key codes that are registered for KeyPressEvents.
+     */
+    std::set<KeyCode> GetRegisteredKeyPressKeyCodes();
+
+    /**
      * Register a KeyReleaseEventHandler to receive KeyReleaseEvents.
      * @param[in] handler Pointer to the KeyReleaseEventHandler to register. If
      * the handler does not have an existing registration with this InputManager,
@@ -92,6 +99,11 @@ public:
     void DeregisterKeyReleaseEventHandler(IKeyReleaseEventHandler* handler, std::vector<KeyCode> keyCodes);
 
     /**
+     * Get a container which contains all key codes that are registered for KeyReleaseEvents.
+     */
+    std::set<KeyCode> GetRegisteredKeyReleaseKeyCodes();
+
+    /**
      * Poll the current state of a key.
      * @param keyCode Key code corresponding to a keyboard key.
      * @return InputState indicating the current state of a key.
@@ -99,9 +111,22 @@ public:
      */
     InputState GetKeyState(KeyCode keyCode);
 
+    /**
+     * Implemented from IKeyPressEventHandler. Distributes event to registered event handlers.
+     * Should be called only by InputView.
+     */
     void OnKeyPressEvent(KeyPressEvent* event);
-
+    
+    /**
+     * Implemented from IKeyReleaseEventHandler. Distributes event to registered event handlers.
+     * Should be called only by InputView.
+     */
     void OnKeyReleaseEvent(KeyReleaseEvent* event);
+    
+	/**
+	* Sets all variables of this instance to match the other instance.
+	*/
+	void CopyFrom(InputManager* other);
 
 private:
     // Private constructors to disallow access.

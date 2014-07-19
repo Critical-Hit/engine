@@ -10,7 +10,7 @@ void SoundView::Initialize()
     
 }
 
-void SoundView::Update()
+void SoundView::Update(SoundManager* soundManager)
 {
     
 }

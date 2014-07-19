@@ -4,7 +4,9 @@
 #include "GraphicsManager.h"
 #include "InputManager.h"
 #include "SoundManager.h"
+#include "ResourceManager.h"
 
+class InputManager;
 /**
  * This class is used to gather together access to the various managers
  * used to control the engine's view, and is used by the model to effect
@@ -14,24 +16,50 @@ class ControllerPackage
 {
 public:
     /**
-     * Default constructor that creates a new instance of a ControllerPackage.
+     * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(const GraphicsManager* graphicsManager, const InputManager* inputManager, const SoundManager* soundManager);
+    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager, ResourceManager* const resourceManager);
     
+	/**
+	 * Destructor
+	 */
+	~ControllerPackage();
+
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
-    const GraphicsManager* GetGraphicsManager();
+    GraphicsManager* const GetGraphicsManager();
     
     /**
      * Returns a pointer to the game's InputManager.
      */
-    const InputManager* GetInputManager();
+    InputManager* const GetInputManager();
     
     /**
      * Returns a pointer to the game's SoundManager.
      */
-    const SoundManager* GetSoundManager();
+    SoundManager* const GetSoundManager();
+
+    /**
+     * Returns a pointer to the game's ResourceManager.
+     */
+    ResourceManager* const GetResourceManager();
+
+	/**
+	 * Returns a clone of this ControllerPackage
+	 */
+	void CopyFrom(ControllerPackage* copy);
+
+    /**
+     * Activates this ControllerPackage so it will be used by
+     * by the engine's view.
+     */
+    void Activate();
+
+    /**
+     * Gets the active ControllerPackage
+     */
+    static ControllerPackage* GetActiveControllerPackage();
     
 private:
     // Private constructors to disallow access.
@@ -39,9 +67,12 @@ private:
     ControllerPackage operator=(ControllerPackage other);
 
 	// The managers to be provided to the game manager
-	const GraphicsManager* graphicsManager;
-	const InputManager* inputManager;
-	const SoundManager* soundManager;
+	GraphicsManager* graphicsManager;
+	InputManager* inputManager;
+	SoundManager* soundManager;
+    ResourceManager* resourceManager;
+
+    static ControllerPackage* activeControllerPackage;
 };
 
 #endif

@@ -6,8 +6,12 @@
 #include <thread>
 
 #include "GraphicsView.h"
+#include "InputView.h"
+#include "SoundView.h"
+#include "ResourceView.h"
 #include "GameStateManager.h"
 #include "InitialState.h"
+#include "ControllerPackage.h"
 
 class Controller
 {
@@ -33,14 +37,14 @@ private:
     void gameLoop();
     
     /**
-     * Helper function that initializes the GLFW window.
+     * Helper method that initializes the GLFW window.
      */
     GLFWwindow* initializeGraphics();
     
     /**
      * The method that updates the GraphicsView.
      */
-    void graphicsLoop(GLFWwindow* window);
+    void viewLoop();
     
     /**
      * How quickly the game logic updates. 1 over the number of updates per second.
@@ -56,11 +60,6 @@ private:
      * Boolean that represents whether the game should exit or not.
      */
     bool shouldExit;
-    
-    /**
-     * Test value that is updated by the game logic and drawn by the GraphicsView.
-     */
-    float colorValue;
 };
 
 #endif

@@ -4,15 +4,22 @@
 
 InputManager::InputManager()
 {
-};
+}
+
+InputManager::~InputManager()
+{
+}
+
+void InputManager::CopyFrom(InputManager* other)
+{
+   this->inputView = other->inputView; 
+   this->registeredKeyPressEventHandlers = other->registeredKeyPressEventHandlers;
+   this->registeredKeyReleaseEventHandlers = other->registeredKeyReleaseEventHandlers;
+}
 
 void InputManager::SetView(InputView* inputView)
 {
-	if (this->inputView != inputView)
-	{
-		this->inputView = inputView;
-		inputView->SetManager(this);
-	}
+	this->inputView = inputView;
 }
 
 void InputManager::RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes)
@@ -25,7 +32,7 @@ void InputManager::RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, 
 		this->registeredKeyPressEventHandlers[intCode] = handlers;
 		(this->inputView)->registerKeyPress(keyCode);
 	}
-};
+}
 
 void InputManager::DeregisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes)
 {
@@ -87,3 +94,4 @@ void InputManager::OnKeyReleaseEvent(KeyReleaseEvent* event)
        handler->OnKeyReleaseEvent(event);
     }
 };
+    

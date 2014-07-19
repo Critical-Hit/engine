@@ -1,29 +1,19 @@
 #include "Controller.h"
+#include "GraphicsManager.h"
+#include "InputManager.h"
+#include "SoundManager.h"
 
 Controller::Controller()
 {
-    this->colorValue = 0.0f;
     this->shouldExit = false;
 }
 
 void Controller::Start()
 {
-    // Initialize the graphics library.
-    GLFWwindow* window;
-    glfwInit();
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-    }
-    glfwMakeContextCurrent(window);
-    
     // Start the main game loop on a different thread.
     std::thread gameThread(&Controller::gameLoop, this);
-    this->graphicsLoop(window);
+    this->viewLoop();
     gameThread.join();
-    
-    glfwTerminate();
 }
 
 void Controller::gameLoop()
@@ -37,24 +27,34 @@ void Controller::gameLoop()
         i++;
         double startTime = glfwGetTime();
 
-        colorValue = manager.Update();
+        manager.Update();
         
         while((glfwGetTime() - startTime) <= Controller::UPDATE_RATE)
         { }
     }
 }
 
-void Controller::graphicsLoop(GLFWwindow* window)
+void Controller::viewLoop()
 {
-    GraphicsView graphicsView;
-    graphicsView.Initialize(window);
+    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    GraphicsView graphicsView; 
+    graphicsView.Initialize();
     graphicsView.OnWindowClose = [this] () { this->shouldExit = true; };
-    
+    InputView inputView;
+    inputView.Initialize(window);
+    SoundView soundView;
+    soundView.Initialize();
+    ResourceView resourceView;
+    resourceView.Initialize();
+
     while(!this->shouldExit)
     {
         double startTime = glfwGetTime();
         
-        graphicsView.Update(this->colorValue);
+        graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
+        inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
+        soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
+        resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
         
         while((glfwGetTime() - startTime) <= Controller::FRAMERATE)
         { }

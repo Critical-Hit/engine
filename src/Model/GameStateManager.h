@@ -3,6 +3,7 @@
 
 #include <stack>
 
+#include "ControllerPackage.h"
 #include "GameState.h"
 class GameState;
 
@@ -13,20 +14,20 @@ class GameState;
 class GameStateManager
 {
 public:
+	/**
+	 * Constructor that creates a new GameStateManager with a pointer to a ControllerPackage
+	 */
+	GameStateManager();
+
     /**
-     * Default constructor that creates a new instance of a GameStateManager.
-     */
-    GameStateManager();
-    
-    /**
-     * Adds and initializes the given state to the GameStatemanager.
+     * Adds and initializes the given state to the GameStateManager.
      */
     void Initialize(GameState* state);
     
     /**
      * Updates the current state.
      */
-    float Update();
+    void Update();
     
     /**
      * Pauses the current state and starts the given state.

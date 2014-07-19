@@ -2,18 +2,33 @@
 
 GraphicsView::GraphicsView()
 {
-    
+
 }
 
-void GraphicsView::Initialize(GLFWwindow* window)
+GraphicsView::~GraphicsView()
 {
+    glfwTerminate();
+}
+
+void GraphicsView::Initialize()
+{
+    // Initialize the graphics library.
+    // @TODO: GLFW window scope should be Controller, not View.
+    // Transfer control of window to Controller
+    GLFWwindow* window;
+    glfwInit();
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+    }
+    glfwMakeContextCurrent(window);
     this->window = window;
 }
 
-void GraphicsView::Update(float colorValue)
+void GraphicsView::Update(GraphicsManager* graphicsManager)
 {
-    // Update and render your GraphicsView here.
-    glClearColor(0.0f, colorValue, colorValue, 1.0f);
+    glClearColor(0.0f, graphicsManager->GetClearColor(), graphicsManager->GetClearColor(), 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(this->window);
     glfwPollEvents();

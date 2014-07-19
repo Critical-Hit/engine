@@ -8,8 +8,10 @@
 #include "IKeyPressEventHandler.h"
 #include "IKeyReleaseEventHandler.h"
 #include "set"
+#include "ControllerPackage.h"
 
 class InputManager;
+
 /**
  * Provides a full set of logic for accessing input.
  * 
@@ -19,9 +21,9 @@ class InputView
 {
 public:
     /**
-     * Default constructor that creates a new instance of a Controller.
+     * Default constructor that creates a new instance of an InputView.
      */
-    InputView(GLFWwindow* window);
+    InputView();
     
     /**
      * Initializes the InputView.
@@ -31,7 +33,7 @@ public:
     /**
      * Updates the InputView.
      */
-    void Update();
+    void Update(InputManager* inputManager);
 
     /**
      * Poll the state of a key. This function may be useful in some circumstances, e.g. synchronizing 

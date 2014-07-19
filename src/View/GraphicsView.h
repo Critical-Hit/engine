@@ -4,30 +4,36 @@
 #include <GLFW/glfw3.h>
 #include <functional>
 
+#include "ControllerPackage.h"
+#include "GraphicsManager.h"
+
 /**
  * Provides a full set of logic for displaying graphics.
  * 
- * Currently, this is simply cleraing to a particular color, given to the
- * update method.
+ * Currently, this is simply clearing to a particular color.
  */
 class GraphicsView
 {
 public:
     /**
-     * Default constructor that creates a new instance of a Controller.
+     * Constructs a GraphicsView with a given controller package.
      */
     GraphicsView();
     
     /**
+     * Destructor for GraphicsView
+     */
+    ~GraphicsView();
+
+    /**
      * Initializes the GraphicsView.
      */
-    void Initialize(GLFWwindow* window);
+    void Initialize();
     
     /**
-     * Updates the GraphicsView, causing it to clear the screen to the
-	 * given color value.
+     * Updates the GraphicsView.
      */
-    void Update(float colorValue);
+    void Update(GraphicsManager* graphicsManager);
     
     /**
      * Function to call if the user attempts to close the GLFW Window.
