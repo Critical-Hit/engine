@@ -28,9 +28,9 @@ void GraphicsManager::SetClearColor(Color clearColor)
 void GraphicsManager::RegisterSprite(Sprite* sprite)
 {
 	this->registeredSpritesMutex.lock();
-	int registeredCountBeforeAdd = this->registeredSprites.size();
+	int registeredCountBeforeAdd = (int)this->registeredSprites.size();
 	this->registeredSprites.insert(sprite);
-	if ((registeredCountBeforeAdd + 1) != this->registeredSprites.size())
+	if ((registeredCountBeforeAdd + 1) != (int)this->registeredSprites.size())
 	{
 		throw new std::invalid_argument("A sprite was registered that was already registered.");
 	}
@@ -40,9 +40,9 @@ void GraphicsManager::RegisterSprite(Sprite* sprite)
 void GraphicsManager::UnRegisterSprite(Sprite* sprite)
 {
 	this->registeredSpritesMutex.lock();
-	int registeredCountBeforeAdd = this->registeredSprites.size();
+	int registeredCountBeforeAdd = (int)this->registeredSprites.size();
 	this->registeredSprites.erase(sprite);
-	if ((registeredCountBeforeAdd - 1) != this->registeredSprites.size())
+	if ((registeredCountBeforeAdd - 1) != (int)this->registeredSprites.size())
 	{
 		throw new std::invalid_argument("A sprite was unregistered that wasn't registered.");
 	}
@@ -51,7 +51,7 @@ void GraphicsManager::UnRegisterSprite(Sprite* sprite)
 
 int GraphicsManager::GetSpriteCount()
 {
-	return this->registeredSprites.size();
+	return (int)this->registeredSprites.size();
 }
 
 void GraphicsManager::PrepareToAddSprites()
