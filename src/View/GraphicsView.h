@@ -12,7 +12,7 @@
  * 
  * Currently, this is simply clearing to a particular color.
  */
-class GraphicsView
+class GraphicsView final
 {
 public:
     /**
@@ -48,7 +48,12 @@ private:
     /**
      * The GLFW Window to draw to.
      */
-    GLFWwindow* window;
+	GLFWwindow* window;
+
+	/**
+	 * Utility function for checking OpenGL errors
+	 */
+	void CheckOpenGLError();
 };
 
 #endif
