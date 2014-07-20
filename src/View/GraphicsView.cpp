@@ -8,18 +8,6 @@ GraphicsView::GraphicsView(ControllerPackage* controllerPackage)
 
 void GraphicsView::Initialize(GLFWwindow* window)
 {
-    GLuint tex_2d = SOIL_load_OGL_texture
-    (
-     "meeseeks.png",
-     SOIL_LOAD_AUTO,
-     SOIL_CREATE_NEW_ID,
-     SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-     );
-    
-    if(tex_2d == 0)
-    {
-        printf("Error loading Image");
-    }
     this->window = window;
 }
 

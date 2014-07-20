@@ -6,7 +6,6 @@
 
 #include "ControllerPackage.h"
 #include "GraphicsManager.h"
-#include "Texture.h"
 
 /**
  * Provides a full set of logic for displaying graphics.

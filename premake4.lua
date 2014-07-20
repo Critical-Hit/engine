@@ -18,10 +18,10 @@ solution "Engine"
     configuration {"macosx", "gmake"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3", "soil2"}
     configuration {"windows", "vs2010"}
         platforms {"x64"}
-        links {"OpenGL32", "glfw3"}
+        links {"OpenGL32", "glfw3", "soil2"}
         includedirs{"include"}
         libdirs {"lib"}
 
@@ -45,7 +45,7 @@ project "Core"
         }
     end
     configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3", "soil2"}
 
 project "Modules"
     kind "StaticLib"
