@@ -28,7 +28,7 @@ public:
     /**
      * Initializes the GraphicsView.
      */
-    void Initialize();
+    void Initialize(GLFWwindow* window);
     
     /**
      * Updates the GraphicsView.
