@@ -38,14 +38,21 @@ project "Core"
     includedirs {
         "include",
         "src/**",
-        "modules/**"
+        "modules/**",
+        "Game",
+        "Game/**"
     }
     libdirs {
         "lib"
     }
     if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
         links {
-            "Modules"
+            "Modules",
+            "Game"
+        }
+    else
+        links {
+            "Game"
         }
     end
     configuration {"macosx", "xcode3"}
@@ -62,3 +69,28 @@ project "Modules"
         "ExtraWarnings"
     }
     
+project "Game"
+    kind "StaticLib"
+    language "C++"
+    files {
+        "Game/**.h",
+        "Game/**.cpp"
+    }
+    includedirs {
+        "include",
+        "src/**",
+        "modules/**",
+        "Game",
+        "Game/**"
+    }
+    libdirs {
+        "lib"
+    }
+    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
+        links {
+            "Modules"
+        }
+    end
+
+
+
