@@ -8,6 +8,10 @@ GraphicsView::GraphicsView(ControllerPackage* controllerPackage)
 
 void GraphicsView::Initialize(GLFWwindow* window)
 {
+    //TEST CODE FOR THE SOIL2 LIBRARY
+    new Texture();
+    
+    //END TEST CODE
     this->window = window;
 }
 

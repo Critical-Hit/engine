@@ -13,7 +13,11 @@ Texture::Texture()
     
     if(this->textureID == 0)
     {
-        printf("Error loading Image");
+        printf("Error loading Image.\n");
+    }
+    else
+    {
+        printf("Image load successfull.\n");
     }
 }
 
