@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "InputManager.h"
 #include "KeyPressEvent.h"
 #include "KeyReleaseEvent.h"
@@ -106,12 +105,4 @@ void InputManager::OnKeyReleaseEvent(KeyReleaseEvent* event)
        handler->OnKeyReleaseEvent(event);
     }
 };
-    
-=======
-#include "InputManager.h"
 
-InputManager::InputManager()
-{
-    
-}
->>>>>>> master
