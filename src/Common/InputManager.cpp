@@ -30,7 +30,6 @@ void InputManager::RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, 
 		std::set<IKeyPressEventHandler*> handlers = this->registeredKeyPressEventHandlers[intCode];
 		handlers.insert(handler);
 		this->registeredKeyPressEventHandlers[intCode] = handlers;
-		(this->inputView)->registerKeyPress(keyCode);
 	}
 }
 
@@ -42,7 +41,6 @@ void InputManager::DeregisterKeyPressEventHandler(IKeyPressEventHandler* handler
 		std::set<IKeyPressEventHandler*> handlers = this->registeredKeyPressEventHandlers[intCode];
         handlers.erase(handler);
 		this->registeredKeyPressEventHandlers[intCode] = handlers;
-		(this->inputView)->deregisterKeyPress(keyCode);
 	}
 };
 
@@ -54,7 +52,6 @@ void InputManager::RegisterKeyReleaseEventHandler(IKeyReleaseEventHandler* handl
 		std::set<IKeyReleaseEventHandler*> handlers =  this->registeredKeyReleaseEventHandlers[intCode];
 		handlers.erase(handler);
 		this->registeredKeyReleaseEventHandlers[intCode] = handlers;
-		(this->inputView)->registerKeyRelease(keyCode);
 	}
 };
 
@@ -66,9 +63,23 @@ void InputManager::DeregisterKeyReleaseEventHandler(IKeyReleaseEventHandler* han
 		std::set<IKeyReleaseEventHandler*> handlers = this->registeredKeyReleaseEventHandlers[intCode];
 		handlers.erase(handler);
 		this->registeredKeyReleaseEventHandlers[intCode] = handlers;
-		(this->inputView)->deregisterKeyRelease(keyCode);
-	}
+	};
+
 };
+
+bool InputManager::IsRegisteredKeyPress(KeyCode* keyCode)
+{
+    int intCode = static_cast<int>(*keyCode);
+    std::set<IKeyPressEventHandler*>* handlers = &(this->registeredKeyPressEventHandlers[intCode]);
+    return handlers->size() != 0;
+}
+
+bool InputManager::IsRegisteredKeyRelease(KeyCode* keyCode)
+{
+    int intCode = static_cast<int>(*keyCode);
+    std::set<IKeyReleaseEventHandler*>* handlers = &(this->registeredKeyReleaseEventHandlers[intCode]);
+    return handlers->size() != 0;
+}
 
 InputState InputManager::GetKeyState(KeyCode keyCode)
 {

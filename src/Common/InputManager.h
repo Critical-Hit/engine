@@ -64,9 +64,9 @@ public:
     void DeregisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes);
 
     /**
-     * Get a container which contains all key codes that are registered for KeyPressEvents.
+     *True if the given KEyCode has at least one registered press event handler. False otherwise
      */
-    std::set<KeyCode> GetRegisteredKeyPressKeyCodes();
+    bool IsRegisteredKeyPress(KeyCode* keyCode);
 
     /**
      * Register a KeyReleaseEventHandler to receive KeyReleaseEvents.
@@ -99,9 +99,9 @@ public:
     void DeregisterKeyReleaseEventHandler(IKeyReleaseEventHandler* handler, std::vector<KeyCode> keyCodes);
 
     /**
-     * Get a container which contains all key codes that are registered for KeyReleaseEvents.
+     * True if the given KeyCode has at least one registered release event handler. False otherwise.
      */
-    std::set<KeyCode> GetRegisteredKeyReleaseKeyCodes();
+    bool IsRegisteredKeyRelease(KeyCode* keyCode);
 
     /**
      * Poll the current state of a key.

@@ -24,47 +24,18 @@ void InputView::Update(InputManager* inputManager)
 	this->inputManager = inputManager;
 }
 
-void InputView::SetManager(InputManager* inputManager)
-{
-	if (this->inputManager != inputManager)
-	{
-		this->inputManager = inputManager;
-		inputManager->SetView(this);
-	}
-}
-
-void InputView::registerKeyPress(KeyCode keyCode)
-{
-	registeredKeyPressCodes.insert(keyCode);
-}
-
-void InputView::deregisterKeyPress(KeyCode keyCode)
-{
-	registeredKeyPressCodes.erase(keyCode);
-}
-
-void InputView::registerKeyRelease(KeyCode keyCode)
-{
-	registeredKeyReleaseCodes.insert(keyCode);
-}
-
-void InputView::deregisterKeyRelease(KeyCode keyCode)
-{
-	registeredKeyReleaseCodes.erase(keyCode);
-}
-
 void InputView::keyCallback(GLFWwindow* window, int key, int, int action, int)
 {
 	assert(window);
     if (inputManager != nullptr)
     {
    	    KeyCode keyCode = InputView::keyCode(key);
-	    if ((registeredKeyPressCodes.count(keyCode) != 0) && (action == GLFW_PRESS))
+	    if ((inputManager->IsRegisteredKeyPress(&keyCode)) && (action == GLFW_PRESS))
 	    {
 		    KeyPressEvent event(&keyCode);
 		    inputManager->OnKeyPressEvent(&event);
 	    } 
-	    else if ((registeredKeyReleaseCodes.count(keyCode) != 0) && (action == GLFW_RELEASE))
+	    else if ((inputManager->IsRegisteredKeyRelease(&keyCode)) && (action == GLFW_RELEASE))
 	    {
 	    	KeyReleaseEvent event(&keyCode);
 	    	inputManager->OnKeyReleaseEvent(&event);
