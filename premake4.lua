@@ -1,28 +1,52 @@
 solution "Engine"
     configurations {"Debug", "Release"}
+    -- Debug flags
     configuration "Debug"
-        flags {"Symbols"}
+        flags {"ExtraWarnings", "Symbols"}
         targetdir ("bin/debug")
+
+    -- Release Flags
     configuration "Release"
-        flags {"Optimize"}
+        flags {"ExtraWarnings", "Optimize"}
         targetdir ("bin/release")
+
+    -- Linux + Make
     configuration {"linux", "gmake" }
         platforms {"x64"}
         buildoptions {"-std=c++11"}
-        links {"GL", "glfw", "soil2"}
+        links {"GL", "glfw", "soil2-linux"}
+
+    -- Max OSX, all build tools
+    configuration {"macosx"}
+        platforms {"Universal64"}
+        buildoptions {"-std=c++11"}
+        links {
+            "OpenGL.framework",
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
+            "glfw3", 
+            "soil2"
+        }
+
+    -- Mac OSX + XCode
     configuration {"macosx", "xcode3"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
         includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib", "lib"}
+        libdirs {"/usr/local/lib"}
+
+    -- Mac OSX + Make
     configuration {"macosx", "gmake"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3", "soil2"}
+        -- Nothing specific here... yet!
+
+    -- Windows + Visual Studio
     configuration {"windows", "vs2010"}
         platforms {"x64"}
-        links {"OpenGL32", "glfw3", "soil2"}
-        libdirs {"lib"}
+        links {"OpenGL32", "glfw3"}
+    configuration {"windows", "vs2010", "Debug"}
+        -- // TODO: Build warning 'LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library'
+        links {"soil2-windows-debug"}
+    configuration {"windows", "vs2010", "Release"}
+        links {"soil2-windows-release"}
 
 project "Core"
     kind "ConsoleApp"
@@ -30,9 +54,6 @@ project "Core"
     files {
         "src/**.h",
         "src/**.cpp"
-    }
-    flags {
-        "ExtraWarnings"
     }
     includedirs {
         "include",
@@ -47,8 +68,6 @@ project "Core"
             "Modules"
         }
     end
-    configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3", "soil2"}
 
 project "Modules"
     kind "StaticLib"
@@ -57,7 +76,3 @@ project "Modules"
         "modules/**.h",
         "modules/**.cpp"
     }
-    flags {
-        "ExtraWarnings"
-    }
-    
