@@ -36,8 +36,12 @@ project "Core"
         "ExtraWarnings"
     }
     includedirs {
+        "include",
         "src/**",
         "modules/**"
+    }
+    libdirs {
+        "lib"
     }
     if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
         links {

@@ -2,9 +2,9 @@
 #include "GraphicsView.h"
 #include "Sprite.h"
 
-GraphicsView::GraphicsView()
+GraphicsView::GraphicsView(GLFWwindow* window)
 {
-
+    this->window = window;
 }
 
 GraphicsView::~GraphicsView()
@@ -14,16 +14,6 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::Initialize()
 {
-    // Initialize the graphics library.
-    GLFWwindow* window;
-    glfwInit();
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-{
-        glfwTerminate();
-    }
-    glfwMakeContextCurrent(window);
-    this->window = window;
 }
 
 void GraphicsView::Update(GraphicsManager* graphicsManager)
@@ -54,7 +44,6 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	
 	// Swap the buffers
     glfwSwapBuffers(this->window);
-    glfwPollEvents();
     
     // Call OnWindowClose if the user closed the Window.
     if(glfwWindowShouldClose(window) && this->OnWindowClose != NULL)

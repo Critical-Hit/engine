@@ -20,7 +20,7 @@ void Controller::gameLoop()
 {
     GameStateManager manager;
     manager.Initialize(new InitialState());
-    
+
     int i = 0;
     while(!this->shouldExit)
     {
@@ -36,10 +36,14 @@ void Controller::gameLoop()
 
 void Controller::viewLoop()
 {
-    GraphicsView graphicsView; 
+    glfwInit();
+    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    glfwMakeContextCurrent(window);
+
+    GraphicsView graphicsView(window); 
     graphicsView.Initialize();
     graphicsView.OnWindowClose = [this] () { this->shouldExit = true; };
-    InputView inputView;
+    InputView inputView(window);
     inputView.Initialize();
     SoundView soundView;
     soundView.Initialize();
@@ -49,13 +53,21 @@ void Controller::viewLoop()
     while(!this->shouldExit)
     {
         double startTime = glfwGetTime();
-        
+
+        glfwPollEvents();
+
         graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
         inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
         soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
         resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
-        
+
         while((glfwGetTime() - startTime) <= Controller::FRAMERATE)
         { }
     }
+
+    // Window close events
+    graphicsView.OnWindowClose();
+    glfwDestroyWindow(window);
+    glfwTerminate();
 }
+

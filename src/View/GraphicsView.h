@@ -12,13 +12,13 @@
  * 
  * Currently, this is simply clearing to a particular color.
  */
-class GraphicsView final
+class GraphicsView
 {
 public:
     /**
      * Constructs a GraphicsView with a given controller package.
      */
-    GraphicsView();
+    GraphicsView(GLFWwindow* window);
     
     /**
      * Destructor for GraphicsView
@@ -48,12 +48,13 @@ private:
     /**
      * The GLFW Window to draw to.
      */
-	GLFWwindow* window;
+    GLFWwindow* window;
 
-	/**
+    /**
 	 * Utility function for checking OpenGL errors
 	 */
 	void CheckOpenGLError();
+
 };
 
 #endif
