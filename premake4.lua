@@ -9,11 +9,11 @@ solution "Engine"
     configuration {"linux", "gmake" }
         platforms {"x64"}
         buildoptions {"-std=c++11"}
-        links {"GL", "glfw"}
+        links {"GL", "glfw", "soil2"}
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        includedirs {"/usr/local/include", "include"}
+        includedirs {"/usr/local/include"}
         libdirs {"/usr/local/lib", "lib"}
     configuration {"macosx", "gmake"}
         platforms {"Universal64"}
@@ -22,7 +22,6 @@ solution "Engine"
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         links {"OpenGL32", "glfw3", "soil2"}
-        includedirs{"include"}
         libdirs {"lib"}
 
 project "Core"
@@ -36,8 +35,12 @@ project "Core"
         "ExtraWarnings"
     }
     includedirs {
+        "include",
         "src/**",
         "modules/**"
+    }
+    libdirs {
+        "lib"
     }
     if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
         links {
