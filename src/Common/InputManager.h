@@ -22,7 +22,7 @@ public:
      */
     InputManager();
 
-    virtual ~InputManager();
+    ~InputManager();
 
     void Update();
 

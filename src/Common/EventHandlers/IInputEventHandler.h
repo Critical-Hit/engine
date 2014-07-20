@@ -8,6 +8,8 @@
  */
 class IInputEventHandler : public IEventHandler
 {
+public:
+    virtual ~IInputEventHandler() {};
 };
 
 

@@ -9,8 +9,9 @@ class KeyReleaseEvent;
  */
 class IKeyReleaseEventHandler : IKeyEventHandler
 {
-    public:
-        virtual void OnKeyReleaseEvent(KeyReleaseEvent* event) = 0;
+public:
+    virtual ~IKeyReleaseEventHandler() {};
+    virtual void OnKeyReleaseEvent(KeyReleaseEvent* event) = 0;
 };
 
 #endif

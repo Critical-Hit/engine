@@ -8,6 +8,8 @@
  */
 class IKeyEventHandler : public IInputEventHandler
 {
+public:
+    virtual ~IKeyEventHandler() {};
 };
 
 #endif

@@ -6,6 +6,8 @@
  */
 class IEventHandler
 {
+public:
+    virtual ~IEventHandler() {};
 };
 
 #endif

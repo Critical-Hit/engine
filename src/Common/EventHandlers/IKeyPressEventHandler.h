@@ -9,8 +9,9 @@ class KeyPressEvent;
  */
 class IKeyPressEventHandler : IKeyEventHandler
 {
-    public:
-        virtual void OnKeyPressEvent(KeyPressEvent* event) = 0;
+public:
+    virtual ~IKeyPressEventHandler() {};
+    virtual void OnKeyPressEvent(KeyPressEvent* event) = 0;
 };
 
 #endif
