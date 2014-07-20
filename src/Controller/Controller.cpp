@@ -36,16 +36,15 @@ void Controller::gameLoop()
 
 void Controller::viewLoop()
 {
-
     glfwInit();
     GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     glfwMakeContextCurrent(window);
 
-    GraphicsView graphicsView; 
-    graphicsView.Initialize(window);
+    GraphicsView graphicsView(window); 
+    graphicsView.Initialize();
     graphicsView.OnWindowClose = [this] () { this->shouldExit = true; };
-    InputView inputView;
-    inputView.Initialize(window);
+    InputView inputView(window);
+    inputView.Initialize();
     SoundView soundView;
     soundView.Initialize();
     ResourceView resourceView;
@@ -68,7 +67,7 @@ void Controller::viewLoop()
 
     // Window close events
     graphicsView.OnWindowClose();
-
     glfwDestroyWindow(window);
     glfwTerminate();
 }
+
