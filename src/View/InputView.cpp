@@ -6,15 +6,15 @@
 #include "assert.h"
 InputView* InputView::instance;
 
-InputView::InputView()
+InputView::InputView(GLFWwindow* window)
 {
+    this->window = window;
     this->inputManager = nullptr;
     InputView::instance = this;
 };
 
-void InputView::Initialize(GLFWwindow* window)
+void InputView::Initialize()
 {
-    this->window = window;
     glfwSetInputMode(window, GLFW_CURSOR_NORMAL, GL_FALSE);
 	glfwSetKeyCallback(window, InputView::keyCallbackDispatcher);
 }

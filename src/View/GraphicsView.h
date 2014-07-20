@@ -18,7 +18,7 @@ public:
     /**
      * Constructs a GraphicsView with a given controller package.
      */
-    GraphicsView();
+    GraphicsView(GLFWwindow* window);
     
     /**
      * Destructor for GraphicsView
@@ -28,7 +28,7 @@ public:
     /**
      * Initializes the GraphicsView.
      */
-    void Initialize(GLFWwindow* window);
+    void Initialize();
     
     /**
      * Updates the GraphicsView.
@@ -49,6 +49,12 @@ private:
      * The GLFW Window to draw to.
      */
     GLFWwindow* window;
+
+    /**
+	 * Utility function for checking OpenGL errors
+	 */
+	void CheckOpenGLError();
+
 };
 
 #endif

@@ -23,12 +23,12 @@ public:
     /**
      * Default constructor that creates a new instance of an InputView.
      */
-    InputView();
+    InputView(GLFWwindow* window);
     
     /**
      * Initializes the InputView.
      */
-    void Initialize(GLFWwindow* window);
+    void Initialize();
     
     /**
      * Updates the InputView.
