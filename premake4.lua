@@ -26,7 +26,7 @@ solution "Engine"
             "IOKit.framework", 
             "CoreVideo.framework", 
             "glfw3", 
-            "soil2"
+            "soil2-mac"
         }
 
     -- Mac OSX + XCode
