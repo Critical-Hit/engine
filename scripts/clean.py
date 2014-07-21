@@ -7,7 +7,7 @@ def removeFile(filename):
 filesToRemove = ["obj", "bin", "*.suo", "*.sdf"]
 
 def main():
-    print "Cleaning Directory..."
+    print ("Cleaning Directory...")
     for file in filesToRemove:
         removeFile(file) 
 
