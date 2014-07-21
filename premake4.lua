@@ -92,5 +92,7 @@ project "Game"
         }
     end
 
-
+if _ACTION == "clean" then
+    os.execute("python scripts/clean.py")
+end
 

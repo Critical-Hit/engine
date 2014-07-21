@@ -18,6 +18,8 @@ Add C:\premake4\bin to your PATH user environment variable:
 1. Type "environment variables" into the Start Menu search menu to access Environment Variables.  
 1. If Path already exists in User variables, edit it and add "C:\premake4\bin;" to the front.  If Path doesn't exist, create a new variable with "Path" for the name and "C:\premake4\bin" for the value.
 
+If you do not already have Python installed (you can check with python --version), install it from [here](http://python.org/downloads), and add "C:\Pythonxx;" where xx is the verion you installed (34 for python 3.4) to your PATH user environment variable as described above.
+
 OpenGL is statically linked in Visual Studio and GLFW is statically linked in the project source, so installing them separately is not required.
 
 Generate the Visual Studio Project and run the build:
@@ -57,6 +59,9 @@ You will have to log out and in again to apply this change.
 
 You will then have to build GLFW from source. See [GLFW's Download page](http://www.glfw.org/download.html) for more information.
 
+###Python
+Python is probably already installed, you can check with `python --version`, if it is not installed you can download it from [here](http://python.org/downloads).
+
 ###Build Tool
 
 You can use either of two options to develop and build: XCode or the command line with GNU Make.
@@ -81,6 +86,7 @@ Use your distribution's package manager to install the build dependencies:
 * Make
 * Premake >= 4.3
 * glfw >= 3.0
+* python >= 2.5
 
 We are compiling in C++11 mode, so recent versions of GCC are preferred. We also assume that you have a GUI and graphics driver installed.
 
