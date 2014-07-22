@@ -80,6 +80,16 @@ private:
     int glfwKeyCode(KeyCode keyCode);
 
     /**
+     * Converts a GLFW mouse macro to an engine MouseCode.
+     */
+    MouseCode mouseCode(int glfwMouseMacro);
+
+    /**
+     * Converts an engine MouseCode to a GLFW mouse macro.
+     */
+    int glfwMouseMacro(MouseCode glfwMouseMacro);
+
+    /**
      * Converts a GLFW input state to an engine input state.
      */
     InputState keyState(int glfwInputState);

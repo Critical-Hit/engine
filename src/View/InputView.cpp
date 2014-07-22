@@ -507,3 +507,54 @@ int InputView::glfwKeyCode(KeyCode keyCode)
 		   return GLFW_KEY_UNKNOWN;
 	}
 }
+
+MouseCode InputView::mouseCode(int glfwMouseMacro)
+{
+    switch(glfwMouseMacro)
+    {
+        case GLFW_MOUSE_BUTTON_1:
+            return MouseCode::MOUSE_1;
+        case GLFW_MOUSE_BUTTON_2:
+            return MouseCode::MOUSE_2;
+        case GLFW_MOUSE_BUTTON_3:
+            return MouseCode::MOUSE_3;
+        case GLFW_MOUSE_BUTTON_4:
+            return MouseCode::MOUSE_4;
+        case GLFW_MOUSE_BUTTON_5:
+            return MouseCode::MOUSE_5;
+        case GLFW_MOUSE_BUTTON_6:
+            return MouseCode::MOUSE_6;
+        case GLFW_MOUSE_BUTTON_7:
+            return MouseCode::MOUSE_7;
+        case GLFW_MOUSE_BUTTON_8:
+            return MouseCode::MOUSE_8;
+        default:
+            return MouseCode::MOUSE_UNKNOWN;
+    }
+}
+
+int InputView::glfwMouseMacro(MouseCode mouseCode)
+{
+    switch(mouseCode)
+    {
+        case MouseCode::MOUSE_1:
+            return GLFW_MOUSE_BUTTON_1;
+        case MouseCode::MOUSE_2:
+            return GLFW_MOUSE_BUTTON_2;
+        case MouseCode::MOUSE_3:
+            return GLFW_MOUSE_BUTTON_3;
+        case MouseCode::MOUSE_4:
+            return GLFW_MOUSE_BUTTON_4;
+        case MouseCode::MOUSE_5:
+            return GLFW_MOUSE_BUTTON_5;
+        case MouseCode::MOUSE_6:
+            return GLFW_MOUSE_BUTTON_6;
+        case MouseCode::MOUSE_7:
+            return GLFW_MOUSE_BUTTON_7;
+        case MouseCode::MOUSE_8:
+            return GLFW_MOUSE_BUTTON_8;
+        case MouseCode::MOUSE_UNKNOWN:
+            // GLFW has no macro for unknown mouse button
+            return GLFW_MOUSE_BUTTON_LAST;
+    }
+}
