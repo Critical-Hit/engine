@@ -1,11 +1,11 @@
 #include "Texture.h"
 
 
-Texture::Texture()
+Texture::Texture(int textureID, char* fileName)
 {
     this->textureID =  SOIL_load_OGL_texture
     (
-     "../../meeseeks.png",
+     fileName,
      SOIL_LOAD_AUTO,
      SOIL_CREATE_NEW_ID,
      SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -17,7 +17,7 @@ Texture::Texture()
     }
     else
     {
-        printf("Image load successfull.\n");
+        this->textureID = textureID;
     }
 }
 
@@ -26,7 +26,12 @@ Texture::~Texture()
 
 }
 
-GLuint Texture::GetTextureID()
+GLuint Texture::GetTextureUnit()
+{
+    return this->textureUnit;
+}
+
+int Texture::GetTextureID()
 {
     return this->textureID;
 }

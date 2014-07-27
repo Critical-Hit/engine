@@ -9,19 +9,21 @@
 class Texture
 {
 public:
-	Texture();
+	Texture(int textureID, char* fileName);
 	~Texture();
     
     Texture(char* filePath);
     
-    GLuint GetTextureID();
+    GLuint GetTextureUnit();
+    int GetTextureID();
 
 
 private:
 	Texture operator=(Texture& other);
 	Texture(Texture& other);
     
-    GLuint textureID;
+    GLuint textureUnit;
+    int textureID;
 };
 
 
