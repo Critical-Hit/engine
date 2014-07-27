@@ -25,27 +25,6 @@ solution "Engine"
         includedirs{"core/include"}
         libdirs {"core/lib"}
 
-moduleNames = os.matchdirs("modules/*")
-for i = 1,table.getn(moduleNames) do
-    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
-end
-
-for i = 1,table.getn(moduleNames) do
-    print(moduleNames[i])
-end
-
-for i = 1,table.getn(moduleNames) do
-    project (moduleNames[i])
-    kind "StaticLib"
-    language "C++"
-    files {
-        "modules/" .. moduleNames[i] .. "/**.h"
-    }
-    flags {
-        "ExtraWarnings"
-    }
-end
-
 project "Core"
     kind "ConsoleApp"
     language "C++"
@@ -67,6 +46,7 @@ project "Core"
     }
     links {
       --  "Modules",
+	  "testModule",
         "Game",
     }
     --links[2] = moduleNames[1]
@@ -110,5 +90,30 @@ project "Game"
             "Core"
         }
     end
+moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
+
+for i = 1,table.getn(moduleNames) do
+    print(moduleNames[i])
+end
+
+for i = 1,table.getn(moduleNames) do
+    project (moduleNames[i])
+    kind "StaticLib"
+    language "C++"
+    includedirs {
+	   "modules/**"
+    }
+    files {
+        --"modules/" .. moduleNames[i] .. "/**.h"
+        "modules/testModule/src/**.h",
+        "modules/testModule/src/**.cpp"
+    }
+    flags {
+        "ExtraWarnings"
+    }
+end
 
 
