@@ -86,7 +86,6 @@ project "Game"
     libdirs {
         "game/lib"
     }
-    links {"Core"}
 
 for i = 1,table.getn(moduleNames) do
     project (moduleNames[i])
