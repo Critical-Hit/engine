@@ -50,6 +50,8 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     {
         this->OnWindowClose();
     }
+
+	GraphicsView::CheckOpenGLError();
 }
 
 void GraphicsView::CheckOpenGLError()
