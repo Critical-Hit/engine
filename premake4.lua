@@ -25,6 +25,12 @@ solution "Engine"
         includedirs{"core/include"}
         libdirs {"core/lib"}
 
+
+moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
+
 project "Core"
     kind "ConsoleApp"
     language "C++"
@@ -44,11 +50,11 @@ project "Core"
     libdirs {
         "core/lib"
     }
-    links {
-      --  "Modules",
-	  "testModule",
-        "Game",
-    }
+    links {"Game"}
+    for i = 1,table.getn(moduleNames) do
+        links {moduleNames[i]}
+    end
+
     --links[2] = moduleNames[1]
     configuration {"macosx", "xcode3"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
@@ -80,24 +86,7 @@ project "Game"
     libdirs {
         "game/lib"
     }
-    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
-        links {
-            "Modules",
-            "Core"
-        }
-    else
-        links {
-            "Core"
-        }
-    end
-moduleNames = os.matchdirs("modules/*")
-for i = 1,table.getn(moduleNames) do
-    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
-end
-
-for i = 1,table.getn(moduleNames) do
-    print(moduleNames[i])
-end
+    links {"Core"}
 
 for i = 1,table.getn(moduleNames) do
     project (moduleNames[i])
