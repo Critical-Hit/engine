@@ -14,10 +14,6 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::Initialize()
 {
-    //TEST CODE FOR THE SOIL2 LIBRARY
-    new Texture();
-    
-    //END TEST CODE
     this->window = window;
 
 }
