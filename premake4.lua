@@ -88,8 +88,8 @@ project "Game"
     kind "StaticLib"
     language "C++"
     files {
-        "Game/**.h",
-        "Game/**.cpp"
+        "game/**.h",
+        "game/**.cpp"
     }
     includedirs {
         "game/include",
