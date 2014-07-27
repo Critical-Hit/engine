@@ -2,18 +2,15 @@
 #define Core_InputView_h
 
 #include "GLFW/glfw3.h"
+#include "InputManager.h"
 #include "InputState.h"
 #include "InputCode.h"
 #include "IInputEventHandler.h"
 #include "set"
 #include "ControllerPackage.h"
 
-class InputManager;
-
 /**
  * Provides a full set of logic for accessing input.
- * 
- * Currently does nothing, though.
  */
 class InputView
 {
@@ -39,6 +36,24 @@ public:
      * the more efficient event- based system. 
      */
     InputState GetKeyState(KeyCode keyCode);
+
+    /**
+     * Set the mouse cursor behavior.
+     * @param mode one of the following:
+     *        MouseInputMode::SHOW - Draw the operating system cursor.
+     *        MouseInputMode::HIDE - Hide the operating system cursor.
+     *        MouseInputMode::HIDE_AND_LOCK - Hide the operating system cursor and lock the cursor to the game window.
+     */
+    void SetMouseInputMode(MouseInputMode mode);
+
+    /**
+     * Get the current mouse cursor behavior.
+     * @return one of the following:
+     *         MouseInputMode::SHOW - The operating system cursor is being drawn.
+     *         MouseInputMode::HIDE - The operating system cursor is hidden.
+     *         MouseInputMode::HIDE_AND_LOCK - The operating system cursor is hidden and the cursor is locked to the game window.
+     */
+    MouseInputMode GetMouseInputMode();
     
     /**
      * Function conforming to GLFWkeyfun typedef. Used to couple with GLFW callback system for

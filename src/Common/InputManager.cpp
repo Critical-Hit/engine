@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include "InputView.h"
 #include "KeyPressEvent.h"
 #include "KeyReleaseEvent.h"
 
@@ -20,6 +21,16 @@ void InputManager::CopyFrom(InputManager* other)
 void InputManager::SetView(InputView* inputView)
 {
 	this->inputView = inputView;
+}
+
+void InputManager::SetMouseInputMode(MouseInputMode mode)
+{
+    (this->inputView)->SetMouseInputMode(mode);
+}
+
+MouseInputMode InputManager::GetMouseInputMode()
+{
+    return (this->inputView)->GetMouseInputMode();
 }
 
 void InputManager::RegisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyCode> keyCodes)

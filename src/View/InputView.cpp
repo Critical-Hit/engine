@@ -28,6 +28,45 @@ void InputView::Update(InputManager* inputManager)
 	this->inputManager = inputManager;
 }
 
+void InputView::SetMouseInputMode(MouseInputMode mode)
+{
+    if (mode == MouseInputMode::SHOW)
+    {
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    else if (mode == MouseInputMode::HIDE)
+    {
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    }
+    else if (mode == MouseInputMode::HIDE_AND_LOCK)
+    {
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+}
+
+MouseInputMode InputView::GetMouseInputMode()
+{
+    int mode = glfwGetInputMode(this->window, GLFW_CURSOR);
+    if (mode == GLFW_CURSOR_NORMAL) 
+    {
+        return MouseInputMode::SHOW;
+    }
+    else if (mode == GLFW_CURSOR_HIDDEN)
+    {
+        return MouseInputMode::HIDE;
+    }
+    else if (mode == GLFW_CURSOR_DISABLED)
+    {
+        return MouseInputMode::HIDE_AND_LOCK;
+    }
+    else
+    {
+        //We should never reach here... reset the input mode!!
+        this->SetMouseInputMode(MouseInputMode::SHOW);
+        return MouseInputMode::SHOW;
+    }
+}
+
 void InputView::keyboardCallback(GLFWwindow*, int key, int, int action, int)
 {
     if (inputManager != nullptr)

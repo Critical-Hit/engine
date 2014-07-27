@@ -1,7 +1,6 @@
 #ifndef Core_InputManager_h
 #define Core_InputManager_h
 
-#include "InputView.h"
 #include "IInputEventHandler.h"
 #include "InputState.h"
 #include "InputCode.h"
@@ -12,6 +11,17 @@
 class InputView;
 class KeyPressEvent;
 class KeyReleaseEvent;
+class MouseEvent;
+class MouseButtonPressEvent;
+class MouseButtonReleaseEvent;
+
+enum MouseInputMode
+{
+    SHOW,
+    HIDE,
+    HIDE_AND_LOCK
+};
+
 class InputManager : public IInputEventHandler
 {
 public:
@@ -31,6 +41,24 @@ public:
      * Only one InputView may be associated with an InputManager at a time.
      */
     void SetView(InputView* inputView);
+
+    /**
+     * Set the mouse cursor behavior.
+     * @param mode one of the following:
+     *        MouseInputMode::SHOW - Draw the operating system cursor.
+     *        MouseInputMode::HIDE - Hide the operating system cursor.
+     *        MouseInputMode::HIDE_AND_LOCK - Hide the operating system cursor and lock the cursor to the game window.
+     */
+    void SetMouseInputMode(MouseInputMode mode);
+
+    /**
+     * Get the current mouse cursor behavior.
+     * @return one of the following:
+     *         MouseInputMode::SHOW - The operating system cursor is being drawn.
+     *         MouseInputMode::HIDE - The operating system cursor is hidden.
+     *         MouseInputMode::HIDE_AND_LOCK - The operating system cursor is hidden and the cursor is locked to the game window.
+     */
+    MouseInputMode GetMouseInputMode();
 
     /**
      * Register an event handler to receive mouse input events.
