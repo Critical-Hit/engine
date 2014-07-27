@@ -22,42 +22,57 @@ solution "Engine"
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         links {"OpenGL32", "glfw3"}
-        includedirs{"include"}
-        libdirs {"lib"}
+        includedirs{"core/include"}
+        libdirs {"core/lib"}
+
+moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
+
+for i = 1,table.getn(moduleNames) do
+    print(moduleNames[i])
+end
+
+for i = 1,table.getn(moduleNames) do
+    project (moduleNames[i])
+    kind "StaticLib"
+    language "C++"
+    files {
+        "modules/" .. moduleNames[i] .. "/**.h"
+    }
+    flags {
+        "ExtraWarnings"
+    }
+end
 
 project "Core"
     kind "ConsoleApp"
     language "C++"
     files {
-        "src/**.h",
-        "src/**.cpp"
+        "core/src/**.h",
+        "core/src/**.cpp"
     }
     flags {
         "ExtraWarnings"
     }
     includedirs {
-        "include",
-        "src/**",
-        "modules/**",
-        "Game",
-        "Game/**"
+        "core/include",
+        "**/src",
+        "**/src/**",
+        "modules/*/src/**"
     }
     libdirs {
-        "lib"
+        "core/lib"
     }
-    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
-        links {
-            "Modules",
-            "Game"
-        }
-    else
-        links {
-            "Game"
-        }
-    end
+    links {
+      --  "Modules",
+        "Game",
+    }
+    --links[2] = moduleNames[1]
     configuration {"macosx", "xcode3"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
-
+--[[
 project "Modules"
     kind "StaticLib"
     language "C++"
@@ -68,7 +83,7 @@ project "Modules"
     flags {
         "ExtraWarnings"
     }
-    
+   ]] 
 project "Game"
     kind "StaticLib"
     language "C++"
@@ -77,20 +92,23 @@ project "Game"
         "Game/**.cpp"
     }
     includedirs {
-        "include",
-        "src/**",
-        "modules/**",
-        "Game",
-        "Game/**"
+        "game/include",
+        "**/src/**",
+        "**/src",
+        "modules/*/**",
     }
     libdirs {
-        "lib"
+        "game/lib"
     }
     if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
         links {
-            "Modules"
+            "Modules",
+            "Core"
+        }
+    else
+        links {
+            "Core"
         }
     end
-
 
 
