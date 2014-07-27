@@ -14,6 +14,12 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::Initialize()
 {
+    //TEST CODE FOR THE SOIL2 LIBRARY
+    new Texture();
+    
+    //END TEST CODE
+    this->window = window;
+
 }
 
 void GraphicsView::Update(GraphicsManager* graphicsManager)
@@ -44,6 +50,7 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	
 	// Swap the buffers
     glfwSwapBuffers(this->window);
+    
     
     // Call OnWindowClose if the user closed the Window.
     if(glfwWindowShouldClose(window) && this->OnWindowClose != NULL)
