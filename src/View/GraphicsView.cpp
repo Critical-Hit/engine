@@ -21,8 +21,15 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	// Clear the screen
 	Color clearColor = graphicsManager->GetClearColor();
 	glClearColor(clearColor.red, clearColor.green, clearColor.blue, clearColor.alpha);
-	
     glClear(GL_COLOR_BUFFER_BIT);
+
+	Camera* camera = graphicsManager->GetCamera();
+	float left = camera->GetLeft();
+	float right = camera->GetRight();
+	float bottom = camera->GetBottom();
+	float top = camera->GetTop();
+	glOrtho(left, right, bottom, top, 1.0f, 1000.0f);
+	printf("%s\n", camera->ToStringLRTB().c_str());
 
 	float* vertexBuffer;
 	float* colorBuffer;

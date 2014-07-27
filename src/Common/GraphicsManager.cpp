@@ -5,7 +5,7 @@
 #include "Color.h"
 #include "Sprite.h"
 
-GraphicsManager::GraphicsManager() : clearColor(0.0f, 0.0f, 0.0f, 1.0f)
+GraphicsManager::GraphicsManager() : clearColor(0.0f, 0.0f, 0.0f, 1.0f), camera()
 {
 
 }
@@ -52,6 +52,11 @@ void GraphicsManager::UnRegisterSprite(Sprite* sprite)
 int GraphicsManager::GetSpriteCount()
 {
 	return (int)this->registeredSprites.size();
+}
+
+Camera* GraphicsManager::GetCamera()
+{
+	return &(this->camera);
 }
 
 void GraphicsManager::PrepareToAddSprites()
