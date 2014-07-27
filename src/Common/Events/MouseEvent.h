@@ -3,17 +3,25 @@
 
 #include "InputEvent.h"
 
+/**
+ * Input event fired when mouse input occurs
+ */
 class MouseEvent : public InputEvent {
 public:
+    /**
+     * Event constructor
+     * @param absoluteX absolute x-coordinate of the mouse cursor
+     * @param absoluteY absolute y-coordinate of the mouse cursor
+     */
     MouseEvent(double absoluteX, double absoluteY);
 
     /*
-     * Returns the absolute x-coordinate of the cursor.
+     * @return absolute x-coordinate of the cursor.
      */
     double GetAbsoluteX();
 
     /**
-     * Returns the absolute y-coordinate of the cursor.
+     * @return absolute y-coordinate of the cursor.
      */
     double GetAbsoluteY();
 protected:

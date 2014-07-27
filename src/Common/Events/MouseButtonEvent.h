@@ -4,11 +4,23 @@
 #include "MouseEvent.h"
 #include "InputCode.h"
 
+/**
+ * Input event fired when mouse button input occurs
+ */
 class MouseButtonEvent : public MouseEvent
 {
 public:
-    MouseButtonEvent(int absoluteX, int absoluteY, MouseCode button);
-
+    /**
+     * Event constructor.
+     * @param absoluteX absolute x-coordinate of the mouse cursor 
+     * @param absoluteY absolute y-coordiante of the mouse cursor
+     * @param button button which caused the event
+     */
+    MouseButtonEvent(double absoluteX, double absoluteY, MouseCode button);
+    
+    /**
+     * @return button which caused the event
+     */
     MouseCode GetMouseButton();
 protected:
     MouseCode button;

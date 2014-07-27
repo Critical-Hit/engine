@@ -1,13 +1,15 @@
-#ifndef Core_MousePositionEvent_h
-#define Core_MousePositionEvent_h
+#ifndef Core_MouseButtonPressEvent_h
+#define Core_MouseButtonPressEvent_h
 
 #include "MouseButtonEvent.h"
-#include "InputCode.h"
 
+/**
+ * Input event fired when a mouse button is pressed
+ */
 class MouseButtonPressEvent : public MouseButtonEvent
 {
 public:
-    MouseButtonPressEvent(int absoluteX, int absoluteY, MouseCode button);
+    using MouseButtonEvent::MouseButtonEvent;
 private:
     // Private constructors to disallow access.
     MouseButtonPressEvent(MouseButtonPressEvent const &other);
