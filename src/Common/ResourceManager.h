@@ -10,6 +10,7 @@ class ResourceManager
 {
 public:
     
+    ResourceManager();
     ~ResourceManager();
     
     //Initializes the ResorceManager
@@ -22,7 +23,6 @@ public:
     GLuint GetTextureUnitFromTextureID(int textureID);
 
 private:
-    ResourceManager();
     
     // Private constructors to disallow access.
     ResourceManager(ResourceManager const &other);
