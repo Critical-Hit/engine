@@ -1,9 +1,9 @@
 #ifndef TEST_H
 #define TEST_H
 
-int test()
+class TestClass
 {
-    return 0;
-}
+    int test();
+};
 
 #endif
