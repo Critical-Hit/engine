@@ -51,25 +51,10 @@ project "Core"
         "core/lib"
     }
     links {"Game"}
-    for i = 1,table.getn(moduleNames) do
-        links {moduleNames[i]}
-    end
 
-    --links[2] = moduleNames[1]
     configuration {"macosx", "xcode3"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
---[[
-project "Modules"
-    kind "StaticLib"
-    language "C++"
-    files {
-        "modules/**.h",
-        "modules/**.cpp"
-    }
-    flags {
-        "ExtraWarnings"
-    }
-   ]] 
+ 
 project "Game"
     kind "StaticLib"
     language "C++"
@@ -86,6 +71,9 @@ project "Game"
     libdirs {
         "game/lib"
     }
+	for i = 1,table.getn(moduleNames) do
+        links {moduleNames[i]}
+    end
 
 for i = 1,table.getn(moduleNames) do
     project (moduleNames[i])
@@ -95,9 +83,8 @@ for i = 1,table.getn(moduleNames) do
 	   "modules/**"
     }
     files {
-        --"modules/" .. moduleNames[i] .. "/**.h"
-        "modules/testModule/src/**.h",
-        "modules/testModule/src/**.cpp"
+		"modules/" .. moduleNames[i] .. "/src/**.h",
+		"modules/" .. moduleNames[i] .. "/src/**.cpp"
     }
     flags {
         "ExtraWarnings"
