@@ -1,9 +1,7 @@
-#ifndef Common_InputManager_h
-#define Common_InputManager_h
+#ifndef Core_InputManager_h
+#define Core_InputManager_h
 
-#include "InputView.h"
-#include "IKeyPressEventHandler.h"
-#include "IKeyReleaseEventHandler.h"
+#include "IInputEventHandler.h"
 #include "InputState.h"
 #include "InputCode.h"
 #include "vector"
@@ -13,7 +11,18 @@
 class InputView;
 class KeyPressEvent;
 class KeyReleaseEvent;
-class InputManager : IKeyPressEventHandler, IKeyReleaseEventHandler
+class MouseEvent;
+class MouseButtonPressEvent;
+class MouseButtonReleaseEvent;
+
+enum MouseInputMode
+{
+    SHOW,
+    HIDE,
+    HIDE_AND_LOCK
+};
+
+class InputManager : public IInputEventHandler
 {
 public:
 
@@ -34,74 +43,66 @@ public:
     void SetView(InputView* inputView);
 
     /**
-     * Register a KeyPressEventHandler to receive KeyPressEvents.
-     * @param[in] handler Pointer to the KeyPressEventHandler to register. If
-     * the handler does not have an existing registration with this InputManager,
-     * a new registration will be created. If the handler has an existing 
-     * registration with this InputManager, the existing registration will be modified.
-     * @param[in] keyCodes Vector of key codes corresponding to keyboard keys
-     * that should cause KeyPressEvents to be fired when pressed. If the handler does not
-     * have an existing registration with this InputManager, the new registration will
-     * be initialized with the contents of this vector. If the handler has an existing
-     * registration with this InputManager, the registration will be updated with the 
-     * set union of the contents of this vector and the key codes in the existing
-     * registration.
+     * Set the mouse cursor behavior.
+     * @param mode one of the following:
+     *        MouseInputMode::SHOW - Draw the operating system cursor.
+     *        MouseInputMode::HIDE - Hide the operating system cursor.
+     *        MouseInputMode::HIDE_AND_LOCK - Hide the operating system cursor and lock the cursor to the game window.
      */
-    void RegisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes);
+    void SetMouseInputMode(MouseInputMode mode);
 
     /**
-     * Deregister a KeyPressEventHandler which will no longer receive KeyPressEvents.
-     * @param[in] handler Pointer to the KeyPressEventHandler to deregister. 
-     * If the handler does not have an existing registration with this InputManager, 
-     * this function has no effect. 
-     * @param[in] keyCodes Vector of key codes corresponding to keyboard keys
-     * that should no longer cause KeyPressEvents to be fired when pressed. If the handler
-     * has an existing registration with this InputManager, the registration will be updated
-     * with the relative complement of the contents of this vector with respect to the key codes
-     * in the existing registration. If the result of this operation is an empty set, the handler's
-     * registration will be removed from this InputManager.
+     * Get the current mouse cursor behavior.
+     * @return one of the following:
+     *         MouseInputMode::SHOW - The operating system cursor is being drawn.
+     *         MouseInputMode::HIDE - The operating system cursor is hidden.
+     *         MouseInputMode::HIDE_AND_LOCK - The operating system cursor is hidden and the cursor is locked to the game window.
      */
-    void DeregisterKeyPressEventHandler(IKeyPressEventHandler* handler, std::vector<KeyCode> keyCodes);
+    MouseInputMode GetMouseInputMode();
 
     /**
-     *True if the given KEyCode has at least one registered press event handler. False otherwise
+     * Register an event handler to receive mouse input events.
+     * @param[in] eventHandler Pointer to the IInputEventHandler to register. If the event handler does not have an
+     * existing registration with this InputManager, a new registration will be created. Otherwise, this function has
+     * no effect.
      */
-    bool IsRegisteredKeyPress(KeyCode* keyCode);
+    void RegisterMouseInputEventHandler(IInputEventHandler* eventHandler);
 
     /**
-     * Register a KeyReleaseEventHandler to receive KeyReleaseEvents.
-     * @param[in] handler Pointer to the KeyReleaseEventHandler to register. If
-     * the handler does not have an existing registration with this InputManager,
-     * a new registration will be created. If the handler has an existing 
-     * registration with this InputManager, the existing registration will be modified.
-     * @param[in] keyCodes Vector of key codes corresponding to keyboard keys
-     * that should cause KeyReleaseEvents to be fired when released. If the handler does not
-     * have an existing registration with this InputManager, the new registration will
-     * be initialized with the contents of this vector. If the handler has an existing
-     * registration with this InputManager, the registration will be updated with the 
-     * set union of the contents of this vector and the key codes in the existing
-     * registration.
+     * Deregister an event handler which will no longer receive mouse input events.
+     * @param[in] eventHandler Pointer to the IInputEventHandler to deregister. If the event handler has an existing
+     * registration with this InputManager, the registration will be removed. Otherwise, this function has no effect.
      */
-    void RegisterKeyReleaseEventHandler(IKeyReleaseEventHandler* handler, std::vector<KeyCode> keyCodes);
+    void DeregisterMouseInputEventHandler(IInputEventHandler* eventHandler);
 
+    /**
+     * Register an event handler to receive keyboard input events.
+     * @param[in] handler Pointer to the IInputEventHandler to register. If the handler does not have an existing 
+     * registration with this InputManager, a new registration will be created.  Otherwise, the existing registration
+     * will be modified.
+     * @param[in] keyCodes Vector of key codes corresponding to keyboard keys that the event handler will receive. 
+     * If the handler does not have an existing registration with this InputManager, the new registration will
+     * be initialized with the contents of this vector. Otherwise, the registration will be updated with the 
+     * set union of the contents of this vector and the key codes in the existing registration.
+     */
+    void RegisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyCode>);
+    
     /**
      * Deregister a KeyReleaseEventHandler which will no longer receive KeyReleaseEvents.
-     * @param[in] handler Pointer to the KeyReleaseEventHandler to deregister. 
-     * If the handler does not have an existing registration with this InputManager, 
-     * this function has no effect. 
-     * @param[in] keyCodes Vector of key codes int values corresponding to keyboard keys
-     * that should no longer cause KeyReleaseEvents to be fired when released. If the handler
-     * has an existing registration with this InputManager, the registration will be updated
-     * with the relative complement of the contents of this vector with respect to the key codes
-     * in the existing registration. If the result of this operation is an empty set, the handler's
-     * registration will be removed from this InputManager.
+     * @param[in] handler Pointer to the KeyReleaseEventHandler to deregister. If the handler has an existing registration
+     * with this InputManager, the registration will be modified. Otherwise, this function has no effect. 
+     * @param[in] keyCodes Vector of key codes int values corresponding to keyboard keys that should no be received
+     * by the event handler. If the handler has an existing registration with this InputManager, the registration will 
+     * be updated with the relative complement of the contents of this vector with respect to the key codes in the 
+     * existing registration. If the result of this operation is an empty set, the handler's registration will be removed 
+     * from this InputManager.
      */
-    void DeregisterKeyReleaseEventHandler(IKeyReleaseEventHandler* handler, std::vector<KeyCode> keyCodes);
+    void DeregisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyCode>);
 
     /**
      * True if the given KeyCode has at least one registered release event handler. False otherwise.
      */
-    bool IsRegisteredKeyRelease(KeyCode* keyCode);
+    bool IsRegisteredEventHandler(KeyCode* keyCode);
 
     /**
      * Poll the current state of a key.
@@ -115,13 +116,31 @@ public:
      * Implemented from IKeyPressEventHandler. Distributes event to registered event handlers.
      * Should be called only by InputView.
      */
-    void OnKeyPressEvent(KeyPressEvent* event);
+    void OnKeyboardKeyPress(KeyPressEvent* event);
     
     /**
      * Implemented from IKeyReleaseEventHandler. Distributes event to registered event handlers.
      * Should be called only by InputView.
      */
-    void OnKeyReleaseEvent(KeyReleaseEvent* event);
+    void OnKeyboardKeyRelease(KeyReleaseEvent* event);
+
+    /**
+     * Implemented from IMouseEventHandler. Distributes event to registered event handlers.
+     * Should be called only by InputView.
+     */
+    void OnMouseInput(MouseEvent* event);
+
+    /**
+     * Implemented from IMouseButtonPressEventHandler. Distributes event to registered event handlers.
+     * Should be called only by InputView.
+     */
+    void OnMouseButtonPress(MouseButtonPressEvent* event);
+
+    /**
+     * Implemented from IMouseButtonReleaseEventHandler. Distributes event to registered event handlers.
+     * Should be called only by InputView.
+     */
+    void OnMouseButtonRelease(MouseButtonReleaseEvent* event);
     
 	/**
 	* Sets all variables of this instance to match the other instance.
@@ -138,8 +157,8 @@ private:
    
     // Maps of registered keys and their associated handlers. 
     // C++ strong enums are not usable as map keys, so a cast to int is required.
-    std::unordered_map<int, std::set<IKeyPressEventHandler*>> registeredKeyPressEventHandlers;
-    std::unordered_map<int, std::set<IKeyReleaseEventHandler*>> registeredKeyReleaseEventHandlers;
+    std::unordered_map<int, std::set<IInputEventHandler*>> registeredKeyboardInputEventHandlers;
+    std::vector<IInputEventHandler*> registeredMouseInputEventHandlers;
 };
 
 #endif
