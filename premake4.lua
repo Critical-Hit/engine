@@ -21,12 +21,33 @@ solution "Engine"
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
     configuration {"windows", "vs2010"}
         platforms {"x64"}
-        links {"OpenGL32", "glfw3"}
         includedirs{"include"}
         libdirs {"lib"}
+    configuration {"windows", "vs2010", "Release"}
+        links {
+            "OpenGL32", 
+            "glfw3", 
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-main",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window"
+        }
+    configuration {"windows", "vs2010", "Debug"}
+        links {
+            "OpenGL32", 
+            "glfw3", 
+            "sfml-audio-d",
+            "sfml-graphics-d",
+            "sfml-main-d",
+            "sfml-network-d",
+            "sfml-system-d",
+            "sfml-window-d"
+        }
 
 project "Core"
-    kind "ConsoleApp"
+    kind "WindowedApp"
     language "C++"
     files {
         "src/**.h",
