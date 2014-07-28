@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <string>
 #include "GraphicsView.h"
 #include "Sprite.h"
 
@@ -21,15 +22,18 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	// Clear the screen
 	Color clearColor = graphicsManager->GetClearColor();
 	glClearColor(clearColor.red, clearColor.green, clearColor.blue, clearColor.alpha);
-    glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
+	GraphicsView::CheckOpenGLError("after clearing the screen");
 
+	// Prepare the matrices
+	glLoadIdentity();
 	Camera* camera = graphicsManager->GetCamera();
 	float left = camera->GetLeft();
 	float right = camera->GetRight();
 	float bottom = camera->GetBottom();
 	float top = camera->GetTop();
-	glOrtho(left, right, bottom, top, 1.0f, 1000.0f);
-	printf("%s\n", camera->ToStringLRTB().c_str());
+	glOrtho(left, right, bottom, top, -1.0f, 1000.0f);
+	GraphicsView::CheckOpenGLError("after preparing matrices");
 
 	float* vertexBuffer;
 	float* colorBuffer;
@@ -48,9 +52,11 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	{
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indexBuffer);
 	}
+	GraphicsView::CheckOpenGLError("after drawing sprites");
 	
 	// Swap the buffers
-    glfwSwapBuffers(this->window);
+	glfwSwapBuffers(this->window);
+	GraphicsView::CheckOpenGLError("after swapping buffers");
     
     // Call OnWindowClose if the user closed the Window.
     if(glfwWindowShouldClose(window) && this->OnWindowClose != NULL)
@@ -58,10 +64,10 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
         this->OnWindowClose();
     }
 
-	GraphicsView::CheckOpenGLError();
+	GraphicsView::CheckOpenGLError("at end of Update()");
 }
 
-void GraphicsView::CheckOpenGLError()
+void GraphicsView::CheckOpenGLError(std::string location)
 {
 	GLenum error = glGetError();
 	switch (error)
@@ -69,16 +75,16 @@ void GraphicsView::CheckOpenGLError()
 	case GL_NO_ERROR:
 		return;
 	case GL_INVALID_ENUM:
-		throw new std::logic_error("There was an OpenGL Invalid Enum error.");
+		throw new std::logic_error("There was an OpenGL Invalid Enum error " + location);
 	case GL_INVALID_VALUE:
-		throw new std::logic_error("There was an OpenGL Invalid Value error.");
+		throw new std::logic_error("There was an OpenGL Invalid Value error " + location);
 	case GL_INVALID_OPERATION:
-		throw new std::logic_error("There was an OpenGL Invalid Operation error.");
+		throw new std::logic_error("There was an OpenGL Invalid Operation error " + location);
 	case GL_OUT_OF_MEMORY:
-		throw new std::logic_error("There was an OpenGL Out of Memory error.");
+		throw new std::logic_error("There was an OpenGL Out of Memory error " + location);
 	case GL_STACK_UNDERFLOW:
-		throw new std::logic_error("There was an OpenGL Stack Underflow error.");
+		throw new std::logic_error("There was an OpenGL Stack Underflow error " + location);
 	case GL_STACK_OVERFLOW:
-		throw new std::logic_error("There was an OpenGL Stack Overflow error.");
+		throw new std::logic_error("There was an OpenGL Stack Overflow error " + location);
 	}
 }
