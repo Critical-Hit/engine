@@ -32,16 +32,11 @@ Generate the Visual Studio Project and run the build:
 
 ###Libraries
 
-We highly recommend using [Homebrew](http://www.brew.sh) when developing on Mac OSX. [MacPorts](http://www.macports.com) is another alternative. If this is not possible, you can download the required libraries and edit the PATH manually.
+We highly recommend using [Homebrew](http://www.brew.sh) when developing on Mac OSX. If this is not possible, you can download the required libraries and edit the PATH manually.
 
 ####Homebrew
 
-Open a terminal and type `brew install premake glfw3`
-(If glfw3 is not found try `brew search glfw` and replace "glfw3" with what is found)
-
-####MacPorts
-
-Open a terminal and type `port install premake glfw`
+Open a terminal and type `brew install premake sfml`
 
 ####Manual Download
 
@@ -55,7 +50,7 @@ Open ~/.bash_profile with a text editor and add a line to edit your PATH. For ex
 
 You will have to log out and in again to apply this change.
 
-You will then have to build GLFW from source. See [GLFW's Download page](http://www.glfw.org/download.html) for more information.
+You will then have to install SFML. See [SFML's Download page](http://sfml-dev.org/download/sfml/2.1) for more information.
 
 ###Build Tool
 
