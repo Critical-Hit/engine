@@ -1,7 +1,7 @@
 Game Engine
 ======
 
-Modular game engine built using [OpenGL](https://www.opengl.org/) and [GLFW](http://www.glfw.org/).
+Modular game engine built using [OpenGL](https://www.opengl.org/) and [SFML](http://www.sfml-dev.org/).
 
 #Build Instructions
 
@@ -18,7 +18,7 @@ Add C:\premake4\bin to your PATH user environment variable:
 1. Type "environment variables" into the Start Menu search menu to access Environment Variables.  
 1. If Path already exists in User variables, edit it and add "C:\premake4\bin;" to the front.  If Path doesn't exist, create a new variable with "Path" for the name and "C:\premake4\bin" for the value.
 
-OpenGL is statically linked in Visual Studio and GLFW is statically linked in the project source, so installing them separately is not required.
+OpenGL is statically linked in Visual Studio and SFML is statically linked in the project source, so installing them separately is not required.
 
 Generate the Visual Studio Project and run the build:
 
@@ -77,10 +77,10 @@ Open a terminal and navigate to the directory containing premake4.lua. Type `pre
 
 Use your distribution's package manager to install the build dependencies:
 
-* GCC >= 4.7
+* GCC >= 4.8
 * Make
 * Premake >= 4.3
-* glfw >= 3.0
+* SFML 2.1
 
 We are compiling in C++11 mode, so recent versions of GCC are preferred. We also assume that you have a GUI and graphics driver installed.
 

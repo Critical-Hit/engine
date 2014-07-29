@@ -9,7 +9,15 @@ solution "Engine"
     configuration {"linux", "gmake" }
         platforms {"x64"}
         buildoptions {"-std=c++11"}
-        links {"GL", "glfw"}
+        links {
+            "GL", 
+            "glfw",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window"
+        }
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
