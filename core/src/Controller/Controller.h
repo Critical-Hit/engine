@@ -2,6 +2,8 @@
 #define Core_Controller_h
 
 #include <GLFW/glfw3.h>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <thread>
 
@@ -35,11 +37,6 @@ private:
      * The method that udpates all game logic.
      */
     void gameLoop();
-    
-    /**
-     * Helper method that initializes the GLFW window.
-     */
-    GLFWwindow* initializeGraphics();
     
     /**
      * The method that updates the GraphicsView.
