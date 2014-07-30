@@ -10,6 +10,7 @@ Makefile
 
 # Xcode
 *.xcodeproj
+*.DS_Store
 
 ## Ignore C++ binaries
 
