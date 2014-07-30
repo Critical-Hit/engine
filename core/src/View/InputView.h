@@ -2,6 +2,7 @@
 #define Core_InputView_h
 
 #include "GLFW/glfw3.h"
+#include "SFML/Window.hpp"
 #include "InputManager.h"
 #include "InputState.h"
 #include "InputCode.h"
@@ -23,7 +24,7 @@ public:
     /**
      * Default constructor that creates a new instance of an InputView.
      */
-    InputView(GLFWwindow* window);
+    InputView(sf::Window* window);
     
     /**
      * Initializes the InputView.

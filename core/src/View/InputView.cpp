@@ -6,9 +6,10 @@
 #include "assert.h"
 InputView* InputView::instance;
 
-InputView::InputView(GLFWwindow* window)
+InputView::InputView(sf::Window* window)
 {
-    this->window = window;
+    // Uncomment this line when you change member variable window to sf::Window.
+    //this->window = window;
     this->inputManager = nullptr;
     InputView::instance = this;
 };

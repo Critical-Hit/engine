@@ -2,9 +2,10 @@
 #include "GraphicsView.h"
 #include "Sprite.h"
 
-GraphicsView::GraphicsView(GLFWwindow* window)
+GraphicsView::GraphicsView(sf::Window* window)
 {
-    this->window = window;
+    // Uncomment this line when you change member variable window to sf::Window.
+    //this->window = window;
 }
 
 GraphicsView::~GraphicsView()
@@ -43,13 +44,8 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
 	}
 	
 	// Swap the buffers
-    glfwSwapBuffers(this->window);
     
-    // Call OnWindowClose if the user closed the Window.
-    if(glfwWindowShouldClose(window) && this->OnWindowClose != NULL)
-    {
-        this->OnWindowClose();
-    }
+    glfwSwapBuffers(this->window);
 }
 
 void GraphicsView::CheckOpenGLError()

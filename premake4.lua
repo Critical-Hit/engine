@@ -26,7 +26,12 @@ solution "Engine"
     configuration {"macosx", "gmake"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window" }
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         includedirs{"core/include"}
@@ -81,7 +86,12 @@ project "Core"
     links {"Game"}
 
     configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window" }
  
 project "Game"
     kind "StaticLib"
