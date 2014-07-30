@@ -1,35 +1,57 @@
-solution "Engine"
-    configurations {"Debug", "Release"}
-    configuration "Debug"
-        flags {"Symbols"}
-        targetdir ("bin/debug")
-    configuration "Release"
-        flags {"Optimize"}
-        targetdir ("bin/release")
-    configuration {"linux", "gmake" }
-        platforms {"x64"}
-        buildoptions {"-std=c++11"}
-        links {"GL", "glfw"}
-    configuration {"macosx", "xcode3"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
-        includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib"}
-    configuration {"macosx", "gmake"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
-    configuration {"windows", "vs2010"}
-        platforms {"x64"}
-        links {"OpenGL32", "glfw3"}
-        includedirs{"core/include"}
-        libdirs {"core/lib"}
-
-
 moduleNames = os.matchdirs("modules/*")
 for i = 1,table.getn(moduleNames) do
     moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
 end
+
+solution "Engine"
+    configurations {"Debug", "Release"}
+    -- Debug flags
+    configuration "Debug"
+        flags {"ExtraWarnings", "Symbols"}
+        targetdir ("bin/debug")
+
+    -- Release Flags
+    configuration "Release"
+        flags {"ExtraWarnings", "Optimize"}
+        targetdir ("bin/release")
+
+    -- Linux + Make
+    configuration {"linux", "gmake" }
+        platforms {"x64"}
+        buildoptions {"-std=c++11"}
+        links {"GL", "glfw", "soil2-linux"}
+
+    -- Max OSX, all build tools
+    configuration {"macosx"}
+        platforms {"Universal64"}
+        buildoptions {"-std=c++11"}
+        links {
+            "OpenGL.framework",
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
+            "glfw3", 
+            "soil2-mac"
+        }
+
+    -- Mac OSX + XCode
+    configuration {"macosx", "xcode3"}
+        includedirs {"/usr/local/include"}
+        libdirs {"/usr/local/lib"}
+
+    -- Mac OSX + Make
+    configuration {"macosx", "gmake"}
+        -- Nothing specific here... yet!
+
+    -- Windows + Visual Studio
+    configuration {"windows", "vs2010"}
+        platforms {"x64"}
+        links {"OpenGL32", "glfw3"}
+    configuration {"windows", "vs2010", "Debug"}
+        -- // TODO: Build warning 'LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library'
+        links {"soil2-windows-debug"}
+    configuration {"windows", "vs2010", "Release"}
+        links {"soil2-windows-release"}
 
 project "Core"
     kind "ConsoleApp"
@@ -37,9 +59,6 @@ project "Core"
     files {
         "core/src/**.h",
         "core/src/**.cpp"
-    }
-    flags {
-        "ExtraWarnings"
     }
     includedirs {
         "core/include",
@@ -89,6 +108,3 @@ for i = 1,table.getn(moduleNames) do
     flags {
         "ExtraWarnings"
     }
-end
-
-
