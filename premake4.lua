@@ -26,11 +26,16 @@ solution "Engine"
     configuration {"macosx", "gmake"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window" }
     configuration {"windows", "vs2010"}
         platforms {"x64"}
-        includedirs{"include"}
-        libdirs {"lib"}
+        includedirs{"core/include"}
+        libdirs {"core/lib"}
     configuration {"windows", "vs2010", "Release"}
         links {
             "OpenGL32", 
@@ -54,36 +59,74 @@ solution "Engine"
             "sfml-window-d"
         }
 
+moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
+
 project "Core"
     kind "WindowedApp"
     language "C++"
     files {
-        "src/**.h",
-        "src/**.cpp"
+        "core/src/**.h",
+        "core/src/**.cpp"
     }
     flags {
         "ExtraWarnings"
     }
     includedirs {
-        "src/**",
-        "modules/**"
+        "core/include",
+        "**/src",
+        "**/src/**",
+        "modules/*/src/**"
     }
-    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
-        links {
-            "Modules"
-        }
-    end
-    configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+    libdirs {
+        "core/lib"
+    }
+    links {"Game"}
 
-project "Modules"
+    configuration {"macosx", "xcode3"}
+        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window" }
+ 
+project "Game"
     kind "StaticLib"
     language "C++"
     files {
-        "modules/**.h",
-        "modules/**.cpp"
+        "game/**.h",
+        "game/**.cpp"
+    }
+    includedirs {
+        "game/include",
+        "**/src/**",
+        "**/src",
+        "modules/*/**",
+    }
+    libdirs {
+        "game/lib"
+    }
+	for i = 1,table.getn(moduleNames) do
+        links {moduleNames[i]}
+    end
+
+for i = 1,table.getn(moduleNames) do
+    project (moduleNames[i])
+    kind "StaticLib"
+    language "C++"
+    includedirs {
+	   "modules/**"
+    }
+    files {
+		"modules/" .. moduleNames[i] .. "/src/**.h",
+		"modules/" .. moduleNames[i] .. "/src/**.cpp"
     }
     flags {
         "ExtraWarnings"
     }
-    
+end
+
+
