@@ -1,8 +1,3 @@
-moduleNames = os.matchdirs("modules/*")
-for i = 1,table.getn(moduleNames) do
-    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
-end
-
 solution "Engine"
     configurations {"Debug", "Release"}
     -- Debug flags
@@ -47,6 +42,7 @@ solution "Engine"
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         links {"OpenGL32", "glfw3"}
+		includedirs { "core/include" }
     configuration {"windows", "vs2010", "Debug"}
         -- // TODO: Build warning 'LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library'
         links {"soil2-windows-debug"}
@@ -74,6 +70,11 @@ project "Core"
     configuration {"macosx", "xcode3"}
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
  
+ moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
+
 project "Game"
     kind "StaticLib"
     language "C++"
@@ -108,3 +109,4 @@ for i = 1,table.getn(moduleNames) do
     flags {
         "ExtraWarnings"
     }
+	end
