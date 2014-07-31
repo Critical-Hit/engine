@@ -2,8 +2,11 @@
 #include "GLFW/glfw3.h"
 #include "KeyPressEvent.h"
 #include "KeyReleaseEvent.h"
-#include <set>
-#include "assert.h"
+#include "MouseEvent.h"
+#include "MouseButtonPressEvent.h"
+#include "MouseButtonReleaseEvent.h"
+#include "set"
+#include "vector"
 InputView* InputView::instance;
 
 InputView::InputView(sf::Window* window)
@@ -16,8 +19,9 @@ InputView::InputView(sf::Window* window)
 
 void InputView::Initialize()
 {
-    glfwSetInputMode(window, GLFW_CURSOR_NORMAL, GL_FALSE);
-	glfwSetKeyCallback(window, InputView::keyCallbackDispatcher);
+    // GL_FALSE here because sticky keys is disabled
+    glfwSetInputMode(window, GLFW_CURSOR, GL_FALSE);
+	glfwSetKeyCallback(window, InputView::keyboardCallbackDispatcher);
 }
 
 void InputView::Update(InputManager* inputManager)
@@ -25,30 +29,115 @@ void InputView::Update(InputManager* inputManager)
 	this->inputManager = inputManager;
 }
 
-void InputView::keyCallback(GLFWwindow* window, int key, int, int action, int)
+void InputView::SetMouseInputMode(MouseInputMode mode)
 {
-	assert(window);
+    if (mode == MouseInputMode::SHOW)
+    {
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    else if (mode == MouseInputMode::HIDE)
+    {
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    }
+    else if (mode == MouseInputMode::HIDE_AND_LOCK)
+    {
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+}
+
+MouseInputMode InputView::GetMouseInputMode()
+{
+    int mode = glfwGetInputMode(this->window, GLFW_CURSOR);
+    if (mode == GLFW_CURSOR_NORMAL) 
+    {
+        return MouseInputMode::SHOW;
+    }
+    else if (mode == GLFW_CURSOR_HIDDEN)
+    {
+        return MouseInputMode::HIDE;
+    }
+    else if (mode == GLFW_CURSOR_DISABLED)
+    {
+        return MouseInputMode::HIDE_AND_LOCK;
+    }
+    else
+    {
+        //We should never reach here... reset the input mode!!
+        this->SetMouseInputMode(MouseInputMode::SHOW);
+        return MouseInputMode::SHOW;
+    }
+}
+
+void InputView::keyboardCallback(GLFWwindow*, int key, int, int action, int)
+{
     if (inputManager != nullptr)
     {
    	    KeyCode keyCode = InputView::keyCode(key);
-	    if ((inputManager->IsRegisteredKeyPress(&keyCode)) && (action == GLFW_PRESS))
+	    if ((inputManager->IsRegisteredEventHandler(&keyCode)) && (action == GLFW_PRESS))
 	    {
 		    KeyPressEvent event(&keyCode);
-		    inputManager->OnKeyPressEvent(&event);
+		    inputManager->OnKeyboardKeyPress(&event);
 	    } 
-	    else if ((inputManager->IsRegisteredKeyRelease(&keyCode)) && (action == GLFW_RELEASE))
+	    else if ((inputManager->IsRegisteredEventHandler(&keyCode)) && (action == GLFW_RELEASE))
 	    {
 	    	KeyReleaseEvent event(&keyCode);
-	    	inputManager->OnKeyReleaseEvent(&event);
+	    	inputManager->OnKeyboardKeyRelease(&event);
 	    }
     }
 }
 
-void InputView::keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods)
+void InputView::mouseCallback(GLFWwindow*, double xpos, double ypos)
+{
+    if (inputManager != nullptr)
+    {
+            MouseEvent event(xpos, ypos);
+            inputManager->OnMouseInput(&event);
+    }
+}
+
+void InputView::mouseButtonCallback(GLFWwindow* window, int button, int action, int) 
+{
+    if (inputManager != nullptr)
+    {
+        MouseCode mouseCode = InputView::mouseCode(button);
+        double absoluteX;
+        double absoluteY;
+        glfwGetCursorPos(window, &absoluteX, &absoluteY);
+
+        if (action == GLFW_PRESS)
+        {
+            MouseButtonPressEvent event(absoluteX, absoluteY, mouseCode);
+            inputManager->OnMouseButtonPress(&event);
+        }
+        else if (action == GLFW_RELEASE)
+        {
+            MouseButtonReleaseEvent event(absoluteX, absoluteY, mouseCode);
+            inputManager->OnMouseButtonRelease(&event);
+        }
+    }
+}
+
+void InputView::keyboardCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
     if (InputView::instance)
     {
-        InputView::instance->keyCallback(window, key, scanCode, action, mods);
+        InputView::instance->keyboardCallback(window, key, scanCode, action, mods);
+    }
+}
+
+void InputView::mouseCallbackDispatcher(GLFWwindow* window, int xpos, int ypos)
+{
+    if (InputView::instance)
+    {
+        InputView::instance->mouseCallback(window, xpos, ypos);
+    }
+}
+
+void InputView::mouseButtonCallbackDispatcher(GLFWwindow* window, int button, int action, int mods)
+{
+    if (InputView::instance)
+    {
+        InputView::instance->mouseButtonCallback(window, button, action, mods);
     }
 }
 
@@ -507,4 +596,58 @@ int InputView::glfwKeyCode(KeyCode keyCode)
 		default:
 		   return GLFW_KEY_UNKNOWN;
 	}
+}
+
+MouseCode InputView::mouseCode(int glfwMouseMacro)
+{
+    switch(glfwMouseMacro)
+    {
+        case GLFW_MOUSE_BUTTON_1:
+            return MouseCode::MOUSE_1;
+        case GLFW_MOUSE_BUTTON_2:
+            return MouseCode::MOUSE_2;
+        case GLFW_MOUSE_BUTTON_3:
+            return MouseCode::MOUSE_3;
+        case GLFW_MOUSE_BUTTON_4:
+            return MouseCode::MOUSE_4;
+        case GLFW_MOUSE_BUTTON_5:
+            return MouseCode::MOUSE_5;
+        case GLFW_MOUSE_BUTTON_6:
+            return MouseCode::MOUSE_6;
+        case GLFW_MOUSE_BUTTON_7:
+            return MouseCode::MOUSE_7;
+        case GLFW_MOUSE_BUTTON_8:
+            return MouseCode::MOUSE_8;
+        default:
+            return MouseCode::MOUSE_UNKNOWN;
+    }
+}
+
+int InputView::glfwMouseMacro(MouseCode mouseCode)
+{
+    switch(mouseCode)
+    {
+        case MouseCode::MOUSE_1:
+            return GLFW_MOUSE_BUTTON_1;
+        case MouseCode::MOUSE_2:
+            return GLFW_MOUSE_BUTTON_2;
+        case MouseCode::MOUSE_3:
+            return GLFW_MOUSE_BUTTON_3;
+        case MouseCode::MOUSE_4:
+            return GLFW_MOUSE_BUTTON_4;
+        case MouseCode::MOUSE_5:
+            return GLFW_MOUSE_BUTTON_5;
+        case MouseCode::MOUSE_6:
+            return GLFW_MOUSE_BUTTON_6;
+        case MouseCode::MOUSE_7:
+            return GLFW_MOUSE_BUTTON_7;
+        case MouseCode::MOUSE_8:
+            return GLFW_MOUSE_BUTTON_8;
+        // GLFW has no macro for unknown mouse button
+        // intentional fall-through behavior- kind of sketchy,
+        // but should never be reached
+        case MouseCode::MOUSE_UNKNOWN:
+        default:
+            return GLFW_MOUSE_BUTTON_LAST;
+    }
 }

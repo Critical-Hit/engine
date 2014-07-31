@@ -6,17 +6,12 @@
 #include "InputManager.h"
 #include "InputState.h"
 #include "InputCode.h"
-#include "IKeyPressEventHandler.h"
-#include "IKeyReleaseEventHandler.h"
+#include "IInputEventHandler.h"
 #include "set"
 #include "ControllerPackage.h"
 
-class InputManager;
-
 /**
  * Provides a full set of logic for accessing input.
- * 
- * Currently does nothing, though.
  */
 class InputView
 {
@@ -42,11 +37,42 @@ public:
      * the more efficient event- based system. 
      */
     InputState GetKeyState(KeyCode keyCode);
+
+    /**
+     * Set the mouse cursor behavior.
+     * @param mode one of the following:
+     *        MouseInputMode::SHOW - Draw the operating system cursor.
+     *        MouseInputMode::HIDE - Hide the operating system cursor.
+     *        MouseInputMode::HIDE_AND_LOCK - Hide the operating system cursor and lock the cursor to the game window.
+     */
+    void SetMouseInputMode(MouseInputMode mode);
+
+    /**
+     * Get the current mouse cursor behavior.
+     * @return one of the following:
+     *         MouseInputMode::SHOW - The operating system cursor is being drawn.
+     *         MouseInputMode::HIDE - The operating system cursor is hidden.
+     *         MouseInputMode::HIDE_AND_LOCK - The operating system cursor is hidden and the cursor is locked to the game window.
+     */
+    MouseInputMode GetMouseInputMode();
     
     /**
-     * Function conforming to GLFWkeyfun typedef. Used to couple with GLFW callback system.
+     * Function conforming to GLFWkeyfun typedef. Used to couple with GLFW callback system for
+     * event-based keyboard input.
      */
-    void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);
+    void keyboardCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);
+    
+    /**
+     * Function conforming to GLFWcursorposfun typedef. Used to couple with GLFW callback system
+     * for event-based cursor position updates.
+     */
+    void mouseCallback(GLFWwindow* window, double xpos, double ypos);
+
+    /**
+     * Function conforming to GLFWmousebuttonfun typedef. Used to couple with GLFW callback system
+     * for event-based mouse button input.
+     */
+    void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 private:
     /**
@@ -59,7 +85,19 @@ private:
      * Workaround for using C++ callbacks with GLFW.
      * See: http://www.glfw.org/faq.html#how-do-i-use-c-methods-as-callbacks
      */
-    static void keyCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods);
+    static void keyboardCallbackDispatcher(GLFWwindow* window, int key, int scanCode, int action, int mods);
+
+    /**
+     * Workaround for using C++ callbacks with GLFW.
+     * See: http://www.glfw.org/faq.html#how-do-i-use-c-methods-as-callbacks
+     */
+    static void mouseCallbackDispatcher(GLFWwindow* window, int xpos, int ypos);
+
+    /**
+     * Workaround for using C++ callbacks with GLFW.
+     * See: http://www.glfw.org/faq.html#how-do-i-use-c-methods-as-callbacks
+     */
+    static void mouseButtonCallbackDispatcher(GLFWwindow* window, int button, int action, int mods);
 
     // Private constructors to disallow access.
     InputView(InputView const &other);
@@ -71,17 +109,27 @@ private:
     InputManager* inputManager;
 
     /**
-     * Converts a GLFW key code to an engine keycode.
+     * Converts a GLFW keyboard key macro to an engine keycode.
      */
     KeyCode keyCode(int glfwKeyCode);
 
     /**
-     * Converts an engine key code to a GLFW keycode.
+     * Converts an engine key code to a GLFW keyboard key macro.
      */
     int glfwKeyCode(KeyCode keyCode);
 
     /**
-     * Converts a GLFW input state to an engine input state.
+     * Converts a GLFW mouse macro to an engine MouseCode.
+     */
+    MouseCode mouseCode(int glfwMouseMacro);
+
+    /**
+     * Converts an engine MouseCode to a GLFW mouse macro.
+     */
+    int glfwMouseMacro(MouseCode glfwMouseMacro);
+
+    /**
+     * Converts a GLFW input state to an engine input state macro.
      */
     InputState keyState(int glfwInputState);
 };

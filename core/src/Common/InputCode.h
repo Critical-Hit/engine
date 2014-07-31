@@ -110,4 +110,16 @@ enum KeyCode {
     KEYBOARD_RIGHT_SUPER = 231
 };
 
+enum MouseCode {
+    MOUSE_UNKNOWN = -1,
+    MOUSE_1 = 1,
+    MOUSE_2 = 2,
+    MOUSE_3 = 3,
+    MOUSE_4 = 4,
+    MOUSE_5 = 5,
+    MOUSE_6 = 6,
+    MOUSE_7 = 7,
+    MOUSE_8 = 8
+};
+
 #endif
