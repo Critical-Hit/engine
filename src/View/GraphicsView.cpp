@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include "GraphicsView.h"
 #include "Sprite.h"
+#include "ResourceManager.h"
 
 GraphicsView::GraphicsView(GLFWwindow* window)
 {
@@ -14,6 +15,16 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::Initialize()
 {
+    ResourceManager::Initialize();
+    
+    ResourceManager::GetInstance()->LoadTexture(0, "../../meeseeks.png");
+    
+    GLuint unit = ResourceManager::GetInstance()->GetTextureUnitFromTextureID(0);
+    
+    if(unit == 0)
+    {
+        printf("Failure to Retrieve correct Texture Unit.");
+    }
 }
 
 void GraphicsView::Update(GraphicsManager* graphicsManager)

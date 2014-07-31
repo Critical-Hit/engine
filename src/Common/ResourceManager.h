@@ -10,28 +10,50 @@ class ResourceManager
 {
 public:
     
-    ResourceManager();
+    
     ~ResourceManager();
     
-    //Initializes the ResorceManager
-    void Initialize();
+    /**
+     * Initializes the ResorceManager
+     */
+    static void Initialize();
     
-    //Loads a texture with the given fileName and textureID
-    void LoadTexture(int textureID, char* fileName);
+    /**
+     * Retrieves the current instance of the ResourceManager.
+     */
+    static ResourceManager* GetInstance();
     
-    //Gets the TextureUnit from the TextureID
+    /**
+     * Loads a texture with the given fileName and textureID
+     *
+     * @PARAM textureID
+     * @PARAM fileName
+     */
+    void LoadTexture(int textureID, const char* fileName);
+    
+    /**
+     * Gets the TextureUnit from the TextureID
+     *
+     * @PARAM textureID
+     */
     GLuint GetTextureUnitFromTextureID(int textureID);
 
 private:
+    /**
+     * Private contructor prevents multiple instances of the resource manager.
+     */
+    ResourceManager(){};
     
-    // Private constructors to disallow access.
     ResourceManager(ResourceManager const &other);
     ResourceManager operator=(ResourceManager other);
     
-    //Singleton of the ResourceManager
-    ResourceManager* instance;
-    
-    //List of Texutures
+    /**
+     * The private instance of the ResourceManager. 
+     */
+    static ResourceManager* instance;
+    /**
+     * List of Texutures
+     */
     vector<Texture*> textureList;
 };
 

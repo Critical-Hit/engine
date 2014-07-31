@@ -9,7 +9,7 @@
 class Texture
 {
 public:
-	Texture(int textureID, char* fileName);
+	Texture(int textureID, const char *fileName);
 	~Texture();
     
     Texture(char* filePath);

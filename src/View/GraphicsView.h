@@ -56,6 +56,7 @@ private:
 	 */
 	void CheckOpenGLError();
 
+
 };
 
 #endif

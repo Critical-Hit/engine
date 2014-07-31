@@ -1,9 +1,8 @@
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager()
-{
-    
-}
+
+// Global static pointer used to ensure a single instance of the class.
+ResourceManager* ResourceManager::instance = NULL;
 
 ResourceManager::~ResourceManager()
 {
@@ -12,14 +11,17 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::Initialize()
 {
-    this->instance = new ResourceManager();
+    ResourceManager::instance = new ResourceManager();
 }
 
-void ResourceManager::LoadTexture(int textureID, char *fileName)
+ResourceManager* ResourceManager::GetInstance()
 {
-    Texture* texture = new Texture(textureID, fileName);
-    
-    this->textureList.push_back(texture);
+    return ResourceManager::instance;
+}
+
+void ResourceManager::LoadTexture(int textureID, const char *fileName)
+{    
+    this->textureList.push_back(new Texture(textureID, fileName));
 }
 
 GLuint ResourceManager::GetTextureUnitFromTextureID(int textureID)
