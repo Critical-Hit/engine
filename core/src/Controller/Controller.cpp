@@ -66,7 +66,6 @@ void Controller::viewLoop()
     }
 
     // Window close events
-    graphicsView.OnWindowClose();
     glfwDestroyWindow(window);
     glfwTerminate();
 }
