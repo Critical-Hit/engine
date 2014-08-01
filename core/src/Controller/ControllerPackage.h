@@ -18,7 +18,7 @@ public:
     /**
      * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager, ResourceManager* const resourceManager);
+    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, ResourceManager* const resourceManager);
     
 	/**
 	 * Destructor
@@ -34,11 +34,6 @@ public:
      * Returns a pointer to the game's InputManager.
      */
     InputManager* const GetInputManager();
-    
-    /**
-     * Returns a pointer to the game's SoundManager.
-     */
-    SoundManager* const GetSoundManager();
 
     /**
      * Returns a pointer to the game's ResourceManager.
@@ -69,7 +64,6 @@ private:
 	// The managers to be provided to the game manager
 	GraphicsManager* graphicsManager;
 	InputManager* inputManager;
-	SoundManager* soundManager;
     ResourceManager* resourceManager;
 
     static ControllerPackage* activeControllerPackage;
