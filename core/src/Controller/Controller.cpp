@@ -70,7 +70,6 @@ void Controller::viewLoop()
  
         graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
         inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
-        soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
         resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
         
         window->display();
