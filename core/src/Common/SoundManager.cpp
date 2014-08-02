@@ -5,16 +5,10 @@ SoundManager* SoundManager::instance = nullptr;
 
 SoundManager::SoundManager()
 {
-    this->soundLoaded = new std::unordered_map<KEY_TYPE, bool>();
-    this->musicLoaded = new std::unordered_map<KEY_TYPE, bool>();
+    this->nextId = 0;
 }
 
-void SoundManager::SetView(SoundView* soundView)
-{
-    SoundManager::getInstance()->soundView = soundView;
-}
-
-SoundManager* SoundManager::getInstance()
+SoundManager* SoundManager::GetInstance()
 {
     if(SoundManager::instance == nullptr)
     {
@@ -23,39 +17,78 @@ SoundManager* SoundManager::getInstance()
     return SoundManager::instance;
 }
 
-KEY_TYPE SoundManager::LoadSound(std::string filename)
+void SoundManager::SetView(SoundView* soundView)
 {
-    if(SoundManager::getInstance()->soundView == nullptr)
-        assert(false && "Loaded Sound before view set");
-    SoundManager::getInstance()->soundView->LoadSound(0, filename);
-    return 0;
+    this->soundView = soundView;
 }
 
-KEY_TYPE SoundManager::LoadMusic(std::string filename)
+bool SoundManager::IsViewSet()
 {
-    if(SoundManager::getInstance()->soundView == nullptr)
-        assert(false && "Loaded Sound before view set");
-    SoundManager::getInstance()->soundView->LoadMusic(0, filename);
-    return 0;
+    return this->soundView != nullptr;
 }
 
-void SoundManager::PlaySound(KEY_TYPE id)
+long SoundManager::LoadSound(std::string filename)
 {
-    if(SoundManager::getInstance()->soundView == nullptr)
-        assert(false && "Loaded Sound before view set");
-        SoundManager::getInstance()->soundView->PlaySound(id);
+    assert(this->soundView != nullptr && "Loaded Sound before view set");
+    
+    long id = nextId++;
+    if(!this->soundView->LoadSound(id, filename))
+    {
+        return -1;
+    }
+    return id;
 }
 
-void SoundManager::PlayMusic(KEY_TYPE id)
+long SoundManager::LoadMusic(std::string filename)
 {
-    if(SoundManager::getInstance()->soundView == nullptr)
-        assert(false && "Loaded Sound before view set");
-    SoundManager::getInstance()->soundView->PlayMusic(id);
+    assert(this->soundView != nullptr && "Loaded Music before view set");
+    
+    long id = nextId++;
+    if(!this->soundView->LoadMusic(id, filename))
+    {
+        return -1;
+    }
+    return id;
 }
 
-void SoundManager::PauseMusic(KEY_TYPE id)
+void SoundManager::UnloadSound(long id)
 {
-    if(SoundManager::getInstance()->soundView == nullptr)
-        assert(false && "Loaded Sound before view set");
-    SoundManager::getInstance()->soundView->PauseMusic(id);
+    assert(this->soundView != nullptr && "Unload Sound before view set");
+    
+    this->soundView->UnloadSound(id);
+}
+
+void SoundManager::UnloadMusic(long id)
+{
+    assert(this->soundView != nullptr && "Unload Music before view set");
+    
+    this->soundView->UnloadMusic(id);
+}
+
+void SoundManager::PlaySound(long id)
+{
+    assert(this->soundView != nullptr && "Played Sound before view set");
+    
+    this->soundView->PlaySound(id);
+}
+
+void SoundManager::PlayMusic(long id)
+{
+    assert(this->soundView != nullptr && "Played Music before view set");
+    
+    this->soundView->PlayMusic(id);
+}
+
+void SoundManager::PauseMusic(long id)
+{
+    assert(this->soundView != nullptr && "Paused Music before view set");
+    
+    this->soundView->PauseMusic(id);
+}
+
+void SoundManager::ResumeMusic(long id)
+{
+    assert(this->soundView != nullptr && "Resumed Music before view set");
+    
+    this->soundView->ResumeMusic(id);
 }

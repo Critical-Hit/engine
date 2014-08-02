@@ -2,9 +2,10 @@
 
 ControllerPackage* ControllerPackage::activeControllerPackage = nullptr;
 
-ControllerPackage::ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, ResourceManager* const resourceManager)
+ControllerPackage::ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager, ResourceManager* const resourceManager)
 : graphicsManager(graphicsManager),
 inputManager(inputManager),
+soundManager(soundManager),
 resourceManager(resourceManager)
 {
 	
@@ -25,6 +26,11 @@ GraphicsManager* const ControllerPackage::GetGraphicsManager()
 InputManager* const ControllerPackage::GetInputManager()
 {
 	return this->inputManager;
+}
+
+SoundManager* const ControllerPackage::GetSoundManager()
+{
+    return this->soundManager;;
 }
 
 ResourceManager* const ControllerPackage::GetResourceManager()

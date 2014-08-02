@@ -2,22 +2,67 @@
 #define Core_SoundManager_h
 
 #include <string>
-#include <unordered_map>
 #include "SoundView.h"
 
 class SoundView;
 
-#define KEY_TYPE long
-
 class SoundManager
 {
 public:
-    static void SetView(SoundView* soundView);
-    static KEY_TYPE LoadSound(std::string filename);
-    static KEY_TYPE LoadMusic(std::string filename);
-    static void PlaySound(KEY_TYPE id);
-    static void PlayMusic(KEY_TYPE id);
-    static void PauseMusic(KEY_TYPE id);
+    /**
+     * Returns the instance of the Singleton
+     */
+    static SoundManager* GetInstance();
+    
+    /**
+     * Sets the view for this manager to use
+     */
+    void SetView(SoundView* soundView);
+    
+    /**
+     * Returns whether or not this manager has a view set
+     */
+    bool IsViewSet();
+    
+    /**
+     * Loads the sound resource, returning the ID to use to manipulate it, or -1 if the load failed.
+     */
+    long LoadSound(std::string filename);
+    
+    /**
+     * Loads the music resource, returning the ID to use to manipulate it, or -1 if the load failed.
+     */
+    long LoadMusic(std::string filename);
+    
+    /**
+     * Unloads the sound mapped to the given id
+     */
+    void UnloadSound(long id);
+    
+    /**
+     * Unloads the music mapped to the given id
+     */
+    void UnloadMusic(long id);
+    
+    /**
+     * Plays the sound that the given ID is mapped to
+     */
+    void PlaySound(long id);
+    
+    /**
+     * Plays the music the given ID is mapped to
+     */
+    void PlayMusic(long id);
+    
+    /**
+     * Resumes the music the given ID is mapped to
+     */
+    void ResumeMusic(long id);
+    
+    /**
+     * Pauses the music the given ID is mapped to
+     */
+    void PauseMusic(long id);
     
     
 private:
@@ -26,11 +71,20 @@ private:
     SoundManager(SoundManager const& other);
     SoundManager operator=(SoundManager other);
     
+    /**
+     * The ID to use for the next sound/music
+     */
+    long nextId;
+    
+    /**
+     * The SoundView to use to play sounds/music
+     */
     SoundView* soundView;
+    
+    /**
+     * Static instance for Singleton
+     */
     static SoundManager* instance;
-    static SoundManager* getInstance();
-    std::unordered_map<KEY_TYPE, bool>* soundLoaded;
-    std::unordered_map<KEY_TYPE, bool>* musicLoaded;
 };
 
 #endif

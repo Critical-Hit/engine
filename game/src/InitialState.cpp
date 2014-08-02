@@ -4,7 +4,7 @@
 
 InitialState::InitialState()
 {
-    
+
 }
 
 void InitialState::Initialize(GameStateManager* manager)
