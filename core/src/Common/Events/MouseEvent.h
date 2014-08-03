@@ -13,20 +13,20 @@ public:
      * @param absoluteX absolute x-coordinate of the mouse cursor
      * @param absoluteY absolute y-coordinate of the mouse cursor
      */
-    MouseEvent(double absoluteX, double absoluteY);
+    MouseEvent(int absoluteX, int absoluteY);
 
     /*
      * @return absolute x-coordinate of the cursor.
      */
-    double GetAbsoluteX();
+    int GetAbsoluteX();
 
     /**
      * @return absolute y-coordinate of the cursor.
      */
-    double GetAbsoluteY();
+    int GetAbsoluteY();
 protected:
-    double absoluteX;
-    double absoluteY;
+    int absoluteX;
+    int absoluteY;
 private:
     // Private constructors to disallow access.
     MouseEvent(MouseEvent const &other);

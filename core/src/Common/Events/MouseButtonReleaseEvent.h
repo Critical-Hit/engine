@@ -9,7 +9,7 @@
 class MouseButtonReleaseEvent : public MouseButtonEvent
 {
 public:
-    MouseButtonReleaseEvent(double absoluteX, double absoluteY, MouseCode mouseCode);
+    MouseButtonReleaseEvent(int absoluteX, int absoluteY, MouseCode mouseCode);
 private:
     // Private constructors to disallow access.
     MouseButtonReleaseEvent(MouseButtonReleaseEvent const &other);
