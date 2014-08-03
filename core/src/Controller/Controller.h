@@ -57,6 +57,11 @@ private:
      * Boolean that represents whether the game should exit or not.
      */
     bool shouldExit;
+    
+    /**
+     * Boolean that represents whether the views have been created or not.
+     */
+    bool viewsCreated;
 };
 
 #endif
