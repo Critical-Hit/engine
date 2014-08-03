@@ -4,6 +4,7 @@
 *.h text
 *.lua text
 *.py text
+*.md text
 
 *.png binary
 *.dll binary
