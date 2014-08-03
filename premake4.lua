@@ -19,6 +19,7 @@ solution "Engine"
     -- Max OSX, all build tools
     configuration {"macosx"}
         platforms {"Universal64"}
+		includedirs { "core/include" }
         buildoptions {"-std=c++11"}
         links {
             "OpenGL.framework",

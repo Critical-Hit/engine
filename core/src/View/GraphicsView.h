@@ -58,6 +58,7 @@ private:
 	 */
 	void CheckOpenGLError(std::string location);
 
+
 };
 
 #endif
