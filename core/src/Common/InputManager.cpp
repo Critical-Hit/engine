@@ -25,11 +25,12 @@ void InputManager::SetView(InputView* inputView)
 
 void InputManager::SetMouseInputMode(MouseInputMode mode)
 {
+    this->inputView->SetMouseInputMode(mode);
 }
 
 MouseInputMode InputManager::GetMouseInputMode()
 {
-    return MouseInputMode::SHOW;
+    return this->inputView->GetMouseInputMode();
 }
 
 void InputManager::RegisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyCode> keyCodes)
@@ -65,6 +66,21 @@ bool InputManager::IsRegisteredEventHandler(KeyCode* keyCode)
 InputState InputManager::GetKeyState(KeyCode keyCode)
 {
     return inputView->GetKeyState(keyCode);
+}
+
+InputState InputManager::GetMouseButtonState(MouseCode mouseCode)
+{
+    return inputView->GetMouseButtonState(mouseCode);
+}
+
+int InputManager::GetMouseAbsoluteX()
+{
+    return inputView->GetMouseAbsoluteX();
+}
+
+int InputManager::GetMouseAbsoluteY()
+{
+    return inputView->GetMouseAbsoluteY();
 }
 
 void InputManager::OnKeyboardKeyPress(KeyPressEvent* event) 
