@@ -52,22 +52,22 @@ public:
 	/**
 	 * Obtains the x value for the center of the camera
 	 */
-	float getX();
+	float GetX();
 
 	/**
 	 * Obtains the y value for the center of the camera
 	 */
-	float getY();
+	float GetY();
 
 	/**
 	 * Obtains the width of the camera's viewing area
 	 */
-	float getWidth();
+	float GetWidth();
 
 	/**
 	 * Obtains the height of the camera's viewing area
 	 */
-	float getHeight();
+	float GetHeight();
 
 	/**
 	 * Obtains the coordinate for the left edge of the camera

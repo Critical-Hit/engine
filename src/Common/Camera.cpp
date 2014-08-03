@@ -33,22 +33,22 @@ void Camera::SetDimensions(float width, float height)
     this->halfHeight = height / 2.0f;
 }
 
-float Camera::getX()
+float Camera::GetX()
 {
     return this->x;
 }
 
-float Camera::getY()
+float Camera::GetY()
 {
     return this->y;
 }
 
-float Camera::getWidth()
+float Camera::GetWidth()
 {
     return this->width;
 }
 
-float Camera::getHeight()
+float Camera::GetHeight()
 {
     return this->height;
 }
