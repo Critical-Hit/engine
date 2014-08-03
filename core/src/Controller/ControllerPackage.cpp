@@ -15,7 +15,6 @@ ControllerPackage::~ControllerPackage()
 {
 	delete this->graphicsManager;
 	delete this->inputManager;
-	delete this->soundManager;
 }
 
 GraphicsManager* const ControllerPackage::GetGraphicsManager()
@@ -31,7 +30,7 @@ InputManager* const ControllerPackage::GetInputManager()
 
 SoundManager* const ControllerPackage::GetSoundManager()
 {
-	return this->soundManager;
+    return this->soundManager;;
 }
 
 ResourceManager* const ControllerPackage::GetResourceManager()

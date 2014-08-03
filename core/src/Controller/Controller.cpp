@@ -6,6 +6,7 @@
 Controller::Controller()
 {
     this->shouldExit = false;
+    this->viewsCreated = false;
 }
 
 void Controller::Start()
@@ -25,6 +26,11 @@ static unsigned long getTimeInMilliseconds()
 void Controller::gameLoop()
 {
     GameStateManager manager;
+    
+    // Wait for views to be created
+    while(!viewsCreated)
+    { }
+    
     manager.Initialize(new InitialState());
 
     while(!this->shouldExit)
@@ -72,6 +78,9 @@ void Controller::viewLoop()
         inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
         soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
         resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
+        
+        if(!this->viewsCreated)
+            this->viewsCreated = true;
         
         window->display();
         while((getTimeInMilliseconds() - startTime) <= Controller::FRAMERATE)
