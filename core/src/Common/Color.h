@@ -1,7 +1,7 @@
 #ifndef Core_Color_h
 #define Core_Color_h
 
-class string;
+#include <string>
 
 /**
  * A color is an immutable clas made up of a red, green, blue,
