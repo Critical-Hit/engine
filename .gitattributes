@@ -9,3 +9,4 @@
 *.png binary
 *.dll binary
 *.lib binary
+*.a binary
