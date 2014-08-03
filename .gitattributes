@@ -1,0 +1,10 @@
+* text eol=auto
+
+*.cpp text
+*.h text
+*.lua text
+*.py text
+
+*.png binary
+*.dll binary
+*.lib binary
