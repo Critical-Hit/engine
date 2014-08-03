@@ -18,6 +18,7 @@ public:
 
 
 private:
+    Texture();
 	Texture operator=(Texture& other);
 	Texture(Texture& other);
     
