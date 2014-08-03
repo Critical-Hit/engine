@@ -15,7 +15,7 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::Initialize()
 {
-    
+
 }
 
 void GraphicsView::Update(GraphicsManager* graphicsManager)
