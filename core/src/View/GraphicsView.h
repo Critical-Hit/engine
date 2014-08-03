@@ -6,6 +6,7 @@
 
 #include "ControllerPackage.h"
 #include "GraphicsManager.h"
+#include "Texture.h"
 
 class string;
 
