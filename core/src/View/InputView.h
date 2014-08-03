@@ -44,6 +44,10 @@ public:
     int GetMouseAbsoluteY();
 
     void OnSfmlEvent(sf::Event event);
+
+    void SetMouseInputMode(MouseInputMode mode);
+
+    MouseInputMode GetMouseInputMode();
     
 private:
     // Private constructors to disallow access.
@@ -88,6 +92,10 @@ private:
     sf::Mouse::Button sfmlMouseMacro(MouseCode mouseCode);
 
     InputState keyState(int glfwInputState);
+
+    MouseInputMode mouseInputMode;
+
+    const sf::Vector2i MOUSE_ORIGIN;
 };
 
 #endif

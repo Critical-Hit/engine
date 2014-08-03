@@ -112,6 +112,12 @@ public:
      */
     InputState GetKeyState(KeyCode keyCode);
 
+    InputState GetMouseButtonState(MouseCode mouseCode);
+
+    int GetMouseAbsoluteX();
+
+    int GetMouseAbsoluteY();
+
     /**
      * Implemented from IKeyPressEventHandler. Distributes event to registered event handlers.
      * Should be called only by InputView.

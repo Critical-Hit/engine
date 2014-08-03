@@ -11,6 +11,8 @@
 #include "set"
 #include "vector"
 
+sf::Vector2i MOUSE_ORIGIN = sf::Vector2i(0, 0);
+
 InputView::InputView(sf::Window* window)
 {
     this->window = window;
@@ -19,6 +21,7 @@ InputView::InputView(sf::Window* window)
 
 void InputView::Initialize()
 {
+    this->SetMouseInputMode(MouseInputMode::SHOW);
 }
 
 void InputView::Update(InputManager* inputManager)
@@ -26,9 +29,28 @@ void InputView::Update(InputManager* inputManager)
 	this->inputManager = inputManager;
 }
 
+void InputView::SetMouseInputMode(MouseInputMode mode)
+{
+    this->mouseInputMode = mode;
+    if (mode == MouseInputMode::SHOW)
+    {
+        this->window->setMouseCursorVisible(true);
+    }
+    else
+    {
+        this->window->setMouseCursorVisible(false);
+    }
+}
+
+MouseInputMode InputView::GetMouseInputMode()
+{
+    return this->mouseInputMode;
+}
+
 void InputView::OnSfmlEvent(sf::Event event)
 {
-    if (event.type == sf::Event::KeyPressed){
+    if (event.type == sf::Event::KeyPressed)
+    {
         onSfmlKeyPressed(event.key);
     }
     else if (event.type == sf::Event::KeyReleased)
@@ -72,7 +94,7 @@ void InputView::onSfmlKeyPressed(sf::Event::KeyEvent event)
     if (inputManager->IsRegisteredEventHandler(&keyCode))
     {
         KeyPressEvent nativeEvent(&keyCode);
-        inputManager->OnKeyboardKeyPress(&nativeEvent);
+        this->inputManager->OnKeyboardKeyPress(&nativeEvent);
     }
 }
 
@@ -83,7 +105,7 @@ void InputView::onSfmlKeyReleased(sf::Event::KeyEvent event)
     if (inputManager->IsRegisteredEventHandler(&keyCode))
     {
         KeyReleaseEvent event(&keyCode);
-        inputManager->OnKeyboardKeyRelease(&event);
+        this->inputManager->OnKeyboardKeyRelease(&event);
     }
 }
 
@@ -97,7 +119,7 @@ void InputView::onSfmlMouseButtonPressed(sf::Event::MouseButtonEvent event)
     assert(inputManager != nullptr);
     MouseCode mouseCode = InputView::mouseCode(event.button);
     MouseButtonPressEvent nativeEvent(event.x, event.y, mouseCode);
-    inputManager->OnMouseButtonPress(&nativeEvent);
+    this->inputManager->OnMouseButtonPress(&nativeEvent);
 }
 
 void InputView::onSfmlMouseButtonReleased(sf::Event::MouseButtonEvent event)
@@ -105,14 +127,21 @@ void InputView::onSfmlMouseButtonReleased(sf::Event::MouseButtonEvent event)
     assert(inputManager != nullptr);
     MouseCode mouseCode = InputView::mouseCode(event.button);
     MouseButtonReleaseEvent nativeEvent(event.x, event.y, mouseCode);
-    inputManager->OnMouseButtonRelease(&nativeEvent);
+    this->inputManager->OnMouseButtonRelease(&nativeEvent);
 }
 
 void InputView::onSfmlMouseMoved(sf::Event::MouseMoveEvent event)
 {
     assert(inputManager != nullptr);
     MouseEvent nativeEvent(event.x, event.y);
-    inputManager->OnMouseInput(&nativeEvent);
+    this->inputManager->OnMouseInput(&nativeEvent);
+
+    // Dirty, evil hack to lock the cursor. SFML is working on a native cursor locking
+    // feature beyond SFML 2.2, but for now we have to reset the cursor position manually.
+    if (this->mouseInputMode == MouseInputMode::HIDE_AND_LOCK) 
+    {
+        sf::Mouse::setPosition(MOUSE_ORIGIN, *(this->window));
+    }
 }
 
 void InputView::onSfmlJoystickButtonPressed(sf::Event::JoystickButtonEvent event)
