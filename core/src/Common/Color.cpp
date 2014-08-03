@@ -36,7 +36,7 @@ Color::~Color()
 
 std::string Color::ToString()
 {
-	return "(" + std::to_string(this->red) + ", " + std::to_string(this->green) + ", " + std::to_string(this->blue) + ", " + std::to_string(this->alpha) + ")";
+	return "R: " + std::to_string(this->red) + " G: " + std::to_string(this->green) + " B: " + std::to_string(this->blue) + " A: " + std::to_string(this->alpha);
 }
 
 void Color::validateChannels()

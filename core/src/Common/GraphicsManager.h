@@ -5,6 +5,7 @@
 #include <iterator>
 #include <mutex>
 #include "Color.h"
+#include "Camera.h"
 
 class Sprite;
 
@@ -70,6 +71,11 @@ public:
 	int GetSpriteCount();
 
 	/**
+	 * Obtains a pointer to the camera.
+	 */
+	Camera* GetCamera();
+
+	/**
 	 * Prepares to add all sprites with the AddSpriteToVCIBuffer method
 	 */
 	void PrepareToAddSprites();
@@ -92,11 +98,8 @@ private:
     GraphicsManager(GraphicsManager const &other);
     GraphicsManager operator=(GraphicsManager other);
 
-	/**
-	 * Clear color of screen
-	 */
 	Color clearColor;
-	
+	Camera camera;
 	std::set<Sprite*> registeredSprites;
 	std::mutex registeredSpritesMutex;
 	std::set<Sprite*>::iterator spriteIterator;
