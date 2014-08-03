@@ -1,7 +1,6 @@
 #ifndef Core_Texture_h
 #define Core_Texture_h
 
-
 #include <ImageLoader/SOIL2.h>
 #include <GLFW/glfw3.h>
 #include <functional>
