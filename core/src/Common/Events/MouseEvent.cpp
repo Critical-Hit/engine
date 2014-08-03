@@ -1,17 +1,17 @@
 #include "MouseEvent.h"
 
-MouseEvent::MouseEvent (double absoluteX, double absoluteY)
+MouseEvent::MouseEvent (int absoluteX, int absoluteY)
 {
     this->absoluteX = absoluteX;
     this->absoluteY = absoluteY;
 }
 
-double MouseEvent::GetAbsoluteX()
+int MouseEvent::GetAbsoluteX()
 {
     return this->absoluteX;
 }
 
-double MouseEvent::GetAbsoluteY()
+int MouseEvent::GetAbsoluteY()
 {
     return this->absoluteY;
 }

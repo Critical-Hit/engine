@@ -16,7 +16,7 @@ public:
      * @param absoluteY absolute y-coordiante of the mouse cursor
      * @param button button which caused the event
      */
-    MouseButtonEvent(double absoluteX, double absoluteY, MouseCode button);
+    MouseButtonEvent(int absoluteX, int absoluteY, MouseCode button);
     
     /**
      * @return button which caused the event
