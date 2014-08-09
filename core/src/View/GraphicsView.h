@@ -52,7 +52,7 @@ private:
     /**
      * The GLFW Window to draw to.
      */
-    GLFWwindow* window;
+    sf::Window* window;
 
     /**
 	 * Utility function for checking OpenGL errors
