@@ -7,6 +7,9 @@
 
 #include "ControllerPackage.h"
 #include "GraphicsManager.h"
+#include "Texture.h"
+
+class string;
 
 /**
  * Provides a full set of logic for displaying graphics.
@@ -54,7 +57,8 @@ private:
     /**
 	 * Utility function for checking OpenGL errors
 	 */
-	void CheckOpenGLError();
+	void CheckOpenGLError(std::string location);
+
 
 };
 

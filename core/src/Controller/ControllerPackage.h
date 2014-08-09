@@ -19,7 +19,7 @@ public:
     /**
      * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager, ResourceManager* const resourceManager);
+    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager);
     
 	/**
 	 * Destructor
