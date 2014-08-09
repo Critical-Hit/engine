@@ -22,6 +22,7 @@ void InitialState::Initialize(GameStateManager* manager)
 	this->graphicsManager->RegisterSprite(new Sprite(0.5, 1.0f, 0.5f, 0.5f, Color(0.0f, 1.0f, 0.0f, 1.0f)));
 	this->graphicsManager->RegisterSprite(new Sprite(-1.0, -0.5f, 0.5f, 0.5f, Color(0.0f, 0.0f, 1.0f, 1.0f)));
 	this->graphicsManager->RegisterSprite(new Sprite(0.5, -0.5f, 0.5f, 0.5f, Color(1.0f, 1.0f, 0.0f, 1.0f)));
+	//this->graphicsManager->GetCamera()->MoveBy(0.001f, 0.001f);
 }
 
 void InitialState::Update()
@@ -35,6 +36,7 @@ void InitialState::Update()
 	clearColorValue = (this->sign * this->increment) + clearColorValue;
 	Color newClearColor(0.0f, clearColorValue, clearColorValue, 1.0f);
 	this->graphicsManager->SetClearColor(newClearColor);
+	this->graphicsManager->GetCamera()->MoveBy(increment * sign, 0.0f);
 }
 
 void InitialState::Pause()
