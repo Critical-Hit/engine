@@ -16,7 +16,8 @@ solution "Engine"
             "sfml-graphics",
             "sfml-network",
             "sfml-system",
-            "sfml-window"
+            "sfml-window",
+	    "soil2-linux"
         }
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
@@ -31,7 +32,8 @@ solution "Engine"
             "sfml-graphics",
             "sfml-network",
             "sfml-system",
-            "sfml-window" }
+            "sfml-window",
+	    "soil2-mac" }
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         includedirs{"core/include"}
@@ -45,7 +47,8 @@ solution "Engine"
             "sfml-main",
             "sfml-network",
             "sfml-system",
-            "sfml-window"
+            "sfml-window",
+	    "soil2-windows-release"
         }
     configuration {"windows", "vs2010", "Debug"}
         links {
@@ -56,7 +59,8 @@ solution "Engine"
             "sfml-main-d",
             "sfml-network-d",
             "sfml-system-d",
-            "sfml-window-d"
+            "sfml-window-d",
+	    "soil2-windows-debug"
         }
 
 moduleNames = os.matchdirs("modules/*")
