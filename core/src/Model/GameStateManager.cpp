@@ -2,7 +2,7 @@
 
 GameStateManager::GameStateManager()
 {
-    ControllerPackage* tempControllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), SoundManager::GetInstance(), new ResourceManager());
+    ControllerPackage* tempControllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), SoundManager::GetInstance());
     tempControllerPackage->Activate();
 }
 
