@@ -82,7 +82,6 @@ void Controller::viewLoop()
         if(!this->viewsCreated)
             this->viewsCreated = true;
         
-        window->display();
         while((getTimeInMilliseconds() - startTime) <= Controller::FRAMERATE)
         { }
     }
