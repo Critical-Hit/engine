@@ -56,12 +56,12 @@ private:
     /**
      * Boolean that represents whether the game should exit or not.
      */
-    bool shouldExit;
+    volatile bool shouldExit;
     
     /**
      * Boolean that represents whether the views have been created or not.
      */
-    bool viewsCreated;
+    volatile bool viewsCreated;
 };
 
 #endif

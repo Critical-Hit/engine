@@ -28,7 +28,7 @@ void Controller::gameLoop()
     GameStateManager manager;
     
     // Wait for views to be created
-    while(!viewsCreated)
+    while(!this->viewsCreated)
     { }
     
     manager.Initialize(new InitialState());
