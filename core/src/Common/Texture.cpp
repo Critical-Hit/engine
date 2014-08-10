@@ -28,7 +28,7 @@ Texture::~Texture()
 
 }
 
-GLuint Texture::GetTextureUnit()
+uint Texture::GetTextureUnit()
 {
     return this->textureUnit;
 }

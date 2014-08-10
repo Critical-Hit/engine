@@ -36,7 +36,7 @@ public:
      *
      * @PARAM textureID
      */
-    GLuint GetTextureUnitFromTextureID(int textureID);
+    uint GetTextureUnitFromTextureID(int textureID);
 
 private:
     /**
