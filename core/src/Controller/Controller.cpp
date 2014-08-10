@@ -72,6 +72,9 @@ void Controller::viewLoop()
                 this->shouldExit = true;
                 window->close();
             }
+
+            // Allow views to handle other types of events
+            inputView.OnSfmlEvent(event);
         }
  
         graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());

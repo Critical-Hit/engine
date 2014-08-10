@@ -27,7 +27,7 @@ void ResourceManager::LoadTexture(int textureID, const char *fileName)
 unsigned int ResourceManager::GetTextureUnitFromTextureID(int textureID)
 {
     Texture* tempTexture;
-    int i;
+    unsigned int i;
     for(i = 0; i < this->textureList.size(); i++)
     {
         tempTexture = this->textureList[i];
