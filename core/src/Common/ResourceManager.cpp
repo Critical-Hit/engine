@@ -24,7 +24,7 @@ void ResourceManager::LoadTexture(int textureID, const char *fileName)
     this->textureList.push_back(new Texture(textureID, fileName));
 }
 
-GLuint ResourceManager::GetTextureUnitFromTextureID(int textureID)
+uint ResourceManager::GetTextureUnitFromTextureID(int textureID)
 {
     Texture* tempTexture;
     int i;

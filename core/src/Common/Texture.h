@@ -1,8 +1,6 @@
 #ifndef Core_Texture_h
 #define Core_Texture_h
 
-#include <ImageLoader/SOIL2.h>
-#include <GLFW/glfw3.h>
 #include <functional>
 
 class Texture
@@ -13,7 +11,7 @@ public:
     
     Texture(char* filePath);
     
-    GLuint GetTextureUnit();
+    uint GetTextureUnit();
     int GetTextureID();
 
 
@@ -22,7 +20,7 @@ private:
 	Texture operator=(Texture& other);
 	Texture(Texture& other);
     
-    GLuint textureUnit;
+    uint textureUnit;
     int textureID;
 };
 
