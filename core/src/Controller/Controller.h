@@ -46,12 +46,12 @@ private:
     /**
      * How quickly the game logic updates. 1 over the number of updates per second.
      */
-    const double UPDATE_RATE = 1 / 60.0;
+    const double UPDATE_RATE = (1 / 60.0) * 1000;
     
     /**
      * How quickly the graphics are updated. 1 over the number of frames per second.
      */
-    const double FRAMERATE = 1 / 60.0;
+    const double FRAMERATE = (1 / 60.0) * 1000;
 
     /**
      * Boolean that represents whether the game should exit or not.

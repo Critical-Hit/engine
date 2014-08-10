@@ -22,18 +22,19 @@ solution "Engine"
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib"}
+        includedirs {"/usr/local/include", "core/include"}
+        libdirs {"/usr/local/lib", "core/lib"}
     configuration {"macosx", "gmake"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
+        includedirs { "core/include" }
         links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
             "sfml-audio",
             "sfml-graphics",
             "sfml-network",
             "sfml-system",
             "sfml-window",
-	    "soil2-mac" }
+    	    "soil2-mac" }
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         includedirs{"core/include"}
