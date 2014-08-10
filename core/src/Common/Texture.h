@@ -2,6 +2,7 @@
 #define Core_Texture_h
 
 #include <functional>
+#include "ImageLoader/SOIL2.h"
 
 class Texture
 {

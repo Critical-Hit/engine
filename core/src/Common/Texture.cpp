@@ -1,5 +1,4 @@
 #include "Texture.h"
-#include "ImageLoader/SOIL2.h"
 
 Texture::Texture(int textureID, const char *fileName)
 {
