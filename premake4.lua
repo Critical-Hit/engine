@@ -21,6 +21,8 @@ solution "Engine"
     configuration {"macosx"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
+        includedirs {"core/include", "/usr/local/include"}
+        libdirs {"core/lib", "/usr/local/lib"}
         links {
             "OpenGL.framework", 
             "Cocoa.framework", 
@@ -34,8 +36,7 @@ solution "Engine"
     	    "soil2-mac" 
         }
     configuration {"macosx", "xcode3"}
-        includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib"}
+        -- Nothing here yet
     configuration {"macosx", "gmake"}
         -- Nothing here yet
     configuration {"windows", "vs2010"}
