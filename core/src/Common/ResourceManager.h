@@ -36,7 +36,7 @@ public:
      *
      * @PARAM textureID
      */
-    uint GetTextureUnitFromTextureID(int textureID);
+    unsigned int GetTextureUnitFromTextureID(int textureID);
 
 private:
     /**

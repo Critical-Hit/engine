@@ -11,7 +11,7 @@ public:
     
     Texture(char* filePath);
     
-    uint GetTextureUnit();
+    unsigned int GetTextureUnit();
     int GetTextureID();
 
 
@@ -20,7 +20,7 @@ private:
 	Texture operator=(Texture& other);
 	Texture(Texture& other);
     
-    uint textureUnit;
+    unsigned int textureUnit;
     int textureID;
 };
 

@@ -28,7 +28,7 @@ Texture::~Texture()
 
 }
 
-uint Texture::GetTextureUnit()
+unsigned int Texture::GetTextureUnit()
 {
     return this->textureUnit;
 }

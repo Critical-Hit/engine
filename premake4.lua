@@ -18,15 +18,9 @@ solution "Engine"
             "sfml-window",
 	        "soil2-linux"
         }
-    configuration {"macosx", "xcode3"}
+    configuration {"macosx"}
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
-        includedirs {"/usr/local/include", "core/include"}
-        libdirs {"/usr/local/lib", "core/lib"}
-    configuration {"macosx", "gmake"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
-        includedirs { "core/include" }
         links {
             "OpenGL.framework", 
             "Cocoa.framework", 
@@ -39,6 +33,11 @@ solution "Engine"
             "sfml-window",
     	    "soil2-mac" 
         }
+    configuration {"macosx", "xcode3"}
+        includedirs {"/usr/local/include"}
+        libdirs {"/usr/local/lib"}
+    configuration {"macosx", "gmake"}
+        -- Nothing here yet
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         includedirs{"core/include"}
@@ -91,18 +90,6 @@ project "Core"
     }
     links {"Game"}
 
-    configuration {"macosx", "xcode3"}
-        links {
-            "OpenGL.framework", 
-            "Cocoa.framework", 
-            "IOKit.framework", 
-            "CoreVideo.framework", 
-            "sfml-audio",
-            "sfml-graphics",
-            "sfml-network",
-            "sfml-system",
-            "sfml-window" }
- 
 project "Game"
     kind "StaticLib"
     language "C++"
