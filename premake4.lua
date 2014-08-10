@@ -45,9 +45,9 @@ solution "Engine"
         links { "OpenGL32" }
     configuration {"windows", "vs2010", "Release"}
         links {
+            "sfml-main",
             "sfml-audio",
             "sfml-graphics",
-            "sfml-main",
             "sfml-network",
             "sfml-system",
             "sfml-window",
@@ -55,9 +55,9 @@ solution "Engine"
         }
     configuration {"windows", "vs2010", "Debug"}
         links {
+            "sfml-main-d",
             "sfml-audio-d",
             "sfml-graphics-d",
-            "sfml-main-d",
             "sfml-network-d",
             "sfml-system-d",
             "sfml-window-d",
