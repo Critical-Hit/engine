@@ -17,7 +17,7 @@ void Controller::Start()
     gameThread.join();
 }
 
-static unsigned long getTimeInMilliseconds()
+static long long getTimeInMilliseconds()
 {
     return std::chrono::duration_cast<std::chrono::milliseconds>
     (std::chrono::system_clock::now().time_since_epoch()).count();
@@ -35,7 +35,7 @@ void Controller::gameLoop()
 
     while(!this->shouldExit)
     {
-        unsigned long startTime = getTimeInMilliseconds();
+		long long startTime = getTimeInMilliseconds();
 
         manager.Update();
         
@@ -61,7 +61,7 @@ void Controller::viewLoop()
     // Actual loop
     while(!this->shouldExit)
     {
-        unsigned long startTime = getTimeInMilliseconds();
+		long long startTime = getTimeInMilliseconds();
 
         // Close program on exit
         sf::Event event;
