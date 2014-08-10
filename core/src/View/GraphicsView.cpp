@@ -10,7 +10,6 @@ GraphicsView::GraphicsView(sf::Window* window)
 
 GraphicsView::~GraphicsView()
 {
-    glfwTerminate();
 }
 
 void GraphicsView::Initialize()
