@@ -11,13 +11,12 @@ solution "Engine"
         buildoptions {"-std=c++11"}
         links {
             "GL", 
-            "glfw",
             "sfml-audio",
             "sfml-graphics",
             "sfml-network",
             "sfml-system",
             "sfml-window",
-	    "soil2-linux"
+	        "soil2-linux"
         }
     configuration {"macosx", "xcode3"}
         platforms {"Universal64"}
@@ -28,40 +27,42 @@ solution "Engine"
         platforms {"Universal64"}
         buildoptions {"-std=c++11"}
         includedirs { "core/include" }
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
+        links {
+            "OpenGL.framework", 
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
             "sfml-audio",
             "sfml-graphics",
             "sfml-network",
             "sfml-system",
             "sfml-window",
-    	    "soil2-mac" }
+    	    "soil2-mac" 
+        }
     configuration {"windows", "vs2010"}
         platforms {"x64"}
         includedirs{"core/include"}
         libdirs {"core/lib"}
+        links { "OpenGL32" }
     configuration {"windows", "vs2010", "Release"}
         links {
-            "OpenGL32", 
-            "glfw3", 
             "sfml-audio",
             "sfml-graphics",
             "sfml-main",
             "sfml-network",
             "sfml-system",
             "sfml-window",
-	    "soil2-windows-release"
+	        "soil2-windows-release"
         }
     configuration {"windows", "vs2010", "Debug"}
         links {
-            "OpenGL32", 
-            "glfw3", 
             "sfml-audio-d",
             "sfml-graphics-d",
             "sfml-main-d",
             "sfml-network-d",
             "sfml-system-d",
             "sfml-window-d",
-	    "soil2-windows-debug"
+	        "soil2-windows-debug"
         }
 
 moduleNames = os.matchdirs("modules/*")
@@ -91,7 +92,11 @@ project "Core"
     links {"Game"}
 
     configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3",
+        links {
+            "OpenGL.framework", 
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
             "sfml-audio",
             "sfml-graphics",
             "sfml-network",
