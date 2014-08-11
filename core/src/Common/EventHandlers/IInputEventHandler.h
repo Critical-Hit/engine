@@ -19,27 +19,27 @@ public:
     /**
      * Event handler executed when a keyboard key is pressed.
      */
-    void OnKeyboardKeyPress(KeyPressEvent*) {}
+    virtual void OnKeyboardKeyPress(KeyPressEvent*) {}
 
     /**
      * Event handler executed when a keyboard key is released.
      */
-    void OnKeyboardKeyRelease(KeyReleaseEvent*) {}
+    virtual void OnKeyboardKeyRelease(KeyReleaseEvent*) {}
 
     /**
      * Event handler executed when mouse input is received (i.e. every frame)
      */
-    void OnMouseInput(MouseEvent*) {}
+    virtual void OnMouseInput(MouseEvent*) {}
 
     /**
      * Event handler executed when a mouse button is pressed.
      */
-    void OnMouseButtonPress(MouseButtonPressEvent*) {}
+    virtual void OnMouseButtonPress(MouseButtonPressEvent*) {}
 
     /**
      * Event handler executed when a mouse button is released.
      */
-    void OnMouseButtonRelease(MouseButtonReleaseEvent*) {}
+    virtual void OnMouseButtonRelease(MouseButtonReleaseEvent*) {}
 };
 
 
