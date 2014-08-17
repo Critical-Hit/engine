@@ -9,6 +9,7 @@ solution "Engine"
     configuration {"linux", "gmake" }
         platforms {"x64"}
         buildoptions {"-std=c++11"}
+        includedirs { "core/include" }
         links {
             "GL", 
             "sfml-audio",
@@ -16,7 +17,7 @@ solution "Engine"
             "sfml-network",
             "sfml-system",
             "sfml-window",
-	        "soil2-linux"
+	    "soil2-linux"
         }
     configuration {"macosx"}
         platforms {"Universal64"}
