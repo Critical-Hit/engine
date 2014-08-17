@@ -32,7 +32,6 @@ Generate the Visual Studio Project and run the build:
 
 ###Libraries
 
-<<<<<<< HEAD
 We highly recommend using [Homebrew](http://www.brew.sh) when developing on Mac OSX. If this is not possible, you can download the required libraries and edit the PATH manually.
 
 ####Homebrew
@@ -49,7 +48,6 @@ Open a terminal and type `brew install premake glfw3`
 ####MacPorts
 
 Open a terminal and type `port install premake glfw`
->>>>>>> master
 
 ####Manual Download
 
