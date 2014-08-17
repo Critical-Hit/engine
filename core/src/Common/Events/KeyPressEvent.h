@@ -10,12 +10,15 @@ enum KeyCode;
 class KeyPressEvent : public KeyEvent
 {
 public:
-// Default constructor.
- 	KeyPressEvent(KeyCode* keyCode);
+    /**
+     * Event constructor.
+     * @param keyCode Keyboard key which caused the event.
+     */
+    KeyPressEvent(KeyCode* keyCode);
 private:
-   // Private constructors to disallow access.
-	KeyPressEvent(KeyPressEvent const &other);
-	KeyPressEvent operator=(KeyPressEvent other);
+    // Private constructors to disallow access.
+    KeyPressEvent(KeyPressEvent const &other);
+    KeyPressEvent operator=(KeyPressEvent other);
 };
 
 #endif

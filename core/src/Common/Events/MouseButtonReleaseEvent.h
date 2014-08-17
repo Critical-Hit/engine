@@ -9,6 +9,9 @@
 class MouseButtonReleaseEvent : public MouseButtonEvent
 {
 public:
+    /**
+     * @see MouseButtonEvent::MouseButtonEvent(int, int, MouseCode)
+     */
     MouseButtonReleaseEvent(int absoluteX, int absoluteY, MouseCode mouseCode);
 private:
     // Private constructors to disallow access.
