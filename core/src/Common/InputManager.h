@@ -36,27 +36,27 @@ public:
     void Update();
 
     /**
-     * Associate an InputView with this InputManager. The InputView specified 
-     * here will be used to poll input state on demand. 
+     * Associate an InputView with this InputManager. The InputView specified here will be used to poll input state on demand. 
      * Only one InputView may be associated with an InputManager at a time.
+     * @param inputView InputView to associated with this InputManager
      */
     void SetView(InputView* inputView);
 
     /**
      * Set the mouse cursor behavior.
      * @param mode one of the following:
-     *        MouseInputMode::SHOW - Draw the operating system cursor.
-     *        MouseInputMode::HIDE - Hide the operating system cursor.
-     *        MouseInputMode::HIDE_AND_LOCK - Hide the operating system cursor and lock the cursor to the game window.
+     * * MouseInputMode::SHOW - Draw the operating system cursor.
+     * * MouseInputMode::HIDE - Hide the operating system cursor.
+     * * MouseInputMode::HIDE_AND_LOCK - Hide the operating system cursor and lock the cursor to the game window.
      */
     void SetMouseInputMode(MouseInputMode mode);
 
     /**
      * Get the current mouse cursor behavior.
      * @return one of the following:
-     *         MouseInputMode::SHOW - The operating system cursor is being drawn.
-     *         MouseInputMode::HIDE - The operating system cursor is hidden.
-     *         MouseInputMode::HIDE_AND_LOCK - The operating system cursor is hidden and the cursor is locked to the game window.
+     * * MouseInputMode::SHOW - The operating system cursor is being drawn.
+     * * MouseInputMode::HIDE - The operating system cursor is hidden.
+     * * MouseInputMode::HIDE_AND_LOCK - The operating system cursor is hidden and the cursor is locked to the game window.
      */
     MouseInputMode GetMouseInputMode();
 
@@ -106,59 +106,73 @@ public:
 
     /**
      * Poll the current state of a key.
-     * @param keyCode Key code corresponding to a keyboard key.
-     * @return InputState indicating the current state of a key.
+     * @param keyCode The keyboard key to poll.
+     * @return the current state of the keyboard key.
      * If an invalid key code was passed, KeyState::Invalid is returned.
      */
     InputState GetKeyState(KeyCode keyCode);
 
+    /**
+     * Poll the current state of a mouse button.
+     * @param mouseCode The mouse button to poll.
+     * @return the current state of the mouse button
+     */
     InputState GetMouseButtonState(MouseCode mouseCode);
 
+    /**
+     * Poll the horixontal coordinate of the mouse cursor. 
+     * @return the x coordinate of the mouse cursor within the game window. The left edge of the game window is the origin.
+     */
     int GetMouseAbsoluteX();
 
+    /**
+     * Poll the vertical coordinate of the mouse cursor.
+     * @return the y coordinate of the mouse cursor within the game window. The top edge of the game window is the origin.
+     */
     int GetMouseAbsoluteY();
 
     /**
-     * Implemented from IKeyPressEventHandler. Distributes event to registered event handlers.
-     * Should be called only by InputView.
+     * Distributes event to registered event handlers. Should be called only by InputView.
+     * @param event event to distribute.
      */
     void OnKeyboardKeyPress(KeyPressEvent* event);
     
     /**
-     * Implemented from IKeyReleaseEventHandler. Distributes event to registered event handlers.
-     * Should be called only by InputView.
+     * Distributes event to registered event handlers. Should be called only by InputView.
+     * @param event event to distribute.
      */
     void OnKeyboardKeyRelease(KeyReleaseEvent* event);
 
     /**
-     * Implemented from IMouseEventHandler. Distributes event to registered event handlers.
-     * Should be called only by InputView.
+     * Distributes event to registered event handlers. Should be called only by InputView.
+     * @param event event to distribute.
      */
     void OnMouseInput(MouseEvent* event);
 
     /**
-     * Implemented from IMouseButtonPressEventHandler. Distributes event to registered event handlers.
-     * Should be called only by InputView.
+     * Distributes event to registered event handlers. Should be called only by InputView.
+     * @param event event to distribute.
      */
     void OnMouseButtonPress(MouseButtonPressEvent* event);
 
     /**
-     * Implemented from IMouseButtonReleaseEventHandler. Distributes event to registered event handlers.
-     * Should be called only by InputView.
+     * Distributes event to registered event handlers. Should be called only by InputView.
+     * @param event event to distribute.
      */
     void OnMouseButtonRelease(MouseButtonReleaseEvent* event);
     
-	/**
-	* Sets all variables of this instance to match the other instance.
-	*/
-	void CopyFrom(InputManager* other);
+    /**
+    * Sets all variables of this instance to match the other instance.
+    * @param other InputManager to copy attributes from.
+    */
+    void CopyFrom(InputManager* other);
 
 private:
     // Private constructors to disallow access.
     InputManager(InputManager const &other);
     InputManager operator=(InputManager other);
 
-    // InputView which fires input events.
+    // InputView which is polled for ondemand input.
     InputView* inputView;
    
     // Maps of registered keys and their associated handlers. 

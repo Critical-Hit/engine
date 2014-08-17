@@ -1,5 +1,4 @@
 #include "InputView.h"
-#include "GLFW/glfw3.h"
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Window/Mouse.hpp"
 #include "KeyPressEvent.h"
