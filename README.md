@@ -37,17 +37,6 @@ We highly recommend using [Homebrew](http://www.brew.sh) when developing on Mac 
 ####Homebrew
 
 Open a terminal and type `brew install premake sfml`
-=======
-We highly recommend using [Homebrew](http://www.brew.sh) when developing on Mac OSX. [MacPorts](http://www.macports.com) is another alternative. If this is not possible, you can download the required libraries and edit the PATH manually.
-
-####Homebrew
-
-Open a terminal and type `brew install premake glfw3`
-(If glfw3 is not found try `brew search glfw` and replace "glfw3" with what is found)
-
-####MacPorts
-
-Open a terminal and type `port install premake glfw`
 
 ####Manual Download
 
