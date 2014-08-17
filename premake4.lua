@@ -23,18 +23,6 @@ solution "Engine"
         buildoptions {"-std=c++11"}
         includedirs {"core/include", "/usr/local/include"}
         libdirs {"core/lib", "/usr/local/lib"}
-        links {
-            "OpenGL.framework", 
-            "Cocoa.framework", 
-            "IOKit.framework", 
-            "CoreVideo.framework", 
-            "sfml-audio",
-            "sfml-graphics",
-            "sfml-network",
-            "sfml-system",
-            "sfml-window",
-    	    "soil2-mac" 
-        }
     configuration {"macosx", "xcode3"}
         -- Nothing here yet
     configuration {"macosx", "gmake"}
@@ -90,6 +78,19 @@ project "Core"
         "core/lib"
     }
     links {"Game"}
+    configuration {"macosx"}
+        links {
+            "OpenGL.framework", 
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+    	    "soil2-mac" 
+        }
 
 project "Game"
     kind "StaticLib"
