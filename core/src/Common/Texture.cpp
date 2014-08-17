@@ -1,6 +1,5 @@
 #include "Texture.h"
 
-
 Texture::Texture(int textureID, const char *fileName)
 {
     this->textureID = textureID;
@@ -28,7 +27,7 @@ Texture::~Texture()
 
 }
 
-GLuint Texture::GetTextureUnit()
+unsigned int Texture::GetTextureUnit()
 {
     return this->textureUnit;
 }

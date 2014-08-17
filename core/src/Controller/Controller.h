@@ -2,6 +2,8 @@
 #define Core_Controller_h
 
 #include <GLFW/glfw3.h>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <thread>
 
@@ -37,11 +39,6 @@ private:
     void gameLoop();
     
     /**
-     * Helper method that initializes the GLFW window.
-     */
-    GLFWwindow* initializeGraphics();
-    
-    /**
      * The method that updates the GraphicsView.
      */
     void viewLoop();
@@ -49,17 +46,22 @@ private:
     /**
      * How quickly the game logic updates. 1 over the number of updates per second.
      */
-    const double UPDATE_RATE = 1 / 60.0;
+    const double UPDATE_RATE = (1 / 60.0) * 1000;
     
     /**
      * How quickly the graphics are updated. 1 over the number of frames per second.
      */
-    const double FRAMERATE = 1 / 60.0;
+    const double FRAMERATE = (1 / 60.0) * 1000;
 
     /**
      * Boolean that represents whether the game should exit or not.
      */
-    bool shouldExit;
+    volatile bool shouldExit;
+    
+    /**
+     * Boolean that represents whether the views have been created or not.
+     */
+    volatile bool viewsCreated;
 };
 
 #endif

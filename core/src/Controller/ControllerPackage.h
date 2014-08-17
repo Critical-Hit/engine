@@ -7,6 +7,7 @@
 #include "ResourceManager.h"
 
 class InputManager;
+class SoundManager;
 /**
  * This class is used to gather together access to the various managers
  * used to control the engine's view, and is used by the model to effect
@@ -34,12 +35,12 @@ public:
      * Returns a pointer to the game's InputManager.
      */
     InputManager* const GetInputManager();
-    
+
     /**
      * Returns a pointer to the game's SoundManager.
      */
     SoundManager* const GetSoundManager();
-
+    
     /**
      * Returns a pointer to the game's ResourceManager.
      */
@@ -69,7 +70,7 @@ private:
 	// The managers to be provided to the game manager
 	GraphicsManager* graphicsManager;
 	InputManager* inputManager;
-	SoundManager* soundManager;
+    SoundManager* soundManager;
     ResourceManager* resourceManager;
 
     static ControllerPackage* activeControllerPackage;

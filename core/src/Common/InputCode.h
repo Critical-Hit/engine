@@ -56,7 +56,8 @@ enum KeyCode {
     KEYBOARD_COMMA = 54,
     KEYBOARD_PERIOD = 55,
     KEYBOARD_FORWARD_SLASH = 56,
-    KEYBOARD_CAPS_LOCK = 57,
+    // Deprecated
+    // KEYBOARD_CAPS_LOCK = 57,
     KEYBOARD_F1 = 58,
     KEYBOARD_F2 = 59,
     KEYBOARD_F3 = 60,
@@ -69,9 +70,10 @@ enum KeyCode {
     KEYBOARD_F10 = 67,
     KEYBOARD_F11 = 68,
     KEYBOARD_F12 = 69,
-    KEYBOARD_PRINT_SCREEN = 70,
-    KEYBOARD_SCROLL_LOCK = 71,
-    KEYBOARD_PAUSE = 72,
+    // Deprecated
+    // KEYBOARD_PRINT_SCREEN = 70,
+    // KEYBOARD_SCROLL_LOCK = 71,
+    // KEYBOARD_PAUSE = 72,
     KEYBOARD_INSERT = 73,
     KEYBOARD_HOME = 74,
     KEYBOARD_PAGE_UP = 75,
@@ -82,12 +84,14 @@ enum KeyCode {
     KEYBOARD_LEFT_ARROW = 80,
     KEYBOARD_DOWN_ARROW = 81,
     KEYBOARD_UP_ARROW = 82,
-    KEYBOARD_NUM_LOCK = 83,
+    // Deprecated
+    // KEYBOARD_NUM_LOCK = 83,
     KEYBOARD_NUM_FORWARD_SLASH = 84,
     KEYBOARD_NUM_ASTERISK = 85,
     KEYBOARD_NUM_MINUS = 86,
     KEYBOARD_NUM_PLUS = 87,
-    KEYBOARD_NUM_ENTER = 88,
+    // Deprecated
+    // KEYBOARD_NUM_ENTER = 88,
     KEYBOARD_NUM_1 = 89,
     KEYBOARD_NUM_2 = 90,
     KEYBOARD_NUM_3 = 91,
@@ -98,8 +102,9 @@ enum KeyCode {
     KEYBOARD_NUM_8 = 96,
     KEYBOARD_NUM_9 = 97,
     KEYBOARD_NUM_0 = 98,
-    KEYBOARD_NUM_PERIOD = 99,
-    KEYBOARD_NUM_EQUALS = 103,
+    // Deprecated
+    // KEYBOARD_NUM_PERIOD = 99,
+    // KEYBOARD_NUM_EQUALS = 103,
     KEYBOARD_LEFT_CONTROL = 224,
     KEYBOARD_LEFT_SHIFT = 225,
     KEYBOARD_LEFT_ALT = 226,
@@ -108,6 +113,20 @@ enum KeyCode {
     KEYBOARD_RIGHT_SHIFT = 229,
     KEYBOARD_RIGHT_ALT = 230,
     KEYBOARD_RIGHT_SUPER = 231
+};
+
+enum MouseCode {
+    // Deprecated
+    // MOUSE_UNKNOWN = -1,
+    MOUSE_1 = 1,
+    MOUSE_2 = 2,
+    MOUSE_3 = 3,
+    MOUSE_4 = 4,
+    MOUSE_5 = 5,
+    // Deprecated
+    // MOUSE_6 = 6,
+    // MOUSE_7 = 7,
+    // MOUSE_8 = 8
 };
 
 #endif
