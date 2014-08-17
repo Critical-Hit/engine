@@ -6,6 +6,7 @@
 Controller::Controller()
 {
     this->shouldExit = false;
+    this->viewsCreated = false;
 }
 
 void Controller::Start()
@@ -16,33 +17,40 @@ void Controller::Start()
     gameThread.join();
 }
 
+static long long getTimeInMilliseconds()
+{
+    return std::chrono::duration_cast<std::chrono::milliseconds>
+    (std::chrono::system_clock::now().time_since_epoch()).count();
+}
+
 void Controller::gameLoop()
 {
     GameStateManager manager;
+    
+    // Wait for views to be created
+    while(!this->viewsCreated)
+    { }
+    
     manager.Initialize(new InitialState());
 
-    int i = 0;
     while(!this->shouldExit)
     {
-        i++;
-        double startTime = glfwGetTime();
+		long long startTime = getTimeInMilliseconds();
 
         manager.Update();
         
-        while((glfwGetTime() - startTime) <= Controller::UPDATE_RATE)
+        while((getTimeInMilliseconds() - startTime) <= Controller::UPDATE_RATE)
         { }
     }
 }
 
 void Controller::viewLoop()
 {
-    glfwInit();
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    glfwMakeContextCurrent(window);
-
+    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(640, 480), "Game Engine");
+    //window->setFramerateLimit(1 / this->FRAMERATE); // Do we want this instead of my version?
+    
     GraphicsView graphicsView(window); 
     graphicsView.Initialize();
-    graphicsView.OnWindowClose = [this] () { this->shouldExit = true; };
     InputView inputView(window);
     inputView.Initialize();
     SoundView soundView;
@@ -50,23 +58,38 @@ void Controller::viewLoop()
     ResourceView resourceView;
     resourceView.Initialize();
 
+    // Actual loop
     while(!this->shouldExit)
     {
-        double startTime = glfwGetTime();
+		long long startTime = getTimeInMilliseconds();
 
-        glfwPollEvents();
+        // Close program on exit
+        sf::Event event;
+        while (window->pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                this->shouldExit = true;
+                window->close();
+            }
 
+            // Allow views to handle other types of events
+            inputView.OnSfmlEvent(event);
+        }
+ 
         graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
         inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
         soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
         resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
-
-        while((glfwGetTime() - startTime) <= Controller::FRAMERATE)
+        
+        if(!this->viewsCreated)
+            this->viewsCreated = true;
+        
+        while((getTimeInMilliseconds() - startTime) <= Controller::FRAMERATE)
         { }
     }
-
-    // Window close events
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    
+    //glfwDestroyWindow(window);
+    //glfwTerminate();
 }
 

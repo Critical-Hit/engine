@@ -1,61 +1,73 @@
 solution "Engine"
     configurations {"Debug", "Release"}
-    -- Debug flags
     configuration "Debug"
-        flags {"ExtraWarnings", "Symbols"}
+        flags {"Symbols"}
         targetdir ("bin/debug")
-
-    -- Release Flags
     configuration "Release"
-        flags {"ExtraWarnings", "Optimize"}
+        flags {"Optimize"}
         targetdir ("bin/release")
-
-    -- Linux + Make
     configuration {"linux", "gmake" }
         platforms {"x64"}
         buildoptions {"-std=c++11"}
-        links {"GL", "glfw", "soil2-linux"}
-
-    -- Max OSX, all build tools
+        includedirs { "core/include" }
+        links {
+            "GL", 
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+	    "soil2-linux"
+        }
     configuration {"macosx"}
         platforms {"Universal64"}
-		includedirs { "core/include" }
         buildoptions {"-std=c++11"}
-        links {
-            "OpenGL.framework",
-            "Cocoa.framework", 
-            "IOKit.framework", 
-            "CoreVideo.framework", 
-            "glfw3", 
-            "soil2-mac"
-        }
-
-    -- Mac OSX + XCode
+        includedirs {"core/include", "/usr/local/include"}
+        libdirs {"core/lib", "/usr/local/lib"}
     configuration {"macosx", "xcode3"}
-        includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib"}
-
-    -- Mac OSX + Make
+        -- Nothing here yet
     configuration {"macosx", "gmake"}
-        -- Nothing specific here... yet!
-
-    -- Windows + Visual Studio
+        -- Nothing here yet
     configuration {"windows", "vs2010"}
         platforms {"x64"}
-        links {"OpenGL32", "glfw3"}
-		includedirs { "core/include" }
-    configuration {"windows", "vs2010", "Debug"}
-        -- // TODO: Build warning 'LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library'
-        links {"soil2-windows-debug"}
+        includedirs{"core/include"}
+        libdirs {"core/lib"}
+        links { "OpenGL32" }
     configuration {"windows", "vs2010", "Release"}
-        links {"soil2-windows-release"}
+        links {
+            "sfml-main",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+	        "soil2-windows-release"
+        }
+    configuration {"windows", "vs2010", "Debug"}
+        links {
+            "sfml-main-d",
+            "sfml-audio-d",
+            "sfml-graphics-d",
+            "sfml-network-d",
+            "sfml-system-d",
+            "sfml-window-d",
+	        "soil2-windows-debug"
+        }
+
+moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
 
 project "Core"
-    kind "ConsoleApp"
+    kind "WindowedApp"
     language "C++"
     files {
         "core/src/**.h",
         "core/src/**.cpp"
+    }
+    flags {
+        "ExtraWarnings"
     }
     includedirs {
         "core/include",
@@ -67,14 +79,19 @@ project "Core"
         "core/lib"
     }
     links {"Game"}
-
-    configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
- 
- moduleNames = os.matchdirs("modules/*")
-for i = 1,table.getn(moduleNames) do
-    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
-end
+    configuration {"macosx"}
+        links {
+            "OpenGL.framework", 
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+    	    "soil2-mac" 
+        }
 
 project "Game"
     kind "StaticLib"
@@ -110,4 +127,6 @@ for i = 1,table.getn(moduleNames) do
     flags {
         "ExtraWarnings"
     }
-	end
+end
+
+

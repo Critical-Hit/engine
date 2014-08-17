@@ -2,6 +2,7 @@
 #define Core_GraphicsView_h
 
 #include <GLFW/glfw3.h>
+#include <SFML/Window.hpp>
 #include <functional>
 
 #include "ControllerPackage.h"
@@ -21,7 +22,7 @@ public:
     /**
      * Constructs a GraphicsView with a given controller package.
      */
-    GraphicsView(GLFWwindow* window);
+    GraphicsView(sf::Window* window);
     
     /**
      * Destructor for GraphicsView
@@ -51,7 +52,7 @@ private:
     /**
      * The GLFW Window to draw to.
      */
-    GLFWwindow* window;
+    sf::Window* window;
 
     /**
 	 * Utility function for checking OpenGL errors

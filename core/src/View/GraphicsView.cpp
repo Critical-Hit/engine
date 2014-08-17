@@ -3,14 +3,13 @@
 #include "GraphicsView.h"
 #include "Sprite.h"
 
-GraphicsView::GraphicsView(GLFWwindow* window)
+GraphicsView::GraphicsView(sf::Window* window)
 {
     this->window = window;
 }
 
 GraphicsView::~GraphicsView()
 {
-    glfwTerminate();
 }
 
 void GraphicsView::Initialize()
@@ -56,14 +55,8 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     GraphicsView::CheckOpenGLError("after drawing sprites");
     
     // Swap the buffers
-    glfwSwapBuffers(this->window);
+	this->window->display();
     GraphicsView::CheckOpenGLError("after swapping buffers");
-       
-    // Call OnWindowClose if the user closed the Window.
-    if(glfwWindowShouldClose(window) && this->OnWindowClose != NULL)
-    {
-        this->OnWindowClose();
-    }
     
     GraphicsView::CheckOpenGLError("at end of Update()");
 }
