@@ -1,0 +1,21 @@
+# Site settings
+title: Game Engine Sample Website
+description: "Documentation and tutorials for the $NONAME open-source game engine."
+baseurl: ""
+url: "http://localhost:4000"
+github_url: "http://www.github.com/dharmab/engine"
+engine_name: "$GAME_ENGINE"
+maintainer_avatar_dimension: "70"
+
+collections:
+  maintainers:
+    output: false
+  tutorials:
+    output: true
+  documentation:
+    output: true
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+exclude: [README.md, doxyfile]
