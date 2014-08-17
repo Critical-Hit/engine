@@ -2,7 +2,7 @@
 #define Core_Event_h
 
 /**
- * Marker class for events.
+ * Marker interface for events.
  */
 class Event
 {

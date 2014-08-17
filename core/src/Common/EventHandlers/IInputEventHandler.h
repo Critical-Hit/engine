@@ -8,6 +8,7 @@ class KeyReleaseEvent;
 class MouseEvent;
 class MouseButtonPressEvent;
 class MouseButtonReleaseEvent;
+
 /**
  * Interface for handling events related to input.
  */
@@ -41,6 +42,5 @@ public:
      */
     virtual void OnMouseButtonRelease(MouseButtonReleaseEvent*) {}
 };
-
 
 #endif

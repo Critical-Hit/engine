@@ -10,12 +10,15 @@
 class KeyReleaseEvent : public KeyEvent
 {
 public:
-	// Default constructor.
-	KeyReleaseEvent(KeyCode* KeyCode);
+    /**
+     * Event constructor.
+     * @param keyCode Keyboard key which caused the event.
+     */
+    KeyReleaseEvent(KeyCode* keyCode);
 private:
     // Private constructors to disallow access.
-	KeyReleaseEvent(KeyReleaseEvent const &other);
-	KeyReleaseEvent operator=(KeyReleaseEvent other);
+    KeyReleaseEvent(KeyReleaseEvent const &other);
+    KeyReleaseEvent operator=(KeyReleaseEvent other);
 };
 
 #endif

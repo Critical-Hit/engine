@@ -14,7 +14,8 @@
  	KeyCode* keyCode;
  public:
 	/**
-	 * Get the keycode of the keyboard key involved in this event.
+	 * Get the keycode of the keyboard key which caused the event.
+         * @return the keyboard key which caused the event
 	 */
 	virtual KeyCode GetKeyCode();
 };

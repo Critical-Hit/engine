@@ -12,14 +12,15 @@ class MouseButtonEvent : public MouseEvent
 public:
     /**
      * Event constructor.
-     * @param absoluteX absolute x-coordinate of the mouse cursor 
-     * @param absoluteY absolute y-coordiante of the mouse cursor
-     * @param button button which caused the event
+     * @param absoluteX x-coordinate of the mouse cursor in relation to the left edge of the game window.
+     * @param absoluteY y-coordiante of the mouse cursor in relation to the top edge of the game window.
+     * @param button Mouse button which caused the event.
      */
     MouseButtonEvent(int absoluteX, int absoluteY, MouseCode button);
     
     /**
-     * @return button which caused the event
+     * Get the mouse button which caused the event.
+     * @return Mouse button which caused the event
      */
     MouseCode GetMouseButton();
 protected:
