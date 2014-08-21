@@ -1,23 +1,23 @@
-#ifndef Core_KeyEvent_h
-#define Core_KeyEvent_h
+#ifndef Core_KeyboardKeyEvent_h
+#define Core_KeyboardKeyEvent_h
 
 #include "InputEvent.h"
-#include "InputCode.h"
+#include "KeyboardKey.h"
 
 /**
  * Parent class for events related to keyboard keys.
  */
-class KeyEvent : public InputEvent
+class KeyboardKeyEvent : public InputEvent
 {
 protected:
-    // The keycode of the keyboard key involved in this event.
-    KeyCode* keyCode;
+    // The keyboard key involved in this event.
+    KeyboardKey* key;
 public:
     /**
      * Get the keycode of the keyboard key which caused the event.
      * @return the keyboard key which caused the event
      */
-    virtual KeyCode GetKeyCode();
+    virtual KeyboardKey GetKeyboardKey();
 };
 
 #endif

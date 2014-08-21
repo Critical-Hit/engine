@@ -1,7 +1,7 @@
 #include "InputManager.h"
 #include "InputView.h"
-#include "KeyPressEvent.h"
-#include "KeyReleaseEvent.h"
+#include "KeyboardKeyPressEvent.h"
+#include "KeyboardKeyReleaseEvent.h"
 
 InputManager::InputManager()
 {
@@ -33,20 +33,20 @@ MouseInputMode InputManager::GetMouseInputMode()
     return this->inputView->GetMouseInputMode();
 }
 
-void InputManager::RegisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyCode> keyCodes)
+void InputManager::RegisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyboardKey> keys)
 {
-    for (KeyCode keyCode : keyCodes)
+    for (KeyboardKey key : keys) 
     {
-        int intCode = static_cast<int>(keyCode);
+        int intCode = static_cast<int>(key);
         std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
         handlers.insert(handler);
         this->registeredKeyboardInputEventHandlers[intCode] = handlers;
     }
 }
 
-void InputManager::DeregisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyCode> keyCodes)
+void InputManager::DeregisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyboardKey> keyCodes)
 {
-    for (KeyCode keyCode : keyCodes)
+    for (KeyboardKey keyCode : keyCodes)
     {
         int intCode = static_cast<int>(keyCode);
         std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
@@ -55,7 +55,7 @@ void InputManager::DeregisterKeyboardInputEventHandler(IInputEventHandler* handl
     }
 };
 
-bool InputManager::IsRegisteredEventHandler(KeyCode* keyCode)
+bool InputManager::IsRegisteredEventHandler(KeyboardKey* keyCode)
 {
     int intCode = static_cast<int>(*keyCode);
     std::set<IInputEventHandler*>* handlers = &(this->registeredKeyboardInputEventHandlers[intCode]);
@@ -63,14 +63,14 @@ bool InputManager::IsRegisteredEventHandler(KeyCode* keyCode)
 }
 
 
-InputState InputManager::GetKeyState(KeyCode keyCode)
+InputState InputManager::GetKeyState(KeyboardKey key)
 {
-    return inputView->GetKeyState(keyCode);
+    return inputView->GetKeyState(key);
 }
 
-InputState InputManager::GetMouseButtonState(MouseCode mouseCode)
+InputState InputManager::GetMouseButtonState(MouseButton button)
 {
-    return inputView->GetMouseButtonState(mouseCode);
+    return inputView->GetMouseButtonState(button);
 }
 
 int InputManager::GetMouseAbsoluteX()
@@ -83,9 +83,9 @@ int InputManager::GetMouseAbsoluteY()
     return inputView->GetMouseAbsoluteY();
 }
 
-void InputManager::OnKeyboardKeyPress(KeyPressEvent* event) 
+void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent* event) 
 {
-    int intCode = static_cast<int>(event->GetKeyCode());
+    int intCode = static_cast<int>(event->GetKeyboardKey());
     std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
     for (IInputEventHandler* handler : handlers)
     {
@@ -93,9 +93,9 @@ void InputManager::OnKeyboardKeyPress(KeyPressEvent* event)
     }
 };
 
-void InputManager::OnKeyboardKeyRelease(KeyReleaseEvent* event) 
+void InputManager::OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event) 
 {
-    int intCode = static_cast<int>(event->GetKeyCode());
+    int intCode = static_cast<int>(event->GetKeyboardKey());
     std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
     for (IInputEventHandler* handler : handlers)
     {

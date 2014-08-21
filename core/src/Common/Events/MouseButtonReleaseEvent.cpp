@@ -1,5 +1,5 @@
 #include "MouseButtonReleaseEvent.h"
 
-MouseButtonReleaseEvent::MouseButtonReleaseEvent(int absoluteX, int absoluteY, MouseCode mouseCode) : MouseButtonEvent(absoluteX, absoluteY, mouseCode)
+MouseButtonReleaseEvent::MouseButtonReleaseEvent(int x, int y, MouseButton button) : MouseButtonEvent(x, y, button)
 {
 }
