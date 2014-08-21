@@ -2,9 +2,6 @@
 #define Core_InputManager_h
 
 #include "IInputEventHandler.h"
-#include "InputState.h"
-#include "KeyboardKey.h"
-#include "MouseButton.h"
 #include "vector"
 #include "unordered_map"
 #include "set"
@@ -15,8 +12,11 @@ class KeyboardKeyReleaseEvent;
 class MouseEvent;
 class MouseButtonPressEvent;
 class MouseButtonReleaseEvent;
+enum class InputState;
+enum class KeyboardKey;
+enum class MouseButton;
 
-enum MouseInputMode
+enum class MouseInputMode
 {
     SHOW,
     HIDE,

@@ -2,7 +2,8 @@
 #define Core_MouseButtonEvent_h
 
 #include "MouseEvent.h"
-#include "MouseButton.h"
+
+enum class MouseButton;
 
 /**
  * Input event fired when mouse button input occurs
