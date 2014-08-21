@@ -2,7 +2,8 @@
 #define Core_KeyboardKeyEvent_h
 
 #include "InputEvent.h"
-#include "KeyboardKey.h"
+
+enum class KeyboardKey;
 
 /**
  * Parent class for events related to keyboard keys.

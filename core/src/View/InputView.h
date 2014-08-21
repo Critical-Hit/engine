@@ -2,14 +2,13 @@
 #define Core_InputView_h
 
 #include "SFML/Window.hpp"
-#include "InputManager.h"
-#include "InputState.h"
-#include "KeyboardKey.h"
-#include "MouseButton.h"
-#include "IInputEventHandler.h"
 #include "set"
-#include "ControllerPackage.h"
 
+class InputManager;
+enum class InputState;
+enum class MouseInputMode;
+enum class KeyboardKey;
+enum class MouseButton;
 /**
  * Provides a full set of logic for accessing input.
  */

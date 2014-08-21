@@ -3,6 +3,8 @@
 
 #include "KeyboardKeyEvent.h"
 
+enum class KeyboardKey;
+
 /**
  * Event fired when a keyboard key is pressed.
  */

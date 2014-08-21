@@ -3,6 +3,8 @@
 
 #include "MouseButtonEvent.h"
 
+enum class MouseButton;
+
 /**
  * Input event fired when a mouse button is released
  */

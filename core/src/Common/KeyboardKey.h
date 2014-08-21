@@ -4,7 +4,7 @@
 /**
  * Enumeration of keyboard keys 
  */
-enum KeyboardKey {
+enum class KeyboardKey {
     // Values are based on USB HID 1.12 key codes for US keyboard
     // Some values are deprecated due to lack of support in SFML, and are left commented out for clarity
     KEYBOARD_UNKNOWN = -1,
