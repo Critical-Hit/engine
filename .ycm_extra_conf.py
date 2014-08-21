@@ -1,7 +1,7 @@
 import os
 import ycm_core
 
-# Clang conpilation flags
+# Clang compilation flags
 flags = [
 '-Wall',
 '-Wextra',
@@ -11,7 +11,7 @@ flags = [
 # Use C++ instead of C
 '-x',
 'c++',
-# Library links - list all directoryies containing headers here
+# Library links - list all directories containing headers here
 '-I',
 './core/include',
 '-I',
