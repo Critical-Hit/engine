@@ -3,8 +3,8 @@
 
 #include "IEventHandler.h"
 
-class KeyPressEvent;
-class KeyReleaseEvent;
+class KeyboardKeyPressEvent;
+class KeyboardKeyReleaseEvent;
 class MouseEvent;
 class MouseButtonPressEvent;
 class MouseButtonReleaseEvent;
@@ -20,12 +20,12 @@ public:
     /**
      * Event handler executed when a keyboard key is pressed.
      */
-    virtual void OnKeyboardKeyPress(KeyPressEvent*) {}
+    virtual void OnKeyboardKeyPress(KeyboardKeyPressEvent*) {}
 
     /**
      * Event handler executed when a keyboard key is released.
      */
-    virtual void OnKeyboardKeyRelease(KeyReleaseEvent*) {}
+    virtual void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent*) {}
 
     /**
      * Event handler executed when mouse input is received (i.e. every frame)

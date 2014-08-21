@@ -10,9 +10,9 @@ class MouseButtonPressEvent : public MouseButtonEvent
 {
 public:
     /**
-     * @see MouseButtonEvent::MouseButtonEvent(int, int, MouseCode)
+     * @see MouseButtonEvent::MouseButtonEvent(int, int, MouseButton)
      */
-    MouseButtonPressEvent(int absoluteX, int absoluteY, MouseCode mouseCode);
+    MouseButtonPressEvent(int x, int y, MouseButton button);
 private:
     // Private constructors to disallow access.
     MouseButtonPressEvent(MouseButtonPressEvent const &other);

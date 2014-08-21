@@ -4,7 +4,8 @@
 #include "SFML/Window.hpp"
 #include "InputManager.h"
 #include "InputState.h"
-#include "InputCode.h"
+#include "KeyboardKey.h"
+#include "MouseButton.h"
 #include "IInputEventHandler.h"
 #include "set"
 #include "ControllerPackage.h"
@@ -27,23 +28,23 @@ public:
     
     /**
      * Updates the InputView.
-     * @param inputManager InputManager which will receive update information. This InputManager will also receive all input events until the time this function is called.
+     * @param inputManager InputManager which will receive update information. This InputManager will also receive all input events until the next time this function is called.
      */
     void Update(InputManager* inputManager);
 
     /**
      * Poll the current state of a key. 
-     * @param keyCode Key code to poll.
+     * @param key Key code to poll.
      * @return the current state of the key.
      */
-    InputState GetKeyState(KeyCode keyCode);
+    InputState GetKeyState(KeyboardKey key);
 
     /**
      * Poll the current state of a mouse button.
-     * @param mouseCode Mouse button to poll.
+     * @param button Mouse button to poll.
      * @return the current state of the mouse button.
      */
-    InputState GetMouseButtonState(MouseCode mouseCode);
+    InputState GetMouseButtonState(MouseButton button);
 
     /**
      * Poll the current horizontal coordinate of the mouse cursor.
@@ -176,31 +177,31 @@ private:
 
     /**
      * Utility method to convert SFML key codes to native engine key codes.
-     * @param sfmlKey SFML key code
+     * @param key SFML key code
      * @return corresponding native engine code
      */
-    KeyCode keyCode(sf::Keyboard::Key sfmlKey);
+    KeyboardKey keyCode(sf::Keyboard::Key key);
 
     /**
      * Utility method to convert native engine key codes to SFML key codes.
      * @param keyCode native engine key code
      * @return corresponding SFML key code
      */
-    sf::Keyboard::Key sfmlKeyCode(KeyCode keyCode);
+    sf::Keyboard::Key sfmlKeyboardKey(KeyboardKey key);
 
     /**
      * Utility method to convert SFML mouse button codes to native engine mouse button codes.
-     * @param sfmlMouseButton SFML mouse button code
+     * @param button SFML mouse button code
      * @return corresponding native engine mouse button code
      */
-    MouseCode mouseCode(sf::Mouse::Button sfmlMouseButton);
+    MouseButton mouseCode(sf::Mouse::Button button);
 
     /**
      * Utility method to convert native engine mouse button codes to SFML key codes.
      * @param keyCode native engine mouse button code
      * @return corresponding SFML mouse button code
      */
-    sf::Mouse::Button sfmlMouseMacro(MouseCode mouseCode);
+    sf::Mouse::Button sfmlMouseMacro(MouseButton button);
 };
 
 #endif

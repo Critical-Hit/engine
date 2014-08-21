@@ -1,5 +1,5 @@
 #include "MouseButtonPressEvent.h"
 
-MouseButtonPressEvent::MouseButtonPressEvent(int absoluteX, int absoluteY, MouseCode mouseCode) : MouseButtonEvent(absoluteX, absoluteY, mouseCode)
+MouseButtonPressEvent::MouseButtonPressEvent(int x, int y, MouseButton button) : MouseButtonEvent(x, y, button)
 {
 }

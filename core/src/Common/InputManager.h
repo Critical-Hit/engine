@@ -3,14 +3,15 @@
 
 #include "IInputEventHandler.h"
 #include "InputState.h"
-#include "InputCode.h"
+#include "KeyboardKey.h"
+#include "MouseButton.h"
 #include "vector"
 #include "unordered_map"
 #include "set"
 
 class InputView;
-class KeyPressEvent;
-class KeyReleaseEvent;
+class KeyboardKeyPressEvent;
+class KeyboardKeyReleaseEvent;
 class MouseEvent;
 class MouseButtonPressEvent;
 class MouseButtonReleaseEvent;
@@ -85,7 +86,7 @@ public:
      * be initialized with the contents of this vector. Otherwise, the registration will be updated with the 
      * set union of the contents of this vector and the key codes in the existing registration.
      */
-    void RegisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyCode>);
+    void RegisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyboardKey>);
     
     /**
      * Deregister a KeyReleaseEventHandler which will no longer receive KeyReleaseEvents.
@@ -97,30 +98,30 @@ public:
      * existing registration. If the result of this operation is an empty set, the handler's registration will be removed 
      * from this InputManager.
      */
-    void DeregisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyCode>);
+    void DeregisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyboardKey>);
 
     /**
-     * True if the given KeyCode has at least one registered release event handler. False otherwise.
+     * True if the given KeyboardKey has at least one registered release event handler. False otherwise.
      */
-    bool IsRegisteredEventHandler(KeyCode* keyCode);
+    bool IsRegisteredEventHandler(KeyboardKey* keyCode);
 
     /**
      * Poll the current state of a key.
-     * @param keyCode The keyboard key to poll.
+     * @param key The keyboard key to poll.
      * @return the current state of the keyboard key.
      * If an invalid key code was passed, KeyState::Invalid is returned.
      */
-    InputState GetKeyState(KeyCode keyCode);
+    InputState GetKeyState(KeyboardKey key);
 
     /**
      * Poll the current state of a mouse button.
-     * @param mouseCode The mouse button to poll.
+     * @param button The mouse button to poll.
      * @return the current state of the mouse button
      */
-    InputState GetMouseButtonState(MouseCode mouseCode);
+    InputState GetMouseButtonState(MouseButton button);
 
     /**
-     * Poll the horixontal coordinate of the mouse cursor. 
+     * Poll the horizontal coordinate of the mouse cursor. 
      * @return the x coordinate of the mouse cursor within the game window. The left edge of the game window is the origin.
      */
     int GetMouseAbsoluteX();
@@ -135,13 +136,13 @@ public:
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnKeyboardKeyPress(KeyPressEvent* event);
+    void OnKeyboardKeyPress(KeyboardKeyPressEvent* event);
     
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnKeyboardKeyRelease(KeyReleaseEvent* event);
+    void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
