@@ -7,17 +7,17 @@
 /**
  * Parent class for events related to keyboard keys.
  */
- class KeyEvent : public InputEvent
- {
- protected:
-	// The keycode of the keyboard key involved in this event.
- 	KeyCode* keyCode;
- public:
-	/**
-	 * Get the keycode of the keyboard key which caused the event.
-         * @return the keyboard key which caused the event
-	 */
-	virtual KeyCode GetKeyCode();
+class KeyEvent : public InputEvent
+{
+protected:
+    // The keycode of the keyboard key involved in this event.
+    KeyCode* keyCode;
+public:
+    /**
+     * Get the keycode of the keyboard key which caused the event.
+     * @return the keyboard key which caused the event
+     */
+    virtual KeyCode GetKeyCode();
 };
 
 #endif

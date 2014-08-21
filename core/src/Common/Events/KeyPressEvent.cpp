@@ -2,5 +2,5 @@
 #include "InputCode.h"
 KeyPressEvent::KeyPressEvent(KeyCode* keyCode)
 {
-	this->keyCode = keyCode;
+    this->keyCode = keyCode;
 }

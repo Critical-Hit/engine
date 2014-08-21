@@ -13,14 +13,14 @@ InputManager::~InputManager()
 
 void InputManager::CopyFrom(InputManager* other)
 {
-   this->inputView = other->inputView; 
-   this->registeredKeyboardInputEventHandlers = other->registeredKeyboardInputEventHandlers;
-   this->registeredMouseInputEventHandlers = other->registeredMouseInputEventHandlers;
+    this->inputView = other->inputView; 
+    this->registeredKeyboardInputEventHandlers = other->registeredKeyboardInputEventHandlers;
+    this->registeredMouseInputEventHandlers = other->registeredMouseInputEventHandlers;
 }
 
 void InputManager::SetView(InputView* inputView)
 {
-	this->inputView = inputView;
+    this->inputView = inputView;
 }
 
 void InputManager::SetMouseInputMode(MouseInputMode mode)
@@ -35,24 +35,24 @@ MouseInputMode InputManager::GetMouseInputMode()
 
 void InputManager::RegisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyCode> keyCodes)
 {
-	for (KeyCode keyCode : keyCodes)
-	{
+    for (KeyCode keyCode : keyCodes)
+    {
         int intCode = static_cast<int>(keyCode);
-		std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
-		handlers.insert(handler);
-		this->registeredKeyboardInputEventHandlers[intCode] = handlers;
-	}
+        std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
+        handlers.insert(handler);
+        this->registeredKeyboardInputEventHandlers[intCode] = handlers;
+    }
 }
 
 void InputManager::DeregisterKeyboardInputEventHandler(IInputEventHandler* handler, std::vector<KeyCode> keyCodes)
 {
-	for (KeyCode keyCode : keyCodes)
+    for (KeyCode keyCode : keyCodes)
     {
         int intCode = static_cast<int>(keyCode);
-		std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
+        std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
         handlers.erase(handler);
-		this->registeredKeyboardInputEventHandlers[intCode] = handlers;
-	}
+        this->registeredKeyboardInputEventHandlers[intCode] = handlers;
+    }
 };
 
 bool InputManager::IsRegisteredEventHandler(KeyCode* keyCode)
@@ -89,7 +89,7 @@ void InputManager::OnKeyboardKeyPress(KeyPressEvent* event)
     std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
     for (IInputEventHandler* handler : handlers)
     {
-       handler->OnKeyboardKeyPress(event);
+        handler->OnKeyboardKeyPress(event);
     }
 };
 
@@ -99,7 +99,7 @@ void InputManager::OnKeyboardKeyRelease(KeyReleaseEvent* event)
     std::set<IInputEventHandler*> handlers = this->registeredKeyboardInputEventHandlers[intCode];
     for (IInputEventHandler* handler : handlers)
     {
-       handler->OnKeyboardKeyRelease(event);
+        handler->OnKeyboardKeyRelease(event);
     }
 };
 
