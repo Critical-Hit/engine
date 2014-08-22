@@ -96,80 +96,80 @@ private:
     MouseInputMode mouseInputMode;
 
     /**
-     * Helper method which handlers SFML keyboard key press events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML keyboard key press events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlKeyPressed(sf::Event::KeyEvent event);
 
     /**
-     * Helper method which handlers SFML keyboard key release events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML keyboard key release events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlKeyReleased(sf::Event::KeyEvent event);
 
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML mouse wheel events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML mouse wheel events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlMouseWheelMoved(sf::Event::MouseWheelEvent event);
 
     /**
-     * Helper method which handlers SFML mouse button press events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML mouse button press events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlMouseButtonPressed(sf::Event::MouseButtonEvent event);
 
     /**
-     * Helper method which handlers SFML mouse button release events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML mouse button release events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlMouseButtonReleased(sf::Event::MouseButtonEvent event);
 
     /**
-     * Helper method which handlers SFML mouse cursor motion events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML mouse cursor motion events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlMouseMoved(sf::Event::MouseMoveEvent event);
 
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML joystick button press events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML joystick button press events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickButtonPressed(sf::Event::JoystickButtonEvent event);
 
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML joystick button release events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML joystick button release events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickButtonReleased(sf::Event::JoystickButtonEvent event);
 
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML joystick axis motion events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML joystick axis motion events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickMoved(sf::Event::JoystickMoveEvent event);
 
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML joystick connect events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML joystick connect events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickConnected(sf::Event::JoystickConnectEvent event);
 
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML joystick disconnect events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML joystick disconnect events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickDisconnected(sf::Event::JoystickConnectEvent event);
     
     /**
      * NOT IMPLEMENTED
-     * Helper method which handlers SFML text entry events. Fires a native engine event to the current InputManger.
+     * Helper method which handles SFML text entry events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlTextEntered(sf::Event::TextEvent event);
