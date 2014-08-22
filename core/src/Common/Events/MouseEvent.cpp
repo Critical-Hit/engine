@@ -6,12 +6,12 @@ MouseEvent::MouseEvent (int x, int y)
     this->y = y;
 }
 
-int MouseEvent::GetXPosition()
+int MouseEvent::GetX()
 {
     return this->x;
 }
 
-int MouseEvent::GetYPosition()
+int MouseEvent::GetY()
 {
     return this->y;
 }

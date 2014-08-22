@@ -19,13 +19,13 @@ public:
      * Get the horizontal position of the mouse cursor
      * @return x-coordinate of the cursor in relation to the left edge of the game window
      */
-    int GetXPosition();
+    int GetX();
 
     /**
      * Get the vertical position of the mouse cursor
      * @return y-coordinate of the cursor in relation to the top edge of the game window
      */
-    int GetYPosition();
+    int GetY();
 protected:
     int x;
     int y;

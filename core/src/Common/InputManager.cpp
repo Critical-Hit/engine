@@ -65,7 +65,7 @@ bool InputManager::IsRegisteredEventHandler(KeyboardKey* keyCode)
 
 InputState InputManager::GetKeyState(KeyboardKey key)
 {
-    return inputView->GetKeyState(key);
+    return inputView->GetKeyboardKeyState(key);
 }
 
 InputState InputManager::GetMouseButtonState(MouseButton button)
@@ -73,14 +73,14 @@ InputState InputManager::GetMouseButtonState(MouseButton button)
     return inputView->GetMouseButtonState(button);
 }
 
-int InputManager::GetMouseAbsoluteX()
+int InputManager::GetMouseX()
 {
-    return inputView->GetMouseAbsoluteX();
+    return inputView->GetMouseX();
 }
 
-int InputManager::GetMouseAbsoluteY()
+int InputManager::GetMouseY()
 {
-    return inputView->GetMouseAbsoluteY();
+    return inputView->GetMouseY();
 }
 
 void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent* event) 
