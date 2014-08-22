@@ -124,13 +124,13 @@ public:
      * Poll the horizontal coordinate of the mouse cursor. 
      * @return the x coordinate of the mouse cursor within the game window. The left edge of the game window is the origin.
      */
-    int GetMouseAbsoluteX();
+    int GetMouseX();
 
     /**
      * Poll the vertical coordinate of the mouse cursor.
      * @return the y coordinate of the mouse cursor within the game window. The top edge of the game window is the origin.
      */
-    int GetMouseAbsoluteY();
+    int GetMouseY();
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
@@ -176,7 +176,7 @@ private:
     // InputView which is polled for ondemand input.
     InputView* inputView;
    
-    // Maps of registered keys and their associated handlers. 
+    // Registered input handlers
     // C++ strong enums are not usable as map keys, so a cast to int is required.
     std::unordered_map<int, std::set<IInputEventHandler*>> registeredKeyboardInputEventHandlers;
     std::vector<IInputEventHandler*> registeredMouseInputEventHandlers;

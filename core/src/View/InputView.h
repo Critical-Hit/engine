@@ -36,7 +36,7 @@ public:
      * @param key Key code to poll.
      * @return the current state of the key.
      */
-    InputState GetKeyState(KeyboardKey key);
+    InputState GetKeyboardKeyState(KeyboardKey key);
 
     /**
      * Poll the current state of a mouse button.
@@ -49,13 +49,13 @@ public:
      * Poll the current horizontal coordinate of the mouse cursor.
      * @return the current x coordinate of the mouse cursor, relative to the game window.
      */
-    int GetMouseAbsoluteX();
+    int GetMouseX();
 
     /**
      * Poll the current vertical coordinate of the mouse cursor.
      * @return the current y coordinate of the mouse cursor, relative to the game window.
      */
-    int GetMouseAbsoluteY();
+    int GetMouseY();
 
     /**
      * Event handler for internal SFML events. Acts as a shim between SFML events and native engine events.
@@ -179,7 +179,7 @@ private:
      * @param key SFML key code
      * @return corresponding native engine code
      */
-    KeyboardKey keyCode(sf::Keyboard::Key key);
+    KeyboardKey nativeKeyboardKey(sf::Keyboard::Key key);
 
     /**
      * Utility method to convert native engine key codes to SFML key codes.
@@ -193,14 +193,14 @@ private:
      * @param button SFML mouse button code
      * @return corresponding native engine mouse button code
      */
-    MouseButton mouseCode(sf::Mouse::Button button);
+    MouseButton nativeMouseButton(sf::Mouse::Button button);
 
     /**
      * Utility method to convert native engine mouse button codes to SFML key codes.
      * @param keyCode native engine mouse button code
      * @return corresponding SFML mouse button code
      */
-    sf::Mouse::Button sfmlMouseMacro(MouseButton button);
+    sf::Mouse::Button sfmlMouseButton(MouseButton button);
 };
 
 #endif

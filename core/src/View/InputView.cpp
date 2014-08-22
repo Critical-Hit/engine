@@ -94,7 +94,7 @@ void InputView::onSfmlKeyPressed(sf::Event::KeyEvent event)
 {
     if (inputManager != nullptr) 
     {
-        KeyboardKey key = InputView::keyCode(event.code);
+        KeyboardKey key = InputView::nativeKeyboardKey(event.code);
         if (inputManager->IsRegisteredEventHandler(&key))
         {
             KeyboardKeyPressEvent nativeEvent(&key);
@@ -107,7 +107,7 @@ void InputView::onSfmlKeyReleased(sf::Event::KeyEvent event)
 {
     if (inputManager != nullptr) 
     {
-        KeyboardKey key = InputView::keyCode(event.code);
+        KeyboardKey key = InputView::nativeKeyboardKey(event.code);
         if (inputManager->IsRegisteredEventHandler(&key))
         {
             KeyboardKeyReleaseEvent event(&key);
@@ -125,7 +125,7 @@ void InputView::onSfmlMouseButtonPressed(sf::Event::MouseButtonEvent event)
 {
     if (inputManager != nullptr) 
     {
-        MouseButton button = InputView::mouseCode(event.button);
+        MouseButton button = InputView::nativeMouseButton(event.button);
         MouseButtonPressEvent nativeEvent(event.x, event.y, button);
         this->inputManager->OnMouseButtonPress(&nativeEvent);
     }
@@ -135,7 +135,7 @@ void InputView::onSfmlMouseButtonReleased(sf::Event::MouseButtonEvent event)
 {
     if (inputManager != nullptr)
     {
-        MouseButton button = InputView::mouseCode(event.button);
+        MouseButton button = InputView::nativeMouseButton(event.button);
         MouseButtonReleaseEvent nativeEvent(event.x, event.y, button);
         this->inputManager->OnMouseButtonRelease(&nativeEvent);
     }
@@ -187,7 +187,7 @@ void InputView::onSfmlTextEntered(sf::Event::TextEvent event)
     // TODO: Text entry
 }
 
-InputState InputView::GetKeyState(KeyboardKey keyCode)
+InputState InputView::GetKeyboardKeyState(KeyboardKey keyCode)
 {
     sf::Keyboard::Key sfmlKey = InputView::sfmlKeyboardKey(keyCode);
     if (sf::Keyboard::isKeyPressed(sfmlKey))
@@ -202,7 +202,7 @@ InputState InputView::GetKeyState(KeyboardKey keyCode)
 
 InputState InputView::GetMouseButtonState(MouseButton button)
 {
-    if (sf::Mouse::isButtonPressed(InputView::sfmlMouseMacro(button)))
+    if (sf::Mouse::isButtonPressed(InputView::sfmlMouseButton(button)))
     {
         return InputState::PRESSED;
     }
@@ -212,19 +212,19 @@ InputState InputView::GetMouseButtonState(MouseButton button)
     }
 }
 
-int InputView::GetMouseAbsoluteX()
+int InputView::GetMouseX()
 {
     sf::Vector2i position = sf::Mouse::getPosition();
     return position.x;
 }
 
-int InputView::GetMouseAbsoluteY()
+int InputView::GetMouseY()
 {
     sf::Vector2i position = sf::Mouse::getPosition();
     return position.y;
 }
 
-KeyboardKey InputView::keyCode(sf::Keyboard::Key key)
+KeyboardKey InputView::nativeKeyboardKey(sf::Keyboard::Key key)
 {
     switch (key) {
         case sf::Keyboard::Key::A:
@@ -627,7 +627,7 @@ sf::Keyboard::Key InputView::sfmlKeyboardKey(KeyboardKey key)
     }
 }
 
-MouseButton InputView::mouseCode(sf::Mouse::Button button)
+MouseButton InputView::nativeMouseButton(sf::Mouse::Button button)
 {
     switch(button)
     {
@@ -647,7 +647,7 @@ MouseButton InputView::mouseCode(sf::Mouse::Button button)
     }
 }
 
-sf::Mouse::Button InputView::sfmlMouseMacro(MouseButton button)
+sf::Mouse::Button InputView::sfmlMouseButton(MouseButton button)
 {
     switch(button)
     {
