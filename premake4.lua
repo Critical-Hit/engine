@@ -9,90 +9,126 @@ solution "Engine"
     configuration {"linux", "gmake" }
         platforms {"x64"}
         buildoptions {"-std=c++11"}
-        links {"GL", "glfw"}
+        includedirs { "core/include" }
+        links {
+            "GL", 
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+	    "soil2-linux"
+        }
+    configuration {"macosx"}
+        platforms {"Universal64"}
+        buildoptions {"-std=c++11"}
+        includedirs {"core/include", "/usr/local/include"}
+        libdirs {"core/lib", "/usr/local/lib"}
     configuration {"macosx", "xcode3"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
-        includedirs {"/usr/local/include"}
-        libdirs {"/usr/local/lib"}
+        -- Nothing here yet
     configuration {"macosx", "gmake"}
-        platforms {"Universal64"}
-        buildoptions {"-std=c++11"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
+        -- Nothing here yet
     configuration {"windows", "vs2010"}
         platforms {"x64"}
-        links {"OpenGL32", "glfw3"}
-        includedirs{"include"}
-        libdirs {"lib"}
+        includedirs{"core/include"}
+        libdirs {"core/lib"}
+        links { "OpenGL32" }
+    configuration {"windows", "vs2010", "Release"}
+        links {
+            "sfml-main",
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+	        "soil2-windows-release"
+        }
+    configuration {"windows", "vs2010", "Debug"}
+        links {
+            "sfml-main-d",
+            "sfml-audio-d",
+            "sfml-graphics-d",
+            "sfml-network-d",
+            "sfml-system-d",
+            "sfml-window-d",
+	        "soil2-windows-debug"
+        }
+
+moduleNames = os.matchdirs("modules/*")
+for i = 1,table.getn(moduleNames) do
+    moduleNames[i] = string.gsub(moduleNames[i], "modules/", "", 1)
+end
 
 project "Core"
-    kind "ConsoleApp"
+    kind "WindowedApp"
     language "C++"
     files {
-        "src/**.h",
-        "src/**.cpp"
+        "core/src/**.h",
+        "core/src/**.cpp"
     }
     flags {
         "ExtraWarnings"
     }
     includedirs {
-        "include",
-        "src/**",
-        "modules/**",
-        "Game",
-        "Game/**"
+        "core/include",
+        "**/src",
+        "**/src/**",
+        "modules/*/src/**"
     }
     libdirs {
-        "lib"
+        "core/lib"
     }
-    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
+    links {"Game"}
+    configuration {"macosx"}
         links {
-            "Modules",
-            "Game"
+            "OpenGL.framework", 
+            "Cocoa.framework", 
+            "IOKit.framework", 
+            "CoreVideo.framework", 
+            "sfml-audio",
+            "sfml-graphics",
+            "sfml-network",
+            "sfml-system",
+            "sfml-window",
+    	    "soil2-mac" 
         }
-    else
-        links {
-            "Game"
-        }
-    end
-    configuration {"macosx", "xcode3"}
-        links {"OpenGL.framework", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "glfw3"}
 
-project "Modules"
-    kind "StaticLib"
-    language "C++"
-    files {
-        "modules/**.h",
-        "modules/**.cpp"
-    }
-    flags {
-        "ExtraWarnings"
-    }
-    
 project "Game"
     kind "StaticLib"
     language "C++"
     files {
-        "Game/**.h",
-        "Game/**.cpp"
+        "game/**.h",
+        "game/**.cpp"
     }
     includedirs {
-        "include",
-        "src/**",
-        "modules/**",
-        "Game",
-        "Game/**"
+        "game/include",
+        "**/src/**",
+        "**/src",
+        "modules/*/**",
     }
     libdirs {
-        "lib"
+        "game/lib"
     }
-    if (table.getn(os.matchfiles("modules/**/*.cpp"))) > 0 then
-        links {
-            "Modules"
-        }
+	for i = 1,table.getn(moduleNames) do
+        links {moduleNames[i]}
     end
 
-if _ACTION == "clean" then
-    os.execute("python scripts/clean.py")
+for i = 1,table.getn(moduleNames) do
+    project (moduleNames[i])
+    kind "StaticLib"
+    language "C++"
+    includedirs {
+	   "modules/**"
+    }
+    files {
+		"modules/" .. moduleNames[i] .. "/src/**.h",
+		"modules/" .. moduleNames[i] .. "/src/**.cpp"
+    }
+    flags {
+        "ExtraWarnings"
+    }
 end
 
+if _ACTION == "clean" then
+    os.execute("python3 scripts/clean.py")
+end
