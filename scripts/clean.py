@@ -1,4 +1,5 @@
 from subprocess import call
+import os.path
 
 def removeFile(filename):
     call(["rm", "-rf", filename])
@@ -8,10 +9,11 @@ filesToRemove = ["obj", "*.suo", "*.sdf"]
 
 def main():
     print ("Cleaning Directory...")
-    try:
-        call(["make", "clean"])
-    except:
-        pass
+    if os.path.exists("Makefile"):
+        try:
+            call(["make", "clean"])
+        except:
+            pass
     for file in filesToRemove:
         removeFile(file) 
 
