@@ -4,7 +4,7 @@
 #include "KeyboardKey.h"
 #include "MouseButton.h"
 #include <vector>
-#include <set>
+#include <map>
 #include <functional>
 
 class InputView;
