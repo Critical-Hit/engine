@@ -1,8 +1,8 @@
 #include "InputView.h"
-#include "InputManager.h"
-#include "InputState.h"
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Window/Mouse.hpp"
+#include "InputManager.h"
+#include "InputState.h"
 #include "KeyboardKeyPressEvent.h"
 #include "KeyboardKeyReleaseEvent.h"
 #include "MouseEvent.h"
@@ -10,9 +10,9 @@
 #include "MouseButtonReleaseEvent.h"
 #include "MouseButton.h"
 #include "KeyboardKey.h"
-#include "assert.h"
-#include "set"
-#include "vector"
+#include <assert.h>
+#include <set>
+#include <vector>
 
 sf::Vector2i MOUSE_ORIGIN = sf::Vector2i(0, 0);
 
