@@ -95,7 +95,7 @@ void InputView::onSfmlKeyPressed(sf::Event::KeyEvent event)
     if (inputManager != nullptr) 
     {
         KeyboardKey key = InputView::nativeKeyboardKey(event.code);
-        if (inputManager->IsRegisteredEventHandler(&key))
+        if (inputManager->IsRegisteredEventHandler(key))
         {
             KeyboardKeyPressEvent nativeEvent(&key);
             this->inputManager->OnKeyboardKeyPress(&nativeEvent);
@@ -108,7 +108,7 @@ void InputView::onSfmlKeyReleased(sf::Event::KeyEvent event)
     if (inputManager != nullptr) 
     {
         KeyboardKey key = InputView::nativeKeyboardKey(event.code);
-        if (inputManager->IsRegisteredEventHandler(&key))
+        if (inputManager->IsRegisteredEventHandler(key))
         {
             KeyboardKeyReleaseEvent event(&key);
             this->inputManager->OnKeyboardKeyRelease(&event);

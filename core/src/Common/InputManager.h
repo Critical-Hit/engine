@@ -1,10 +1,11 @@
 #ifndef Core_InputManager_h
 #define Core_InputManager_h
 
-#include "IInputEventHandler.h"
-#include "vector"
-#include "unordered_map"
-#include "set"
+#include "KeyboardKey.h"
+#include "MouseButton.h"
+#include <vector>
+#include <set>
+#include <functional>
 
 class InputView;
 class KeyboardKeyPressEvent;
@@ -13,8 +14,6 @@ class MouseEvent;
 class MouseButtonPressEvent;
 class MouseButtonReleaseEvent;
 enum class InputState;
-enum class KeyboardKey;
-enum class MouseButton;
 
 enum class MouseInputMode
 {
@@ -23,7 +22,7 @@ enum class MouseInputMode
     HIDE_AND_LOCK
 };
 
-class InputManager : public IInputEventHandler
+class InputManager
 {
 public:
 
@@ -62,48 +61,73 @@ public:
     MouseInputMode GetMouseInputMode();
 
     /**
-     * Register an event handler to receive mouse input events.
-     * @param[in] eventHandler Pointer to the IInputEventHandler to register. If the event handler does not have an
-     * existing registration with this InputManager, a new registration will be created. Otherwise, this function has
-     * no effect.
+     * Register a function to handle mouse input.
+     * @param handler A function which will receive and handler MouseEvents when the mouse cursor is moved.
+     * Any existing handler will be overwritten.
      */
-    void RegisterMouseInputEventHandler(IInputEventHandler* eventHandler);
+    void RegisterMouseMotionHandler(std::function<void (MouseEvent*)> handler);
 
     /**
-     * Deregister an event handler which will no longer receive mouse input events.
-     * @param[in] eventHandler Pointer to the IInputEventHandler to deregister. If the event handler has an existing
-     * registration with this InputManager, the registration will be removed. Otherwise, this function has no effect.
+     * Register a function to handle mouse button presses.
+     * @param button A mouse button.
+     * @param handler A function which will receive and handle MouseButtonPressEvents when the specified mouse button is pressed.
+     * Any existing button press handler for the specified mouse button will be overwritten.
      */
-    void DeregisterMouseInputEventHandler(IInputEventHandler* eventHandler);
+    void RegisterMouseButtonPressHandler(MouseButton button, std::function<void (MouseButtonPressEvent*)> handler);
 
     /**
-     * Register an event handler to receive keyboard input events.
-     * @param[in] handler Pointer to the IInputEventHandler to register. If the handler does not have an existing 
-     * registration with this InputManager, a new registration will be created.  Otherwise, the existing registration
-     * will be modified.
-     * @param[in] keyCodes Vector of key codes corresponding to keyboard keys that the event handler will receive. 
-     * If the handler does not have an existing registration with this InputManager, the new registration will
-     * be initialized with the contents of this vector. Otherwise, the registration will be updated with the 
-     * set union of the contents of this vector and the key codes in the existing registration.
+     * Register a function to handle mouse button releases.
+     * @param button A mouse button.
+     * @param handler A function which will receive and handle MouseButtonReleaseEvents when the specified mouse button is released.
+     * Any existing button released handler for the specified mouse button will be overwritten.
      */
-    void RegisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyboardKey>);
+    void RegisterMouseButtonReleaseHandler(MouseButton button, std::function<void (MouseButtonReleaseEvent*)> handler);
+
+    /**
+     * Register a function to handle keyboard key presses.
+     * @param key A keyboard key.
+     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
+     * Any existing key press handler for the specified key will be overwritten.
+     */
+    void RegisterKeyboardKeyPressHandler(KeyboardKey key, std::function<void (KeyboardKeyPressEvent*)> handler);
+
+    /**
+     * Register a function to handle keyboard key presses.
+     * @param key A keyboard key.
+     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
+     * Any existing key release handler for the specified key will be overwritten.
+     */
+    void RegisterKeyboardKeyReleaseHandler(KeyboardKey key, std::function<void (KeyboardKeyReleaseEvent*)> handler);
     
     /**
-     * Deregister a KeyReleaseEventHandler which will no longer receive KeyReleaseEvents.
-     * @param[in] handler Pointer to the KeyReleaseEventHandler to deregister. If the handler has an existing registration
-     * with this InputManager, the registration will be modified. Otherwise, this function has no effect. 
-     * @param[in] keyCodes Vector of key codes int values corresponding to keyboard keys that should no be received
-     * by the event handler. If the handler has an existing registration with this InputManager, the registration will 
-     * be updated with the relative complement of the contents of this vector with respect to the key codes in the 
-     * existing registration. If the result of this operation is an empty set, the handler's registration will be removed 
-     * from this InputManager.
+     * Remove any existing mouse input handler.
      */
-    void DeregisterKeyboardInputEventHandler(IInputEventHandler* eventHandler, std::vector<KeyboardKey>);
+    void DeregisterMouseMotionHandler();   
+ 
+    /**
+     * Remove any existing mouse button press handler for the specified button.
+     * @param button A mouse button.
+     */
+    void DeregisterMouseButtonPressHandler(MouseButton button);
+
+    /**
+     * Remove any existing mouse button release handler for the specified button.
+     * @param button A mouse button.
+     */
+    void DeregisterMouseButtonReleaseHandler(MouseButton button);
+
+    /**
+     * Remove any existing keyboard key press handler for the specified button.
+     * @param key A keyboard key.
+     */
+    void DeregisterKeyboardKeyPressHandler(KeyboardKey key);
+
+    void DeregisterKeyboardKeyReleaseHandler(KeyboardKey key);
 
     /**
      * True if the given KeyboardKey has at least one registered release event handler. False otherwise.
      */
-    bool IsRegisteredEventHandler(KeyboardKey* keyCode);
+    bool IsRegisteredEventHandler(KeyboardKey key);
 
     /**
      * Poll the current state of a key.
@@ -175,11 +199,13 @@ private:
 
     // InputView which is polled for ondemand input.
     InputView* inputView;
-   
-    // Registered input handlers
-    // C++ strong enums are not usable as map keys, so a cast to int is required.
-    std::unordered_map<int, std::set<IInputEventHandler*>> registeredKeyboardInputEventHandlers;
-    std::vector<IInputEventHandler*> registeredMouseInputEventHandlers;
+    
+    // Registered event handlers
+    std::function<void (MouseEvent*)> mouseMotionHandler;
+    std::map<MouseButton, std::function<void (MouseButtonPressEvent*)>> mouseButtonPressHandlers;
+    std::map<MouseButton, std::function<void (MouseButtonReleaseEvent*)>> mouseButtonReleaseHandlers;
+    std::map<KeyboardKey, std::function<void (KeyboardKeyPressEvent*)>> keyboardKeyPressHandlers;
+    std::map<KeyboardKey, std::function<void (KeyboardKeyReleaseEvent*)>> keyboardKeyReleaseHandlers;
 };
 
 #endif
