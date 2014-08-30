@@ -53,9 +53,25 @@ void InputManager::RegisterKeyboardKeyPressHandler(KeyboardKey key, std::functio
     this->keyboardKeyPressHandlers[key] = handler;
 }
 
+void InputManager::RegisterKeyboardKeyPressHandler(std::vector<KeyboardKey> keys, std::function<void (KeyboardKeyPressEvent*)> handler)
+{
+    for (KeyboardKey key : keys)
+    {
+        this->RegisterKeyboardKeyPressHandler(key, handler);
+    }
+}
+
 void InputManager::RegisterKeyboardKeyReleaseHandler(KeyboardKey key, std::function<void (KeyboardKeyReleaseEvent*)> handler)
 {
     this->keyboardKeyReleaseHandlers[key] = handler;
+}
+
+void InputManager::RegisterKeyboardKeyReleaseHandler(std::vector<KeyboardKey> keys, std::function<void (KeyboardKeyReleaseEvent*)> handler)
+{
+    for (KeyboardKey key : keys)
+    {
+        RegisterKeyboardKeyReleaseHandler(key, handler);
+    }
 }
 
 void InputManager::DeregisterMouseMotionHandler()
@@ -78,9 +94,25 @@ void InputManager::DeregisterKeyboardKeyPressHandler(KeyboardKey key)
     this->keyboardKeyPressHandlers.erase(key);
 }
 
+void InputManager::DeregisterKeyboardKeyPressHandler(std::vector<KeyboardKey> keys)
+{
+    for (KeyboardKey key : keys)
+    {
+        DeregisterKeyboardKeyPressHandler(key);
+    }
+}
+
 void InputManager::DeregisterKeyboardKeyReleaseHandler(KeyboardKey key)
 {
     this->keyboardKeyReleaseHandlers.erase(key);
+}
+
+void InputManager::DeregisterKeyboardKeyReleaseHandler(std::vector<KeyboardKey> keys)
+{
+    for (KeyboardKey key : keys)
+    {
+        DeregisterKeyboardKeyReleaseHandler(key);
+    }
 }
 
 bool InputManager::IsRegisteredEventHandler(KeyboardKey key)
