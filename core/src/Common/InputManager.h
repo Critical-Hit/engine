@@ -92,12 +92,28 @@ public:
     void RegisterKeyboardKeyPressHandler(KeyboardKey key, std::function<void (KeyboardKeyPressEvent*)> handler);
 
     /**
+     * Register a function to handle multiple keyboard key presses.
+     * @param keys The vector of keyboard keys.
+     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
+     * Any existing key press handler for the specified key will be overwritten.
+     */
+    void RegisterKeyboardKeyPressHandler(std::vector<KeyboardKey> keys, std::function<void (KeyboardKeyPressEvent*)> handler);
+    
+    /**
      * Register a function to handle keyboard key presses.
      * @param key A keyboard key.
      * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
      * Any existing key release handler for the specified key will be overwritten.
      */
     void RegisterKeyboardKeyReleaseHandler(KeyboardKey key, std::function<void (KeyboardKeyReleaseEvent*)> handler);
+    
+    /**
+     * Register a function to handle keyboard key presses.
+     * @param keys The vector of keyboard keys.
+     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
+     * Any existing key release handler for the specified key will be overwritten.
+     */
+    void RegisterKeyboardKeyReleaseHandler(std::vector<KeyboardKey> keys, std::function<void (KeyboardKeyReleaseEvent*)> handler);
     
     /**
      * Remove any existing mouse input handler.
@@ -122,8 +138,24 @@ public:
      */
     void DeregisterKeyboardKeyPressHandler(KeyboardKey key);
 
+    /**
+     * Remove any existing keyboard key release handler for the specified button.
+     * @param key A keyboard key.
+     */
     void DeregisterKeyboardKeyReleaseHandler(KeyboardKey key);
 
+    /**
+     * Remove any existing keyboard key press handler for the specified keys.
+     * @param keys A vector of keyboard keys.
+     */
+    void DeregisterKeyboardKeyPressHandler(std::vector<KeyboardKey> keys);
+    
+    /**
+     * Remove any existing keyboard key release handler for the specified keys.
+     * @param keys A vector of keyboard keys.
+     */
+    void DeregisterKeyboardKeyReleaseHandler(std::vector<KeyboardKey> keys);
+    
     /**
      * True if the given KeyboardKey has at least one registered release event handler. False otherwise.
      */
