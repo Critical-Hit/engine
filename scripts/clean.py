@@ -8,10 +8,13 @@ FILES_TO_REMOVE = ["obj", "*.suo", "*.sdf"]
 
 
 def remove_file(filename, windows):
-	if windows:
-		call(["del", "filename"])
-	else:
-		call(["rm", "-rf", filename])
+    try:
+        if windows:
+            call(["del", "/F", "/Q", filename])
+        else:
+            call(["rm", "-rf", filename])
+    except:
+        pass
 
 
 def main():
@@ -22,7 +25,7 @@ def main():
         except:
             pass
     for file in FILES_TO_REMOVE:
-        remove_file(file, sys.argv[0] == "--windows")
+        remove_file(file, sys.argv[1] == "--windows")
 
 if __name__ == "__main__":
     main()
