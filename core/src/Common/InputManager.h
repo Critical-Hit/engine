@@ -24,7 +24,11 @@ enum class MouseInputMode
 class InputManager
 {
 public:
-
+    typedef std::function<void (MouseEvent*)> MouseMotionHandler;
+    typedef std::function<void (MouseButtonPressEvent*)> MouseButtonPressHandler;
+    typedef std::function<void (MouseButtonReleaseEvent*)> MouseButtonReleaseHandler;
+    typedef std::function<void (KeyboardKeyPressEvent*)> KeyboardKeyPressHandler;
+    typedef std::function<void (KeyboardKeyReleaseEvent*)> KeyboardKeyReleaseHandler;
     /**
      * Default constructor that creates a new instance of a InputManager.
      */
@@ -64,7 +68,7 @@ public:
      * @param handler A function which will receive and handler MouseEvents when the mouse cursor is moved.
      * Any existing handler will be overwritten.
      */
-    void RegisterMouseMotionHandler(std::function<void (MouseEvent*)> handler);
+    void RegisterMouseMotionHandler(MouseMotionHandler handler);
 
     /**
      * Register a function to handle mouse button presses.
@@ -72,7 +76,7 @@ public:
      * @param handler A function which will receive and handle MouseButtonPressEvents when the specified mouse button is pressed.
      * Any existing button press handler for the specified mouse button will be overwritten.
      */
-    void RegisterMouseButtonPressHandler(MouseButton button, std::function<void (MouseButtonPressEvent*)> handler);
+    void RegisterMouseButtonPressHandler(MouseButton button, MouseButtonPressHandler handler);
 
     /**
      * Register a function to handle mouse button releases.
@@ -80,7 +84,7 @@ public:
      * @param handler A function which will receive and handle MouseButtonReleaseEvents when the specified mouse button is released.
      * Any existing button released handler for the specified mouse button will be overwritten.
      */
-    void RegisterMouseButtonReleaseHandler(MouseButton button, std::function<void (MouseButtonReleaseEvent*)> handler);
+    void RegisterMouseButtonReleaseHandler(MouseButton button, MouseButtonReleaseHandler handler);
 
     /**
      * Register a function to handle keyboard key presses.
@@ -88,7 +92,7 @@ public:
      * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
      * Any existing key press handler for the specified key will be overwritten.
      */
-    void RegisterKeyboardKeyPressHandler(KeyboardKey key, std::function<void (KeyboardKeyPressEvent*)> handler);
+    void RegisterKeyboardKeyPressHandler(KeyboardKey key, KeyboardKeyPressHandler handler);
 
     /**
      * Register a function to handle keyboard key presses.
@@ -96,7 +100,7 @@ public:
      * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is released.
      * Any existing key release handler for the specified key will be overwritten.
      */
-    void RegisterKeyboardKeyReleaseHandler(KeyboardKey key, std::function<void (KeyboardKeyReleaseEvent*)> handler);
+    void RegisterKeyboardKeyReleaseHandler(KeyboardKey key, KeyboardKeyReleaseHandler handler);
     
     /**
      * Remove any existing mouse input handler.
@@ -200,11 +204,11 @@ private:
     InputView* inputView;
     
     // Registered event handlers
-    std::function<void (MouseEvent*)> mouseMotionHandler;
-    std::map<MouseButton, std::function<void (MouseButtonPressEvent*)>> mouseButtonPressHandlers;
-    std::map<MouseButton, std::function<void (MouseButtonReleaseEvent*)>> mouseButtonReleaseHandlers;
-    std::map<KeyboardKey, std::function<void (KeyboardKeyPressEvent*)>> keyboardKeyPressHandlers;
-    std::map<KeyboardKey, std::function<void (KeyboardKeyReleaseEvent*)>> keyboardKeyReleaseHandlers;
+    MouseMotionHandler mouseMotionHandler;
+    std::map<MouseButton, MouseButtonPressHandler> mouseButtonPressHandlers;
+    std::map<MouseButton, MouseButtonReleaseHandler> mouseButtonReleaseHandlers;
+    std::map<KeyboardKey, KeyboardKeyPressHandler> keyboardKeyPressHandlers;
+    std::map<KeyboardKey, KeyboardKeyReleaseHandler> keyboardKeyReleaseHandlers;
 };
 
 #endif
