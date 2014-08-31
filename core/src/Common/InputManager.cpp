@@ -33,27 +33,27 @@ MouseInputMode InputManager::GetMouseInputMode()
     return this->inputView->GetMouseInputMode();
 }
 
-void InputManager::RegisterMouseMotionHandler(std::function<void (MouseEvent*)> handler)
+void InputManager::RegisterMouseMotionHandler(MouseMotionHandler handler)
 {
     this->mouseMotionHandler = handler;
 }
 
-void InputManager::RegisterMouseButtonPressHandler(MouseButton button, std::function<void (MouseButtonPressEvent*)> handler)
+void InputManager::RegisterMouseButtonPressHandler(MouseButton button, MouseButtonPressHandler handler)
 {
     this->mouseButtonPressHandlers[button] = handler;
 }
 
-void InputManager::RegisterMouseButtonReleaseHandler(MouseButton button, std::function<void (MouseButtonReleaseEvent*)> handler)
+void InputManager::RegisterMouseButtonReleaseHandler(MouseButton button, MouseButtonReleaseHandler handler)
 {
     this->mouseButtonReleaseHandlers[button] = handler;
 }
 
-void InputManager::RegisterKeyboardKeyPressHandler(KeyboardKey key, std::function<void (KeyboardKeyPressEvent*)> handler)
+void InputManager::RegisterKeyboardKeyPressHandler(KeyboardKey key, KeyboardKeyPressHandler handler)
 {
     this->keyboardKeyPressHandlers[key] = handler;
 }
 
-void InputManager::RegisterKeyboardKeyReleaseHandler(KeyboardKey key, std::function<void (KeyboardKeyReleaseEvent*)> handler)
+void InputManager::RegisterKeyboardKeyReleaseHandler(KeyboardKey key, KeyboardKeyReleaseHandler handler)
 {
     this->keyboardKeyReleaseHandlers[key] = handler;
 }
