@@ -93,25 +93,25 @@ public:
 
     /**
      * Register a function to handle multiple keyboard key presses.
-     * @param keys The vector of keyboard keys.
+     * @param keys A vector of keyboard keys.
      * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
-     * Any existing key press handler for the specified key will be overwritten.
+     * If a key has an existing key release handler, it will be overwritten.
      */
     void RegisterKeyboardKeyPressHandler(std::vector<KeyboardKey> keys, std::function<void (KeyboardKeyPressEvent*)> handler);
     
     /**
      * Register a function to handle keyboard key presses.
      * @param key A keyboard key.
-     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
+     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is released.
      * Any existing key release handler for the specified key will be overwritten.
      */
     void RegisterKeyboardKeyReleaseHandler(KeyboardKey key, std::function<void (KeyboardKeyReleaseEvent*)> handler);
     
     /**
      * Register a function to handle keyboard key presses.
-     * @param keys The vector of keyboard keys.
-     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified key is pressed.
-     * Any existing key release handler for the specified key will be overwritten.
+     * @param keys A vector of keyboard keys.
+     * @param handler A function which will receive and handle KeyboardKeyPressEvents when the specified keys are released.
+     * If a key has an existing key release handler, it will be overwritten.
      */
     void RegisterKeyboardKeyReleaseHandler(std::vector<KeyboardKey> keys, std::function<void (KeyboardKeyReleaseEvent*)> handler);
     
