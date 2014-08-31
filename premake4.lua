@@ -130,5 +130,9 @@ for i = 1,table.getn(moduleNames) do
 end
 
 if _ACTION == "clean" then
-    os.execute("python3 scripts/clean.py")
+    if os.get() == "windows" then
+        os.execute("python scripts/clean.py --windows")
+    else
+	os.execute("python3 scripts/clean.py --unix")
+    end
 end
