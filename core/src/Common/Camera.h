@@ -22,111 +22,111 @@ class string;
 class Camera final
 {
 public:
-	/**
-	 * Creates a camera centered at 0, 0 with a width
-	 * and height of 2.
-	 */
-	Camera();
-	
-	/**
-	 * Creats a camera with the given coordinates and
-	 * dimensions.
-	 */
-	Camera(float x, float y, float width, float height);
+    /**
+     * Creates a camera centered at 0, 0 with a width
+     * and height of 2.
+     */
+    Camera();
 
-	/**
-	 * Moves the camera's center to the given coordinates.
-	 */
-	void MoveTo(float x, float y);
-	
-	/**
-	 * Moves the camera by the given amount.
-	 */
-	void MoveBy(float dx, float dy);
+    /**
+     * Creats a camera with the given coordinates and
+     * dimensions.
+     */
+    Camera(float x, float y, float width, float height);
 
-	/**
-	 * Sets the dimensions used by the camera
-	 */
-	void SetDimensions(float width, float height);
+    /**
+     * Moves the camera's center to the given coordinates.
+     */
+    void MoveTo(float x, float y);
 
-	/**
-	 * Obtains the x value for the center of the camera
-	 */
-	float GetX();
+    /**
+     * Moves the camera by the given amount.
+     */
+    void MoveBy(float dx, float dy);
 
-	/**
-	 * Obtains the y value for the center of the camera
-	 */
-	float GetY();
+    /**
+     * Sets the dimensions used by the camera
+     */
+    void SetDimensions(float width, float height);
 
-	/**
-	 * Obtains the width of the camera's viewing area
-	 */
-	float GetWidth();
+    /**
+     * Obtains the x value for the center of the camera
+     */
+    float GetX();
 
-	/**
-	 * Obtains the height of the camera's viewing area
-	 */
-	float GetHeight();
+    /**
+     * Obtains the y value for the center of the camera
+     */
+    float GetY();
 
-	/**
-	 * Obtains the coordinate for the left edge of the camera
-	 */
-	float GetLeft();
+    /**
+     * Obtains the width of the camera's viewing area
+     */
+    float GetWidth();
 
-	/**
-	* Obtains the coordinate for the right edge of the camera
-	*/
-	float GetRight();
+    /**
+     * Obtains the height of the camera's viewing area
+     */
+    float GetHeight();
 
-	/**
-	* Obtains the coordinate for the top edge of the camera
-	*/
-	float GetTop();
+    /**
+     * Obtains the coordinate for the left edge of the camera
+     */
+    float GetLeft();
 
-	/**
-	* Obtains the coordinate for the bottom edge of the camera
-	*/
-	float GetBottom();
+    /**
+     * Obtains the coordinate for the right edge of the camera
+     */
+    float GetRight();
 
-	/**
-	 * Obtains a string with the x, y, width, and height of the
-	 * camera.
-	 */
-	std::string ToString();
+    /**
+     * Obtains the coordinate for the top edge of the camera
+     */
+    float GetTop();
 
-	/**
-	* Obtains a string with the left, right width, and height
-	* of the camera.
-	*/
-	std::string ToStringLRTB();
+    /**
+     * Obtains the coordinate for the bottom edge of the camera
+     */
+    float GetBottom();
 
-	/**
-	 * Basic destructor.
-	 */
-	~Camera();
+    /**
+     * Obtains a string with the x, y, width, and height of the
+     * camera.
+     */
+    std::string ToString();
+
+    /**
+     * Obtains a string with the left, right width, and height
+     * of the camera.
+     */
+    std::string ToStringLRTB();
+
+    /**
+     * Basic destructor.
+     */
+    ~Camera();
 
 private:
-	Camera(Camera& other);
-	Camera operator=(Camera& other);
-	float x;
-	float y;
-	float width;
-	float halfWidth;
-	float height;
-	float halfHeight;
-	bool reverseY;
+    Camera(Camera& other);
+    Camera operator=(Camera& other);
+    float x;
+    float y;
+    float width;
+    float halfWidth;
+    float height;
+    float halfHeight;
+    bool reverseY;
 
-	/**
-	* Sets whether the camera's y coordinates are reversed.
-	*
-	* True: -y points towards the top of the screen.
-	* False: +y points towards the top of the screen.
-	*
-	* Moved to private until a related graphics bug can
-	* be solved.
-	*/
-	void SetReverseY(bool reverseY);
+    /**
+     * Sets whether the camera's y coordinates are reversed.
+     *
+     * True: -y points towards the top of the screen.
+     * False: +y points towards the top of the screen.
+     *
+     * Moved to private until a related graphics bug can
+     * be solved.
+     */
+    void SetReverseY(bool reverseY);
 };
 
 #endif

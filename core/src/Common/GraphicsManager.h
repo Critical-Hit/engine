@@ -31,78 +31,78 @@ public:
      */
     GraphicsManager();
 
-	/**
-	 * Destructor
-	 */
-	~GraphicsManager();
+    /**
+     * Destructor
+     */
+    ~GraphicsManager();
 
-	/**
-	 * Gets the clear color
-	 */
-	Color GetClearColor();
-	
-	/**
-	 * Sets the clear color
-	 */
-	void SetClearColor(Color clearColor);
-	
-	/**
-	 * Sets the clear color
-	 */
-	void SetClearColor(float red, float blue, float green, float alpha);
+    /**
+     * Gets the clear color
+     */
+    Color GetClearColor();
 
-	/**
-	 * Registers a sprite to be drawn
-	 *
-	 * Throws an invalid_argument if the sprite was already registered.
-	 */
-	void RegisterSprite(Sprite* sprite);
+    /**
+     * Sets the clear color
+     */
+    void SetClearColor(Color clearColor);
 
-	/**
-	 * Unregisters a sprite so it will no longer be drawn
-	 *
-	 * Throws an invalid_argument if the sprite wasn't registered.
-	 */
-	void UnRegisterSprite(Sprite* sprite);
+    /**
+     * Sets the clear color
+     */
+    void SetClearColor(float red, float blue, float green, float alpha);
 
-	/**
-	 * Obtains the number of registered sprite.
-	 */
-	int GetSpriteCount();
+    /**
+     * Registers a sprite to be drawn
+     *
+     * Throws an invalid_argument if the sprite was already registered.
+     */
+    void RegisterSprite(Sprite* sprite);
 
-	/**
-	 * Obtains a pointer to the camera.
-	 */
-	Camera* GetCamera();
+    /**
+     * Unregisters a sprite so it will no longer be drawn
+     *
+     * Throws an invalid_argument if the sprite wasn't registered.
+     */
+    void UnRegisterSprite(Sprite* sprite);
 
-	/**
-	 * Prepares to add all sprites with the AddSpriteToVCIBuffer method
-	 */
-	void PrepareToAddSprites();
+    /**
+     * Obtains the number of registered sprite.
+     */
+    int GetSpriteCount();
 
-	/**
-	 * Adds the next sprite's vertex, color, and index information to the
-	 * given vertex buffer.
-	 *
-	 * Returns true if the sprite's data was successfully added; false if
-	 * there are no more sprites to be added or PrepareToAddSprites hasn't
-	 * been called.
-	 * 
-	 * DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 16 values for
-	 * each sprite (16 * GetSpriteCount()).
-	 */
-	bool AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
-    
+    /**
+     * Obtains a pointer to the camera.
+     */
+    Camera* GetCamera();
+
+    /**
+     * Prepares to add all sprites with the AddSpriteToVCIBuffer method
+     */
+    void PrepareToAddSprites();
+
+    /**
+     * Adds the next sprite's vertex, color, and index information to the
+     * given vertex buffer.
+     *
+     * Returns true if the sprite's data was successfully added; false if
+     * there are no more sprites to be added or PrepareToAddSprites hasn't
+     * been called.
+     * 
+     * DO NOT CALL THIS METHOD IF THERE IS NOT SPACE FOR 16 values for
+     * each sprite (16 * GetSpriteCount()).
+     */
+    bool AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
+
 private:
     // Private constructors to disallow access.
     GraphicsManager(GraphicsManager const &other);
     GraphicsManager operator=(GraphicsManager other);
 
-	Color clearColor;
-	Camera camera;
-	std::set<Sprite*> registeredSprites;
-	std::mutex registeredSpritesMutex;
-	std::set<Sprite*>::iterator spriteIterator;
+    Color clearColor;
+    Camera camera;
+    std::set<Sprite*> registeredSprites;
+    std::mutex registeredSpritesMutex;
+    std::set<Sprite*>::iterator spriteIterator;
 };
 
 #endif
