@@ -3,13 +3,18 @@
 
 #include "MouseButtonEvent.h"
 
+enum class MouseButton;
+
 /**
  * Input event fired when a mouse button is pressed
  */
 class MouseButtonPressEvent : public MouseButtonEvent
 {
 public:
-    MouseButtonPressEvent(int absoluteX, int absoluteY, MouseCode mouseCode);
+    /**
+     * @see MouseButtonEvent::MouseButtonEvent(int, int, MouseButton)
+     */
+    MouseButtonPressEvent(int x, int y, MouseButton button);
 private:
     // Private constructors to disallow access.
     MouseButtonPressEvent(MouseButtonPressEvent const &other);

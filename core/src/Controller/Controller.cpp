@@ -35,7 +35,7 @@ void Controller::gameLoop()
 
     while(!this->shouldExit)
     {
-		long long startTime = getTimeInMilliseconds();
+        long long startTime = getTimeInMilliseconds();
 
         manager.Update();
         
@@ -61,19 +61,23 @@ void Controller::viewLoop()
     // Actual loop
     while(!this->shouldExit)
     {
-		long long startTime = getTimeInMilliseconds();
+        long long startTime = getTimeInMilliseconds();
 
-        // Close program on exit
+        // Handle all pending SFML window events
+        // Read SFML documentation on window events before modifying this code!
         sf::Event event;
         while (window->pollEvent(event))
         {
+            // Close program on Closed event
             if (event.type == sf::Event::Closed)
             {
                 this->shouldExit = true;
                 window->close();
             }
 
-            // Allow views to handle other types of events
+            // TODO: handle LostFocus, GainedFocus and Resized events
+
+            // InputView handles other window events
             inputView.OnSfmlEvent(event);
         }
  
@@ -83,13 +87,12 @@ void Controller::viewLoop()
         resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
         
         if(!this->viewsCreated)
+        {
             this->viewsCreated = true;
+        }
         
         while((getTimeInMilliseconds() - startTime) <= Controller::FRAMERATE)
         { }
     }
-    
-    //glfwDestroyWindow(window);
-    //glfwTerminate();
 }
 

@@ -15,7 +15,7 @@ ControllerPackage::~ControllerPackage()
 	delete this->graphicsManager;
 	delete this->inputManager;
 	delete this->soundManager;
-    delete this->resourceManager;
+        delete this->resourceManager;
 }
 
 GraphicsManager* const ControllerPackage::GetGraphicsManager()
