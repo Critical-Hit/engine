@@ -18,6 +18,8 @@ Add C:\premake4\bin to your PATH user environment variable:
 1. Type "environment variables" into the Start Menu search menu to access Environment Variables.  
 1. If Path already exists in User variables, edit it and add "C:\premake4\bin;" to the front.  If Path doesn't exist, create a new variable with "Path" for the name and "C:\premake4\bin" for the value.
 
+Install [python 3.0+](https://www.python.org/downloads/) and add "C:\PythonXX" to your PATH user environment variable (see above). You will need to rename "python.exe" to "python3.exe" before use.
+
 OpenGL is statically linked in Visual Studio and SFML is statically linked in the project source, so installing them separately is not required.
 
 Generate the Visual Studio Project and run the build:
@@ -52,6 +54,9 @@ You will have to log out and in again to apply this change.
 
 You will then have to install SFML. See [SFML's Download page](http://sfml-dev.org/download/sfml/2.1) for more information.
 
+###Python
+Python3 may already be installed, you can check with python3 --version, if it is not installed you can use homebrew or download it from [here](https://www.python.org/download/mac).
+
 ###Build Tool
 
 You can use either of two options to develop and build: XCode or the command line with GNU Make.
@@ -76,6 +81,7 @@ Use your distribution's package manager to install the build dependencies:
 * Make
 * Premake >= 4.3
 * SFML 2.1
+* Python >= 3.0
 
 We are compiling in C++11 mode, so recent versions of GCC are preferred. We also assume that you have a GUI and graphics driver installed.
 
