@@ -23,7 +23,7 @@ public:
      * Constructs a GraphicsView with a given controller package.
      */
     GraphicsView(sf::Window* window);
-    
+
     /**
      * Destructor for GraphicsView
      */
@@ -33,33 +33,31 @@ public:
      * Initializes the GraphicsView.
      */
     void Initialize();
-    
+
     /**
      * Updates the GraphicsView.
      */
     void Update(GraphicsManager* graphicsManager);
-    
+
     /**
      * Function to call if the user attempts to close the GLFW Window.
      */
     std::function<void(void)> OnWindowClose;
-    
+
 private:
     // Private constructors to disallow access.
     GraphicsView(GraphicsView const &other);
     GraphicsView operator=(GraphicsView other);
-    
+
     /**
      * The GLFW Window to draw to.
      */
     sf::Window* window;
 
     /**
-	 * Utility function for checking OpenGL errors
-	 */
-	void CheckOpenGLError(std::string location);
-
-
+     * Utility function for checking OpenGL errors
+     */
+    void CheckOpenGLError(std::string location);
 };
 
 #endif
