@@ -1,9 +1,13 @@
-#ifndef Core_KeyCode_h
-#define Core_KeyCode_h
+#ifndef Core_KeyboardKey_h
+#define Core_KeyboardKey_h
 
-enum KeyCode {
+/**
+ * Enumeration of keyboard keys 
+ */
+enum class KeyboardKey {
+    // Values are based on USB HID 1.12 key codes for US keyboard
+    // Some values are deprecated due to lack of support in SFML, and are left commented out for clarity
     KEYBOARD_UNKNOWN = -1,
-    // USB HID 1.12 key codes for US keyboard
     KEYBOARD_A = 4,
     KEYBOARD_B = 5,
     KEYBOARD_C = 6,
@@ -113,20 +117,6 @@ enum KeyCode {
     KEYBOARD_RIGHT_SHIFT = 229,
     KEYBOARD_RIGHT_ALT = 230,
     KEYBOARD_RIGHT_SUPER = 231
-};
-
-enum MouseCode {
-    // Deprecated
-    // MOUSE_UNKNOWN = -1,
-    MOUSE_1 = 1,
-    MOUSE_2 = 2,
-    MOUSE_3 = 3,
-    MOUSE_4 = 4,
-    MOUSE_5 = 5,
-    // Deprecated
-    // MOUSE_6 = 6,
-    // MOUSE_7 = 7,
-    // MOUSE_8 = 8
 };
 
 #endif

@@ -10,23 +10,25 @@ class MouseEvent : public InputEvent {
 public:
     /**
      * Event constructor
-     * @param absoluteX absolute x-coordinate of the mouse cursor
-     * @param absoluteY absolute y-coordinate of the mouse cursor
+     * @param x x-coordinate of the mouse cursor in relation to the left edge of the game window
+     * @param y y-coordinate of the mouse cursor in relation to the top edge of the game window
      */
-    MouseEvent(int absoluteX, int absoluteY);
-
-    /*
-     * @return absolute x-coordinate of the cursor.
-     */
-    int GetAbsoluteX();
+    MouseEvent(int x, int y);
 
     /**
-     * @return absolute y-coordinate of the cursor.
+     * Get the horizontal position of the mouse cursor
+     * @return x-coordinate of the cursor in relation to the left edge of the game window
      */
-    int GetAbsoluteY();
+    int GetX();
+
+    /**
+     * Get the vertical position of the mouse cursor
+     * @return y-coordinate of the cursor in relation to the top edge of the game window
+     */
+    int GetY();
 protected:
-    int absoluteX;
-    int absoluteY;
+    int x;
+    int y;
 private:
     // Private constructors to disallow access.
     MouseEvent(MouseEvent const &other);
