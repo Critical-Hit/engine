@@ -58,7 +58,7 @@ void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
     GraphicsView::CheckOpenGLError("after drawing sprites");
     
     // Swap the buffers
-	this->window->display();
+    this->window->display();
     GraphicsView::CheckOpenGLError("after swapping buffers");
     
     GraphicsView::CheckOpenGLError("at end of Update()");

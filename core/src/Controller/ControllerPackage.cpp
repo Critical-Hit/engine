@@ -7,28 +7,25 @@ ControllerPackage::ControllerPackage(std::shared_ptr<GraphicsManager> graphicsMa
 inputManager(inputManager),
 soundManager(soundManager)
 {
-	
 }
 
 ControllerPackage::~ControllerPackage()
 {
-
 }
 
 std::shared_ptr<GraphicsManager> ControllerPackage::GetGraphicsManager()
 {
-	return this->graphicsManager;
+    return this->graphicsManager;
 }
-
 
 std::shared_ptr<InputManager> ControllerPackage::GetInputManager()
 {
-	return this->inputManager;
+    return this->inputManager;
 }
 
 std::shared_ptr<SoundManager> ControllerPackage::GetSoundManager()
 {
-	return this->soundManager;
+    return this->soundManager;
 }
 
 std::shared_ptr<ResourceManager> ControllerPackage::GetResourceManager()
