@@ -28,13 +28,6 @@ solution "Engine"
         buildoptions {"-std=c++11"}
         includedirs {"core/include", "/usr/local/include"}
         libdirs {"core/lib", "/usr/local/lib"}
-    -- Windows
-    configuration {"windows", "vs2010"}
-        platforms {"x64"}
-        includedirs{"core/include"}
-        libdirs {"core/lib"}
-        links { "OpenGL32" }
-    configuration {"windows", "vs2010", "Release"}
         links {
             "OpenGL.framework", 
             "Cocoa.framework", 
@@ -88,8 +81,10 @@ project "Core"
     }
     includedirs {
         "core/include",
-        "**/src",
-        "**/src/**",
+        "core/src",
+        "core/src/**",
+        "game/src",
+        "game/src/**",
         "modules/*/src/**"
     }
     libdirs {
@@ -110,6 +105,7 @@ project "Core"
     	    "soil2-mac" 
         }
 
+-- Game
 project "Game"
     kind "StaticLib"
     language "C++"
@@ -119,9 +115,11 @@ project "Game"
     }
     includedirs {
         "game/include",
-        "**/src/**",
-        "**/src",
-        "modules/*/**",
+        "core/src",
+        "core/src/**",
+        "game/src",
+        "game/src/**",
+        "modules/*/src/**"
     }
     libdirs {
         "game/lib"
