@@ -1,6 +1,7 @@
 #ifndef Core_GameState_h
 #define Core_GameState_h
 
+#include <memory>
 #include "GameStateManager.h"
 class GameStateManager;
 
@@ -16,7 +17,7 @@ public:
     /**
      * Initializes the GameState with the given GameStateManager.
      */
-    virtual void Initialize(GameStateManager* manager);
+    virtual void Initialize(std::shared_ptr<GameStateManager> manager);
     
     /**
      * Updates this State.
@@ -42,21 +43,21 @@ protected:
     /**
      * The GameStateManager managing this State.
      */
-    GameStateManager* manager;
+    std::shared_ptr<GameStateManager> manager;
 
 	/**
 	 * Pointers to the managers of the controller package
 	 */
-	GraphicsManager* graphicsManager;
-	InputManager* inputManager;
-	SoundManager* soundManager;
-    ResourceManager* resourceManager;
+    std::shared_ptr<GraphicsManager> graphicsManager;
+    std::shared_ptr<InputManager> inputManager;
+    std::shared_ptr<SoundManager> soundManager;
+    std::shared_ptr<ResourceManager> resourceManager;
 
 private:
 	/**
 	 * ControllerPackages that the managers belong to
 	 */
-	ControllerPackage* controllerPackage;
+    std::shared_ptr<ControllerPackage> controllerPackage;
     
 };
 

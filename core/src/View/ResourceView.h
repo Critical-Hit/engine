@@ -1,6 +1,8 @@
 #ifndef Core_ResourceView_h
 #define Core_ResourceView_h
 
+#include <memory>
+
 #include "ResourceManager.h"
 
 class ResourceView
@@ -11,7 +13,7 @@ public:
 
     void Initialize();
 
-    void Update(ResourceManager* resourceManager);
+    void Update(std::shared_ptr<ResourceManager> resourceManager);
 
 private:
     // Private constructors to disallow access.

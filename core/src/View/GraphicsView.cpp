@@ -3,7 +3,7 @@
 #include "GraphicsView.h"
 #include "Sprite.h"
 
-GraphicsView::GraphicsView(sf::Window* window)
+GraphicsView::GraphicsView(std::shared_ptr<sf::Window> window)
 {
     this->window = window;
 }
@@ -17,7 +17,7 @@ void GraphicsView::Initialize()
 
 }
 
-void GraphicsView::Update(GraphicsManager* graphicsManager)
+void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
 {
     // Clear the screen
     Color clearColor = graphicsManager->GetClearColor();
@@ -27,6 +27,8 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     
     // Prepare the matrices
     glLoadIdentity();
+
+    //TODO: David needs to fix this
     Camera* camera = graphicsManager->GetCamera();
     float left = camera->GetLeft();
     float right = camera->GetRight();
@@ -34,7 +36,8 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     float top = camera->GetTop();
     glOrtho(left, right, bottom, top, -1.0f, 1000.0f);
     GraphicsView::CheckOpenGLError("after preparing matrices");
-    
+   
+    //TODO: David needs to handle these 
     float* vertexBuffer;
     float* colorBuffer;
     unsigned short* indexBuffer;

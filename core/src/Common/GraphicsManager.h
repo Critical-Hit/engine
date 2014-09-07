@@ -4,6 +4,7 @@
 #include <set>
 #include <iterator>
 #include <mutex>
+#include <memory>
 #include "Color.h"
 #include "Camera.h"
 
@@ -56,14 +57,14 @@ public:
 	 *
 	 * Throws an invalid_argument if the sprite was already registered.
 	 */
-	void RegisterSprite(Sprite* sprite);
+	void RegisterSprite(std::shared_ptr<Sprite> sprite);
 
 	/**
 	 * Unregisters a sprite so it will no longer be drawn
 	 *
 	 * Throws an invalid_argument if the sprite wasn't registered.
 	 */
-	void UnRegisterSprite(Sprite* sprite);
+	void UnRegisterSprite(std::shared_ptr<Sprite> sprite);
 
 	/**
 	 * Obtains the number of registered sprite.
@@ -92,6 +93,7 @@ public:
 	 * each sprite (16 * GetSpriteCount()).
 	 */
 	bool AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
+    //TODO: David needs to fix the above method
     
 private:
     // Private constructors to disallow access.
@@ -100,9 +102,9 @@ private:
 
 	Color clearColor;
 	Camera camera;
-	std::set<Sprite*> registeredSprites;
+	std::set<std::shared_ptr<Sprite>> registeredSprites;
 	std::mutex registeredSpritesMutex;
-	std::set<Sprite*>::iterator spriteIterator;
+	std::set<std::shared_ptr<Sprite>>::iterator spriteIterator;
 };
 
 #endif

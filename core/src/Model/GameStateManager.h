@@ -2,6 +2,7 @@
 #define Core_GameStateManager_h
 
 #include <stack>
+#include <memory>
 
 #include "ControllerPackage.h"
 #include "GameState.h"
@@ -11,7 +12,7 @@ class GameState;
  * Manages a stack of GameStates, allowing smooth transitioning between states,
  * including saving old states that remain "underneath" the current state. 
  */
-class GameStateManager
+class GameStateManager : public std::enable_shared_from_this<GameStateManager>
 {
 public:
 	/**
@@ -22,7 +23,7 @@ public:
     /**
      * Adds and initializes the given state to the GameStateManager.
      */
-    void Initialize(GameState* state);
+    void Initialize(std::shared_ptr<GameState> state);
     
     /**
      * Updates the current state.
@@ -32,17 +33,17 @@ public:
     /**
      * Pauses the current state and starts the given state.
      */
-    void PushState(GameState* state);
+    void PushState(std::shared_ptr<GameState> state);
     
     /**
      * Removes the current state and resumes the previous state.
      */
-    GameState* PopState();
+    std::shared_ptr<GameState> PopState();
     
     /**
      * Removes the current state and starts the given state.
      */
-    void SwapState(GameState* state);
+    void SwapState(std::shared_ptr<GameState> state);
     
 private:
     // Private constructors to disallow access.
@@ -52,7 +53,7 @@ private:
     /**
      * Contains the current stack of game states.
      */
-    std::stack<GameState*> gameStates;
+    std::stack<std::shared_ptr<GameState>> gameStates;
 };
 
 #endif

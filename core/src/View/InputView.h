@@ -3,6 +3,7 @@
 
 #include "SFML/Window.hpp"
 #include <set>
+#include <memory>
 
 class InputManager;
 enum class InputState;
@@ -18,7 +19,7 @@ public:
     /**
      * Default constructor that creates a new instance of an InputView.
      */
-    InputView(sf::Window* window);
+    InputView(std::shared_ptr<sf::Window> window);
     
     /**
      * Initializes the InputView.
@@ -29,7 +30,7 @@ public:
      * Updates the InputView.
      * @param inputManager InputManager which will receive update information. This InputManager will also receive all input events until the next time this function is called.
      */
-    void Update(InputManager* inputManager);
+    void Update(std::shared_ptr<InputManager> inputManager);
 
     /**
      * Poll the current state of a key. 
@@ -87,10 +88,10 @@ private:
     const sf::Vector2i MOUSE_ORIGIN;
 
     // Game window
-    sf::Window* window;
+    std::shared_ptr<sf::Window> window;
 
     // InputManager which receives input events.
-    InputManager* inputManager;
+    std::shared_ptr<InputManager> inputManager;
 
     // Mouse input mode state
     MouseInputMode mouseInputMode;

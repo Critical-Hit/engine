@@ -3,14 +3,18 @@
 
 #include "Texture.h"
 #include <vector>
+#include <memory>
 
 using namespace std;
 
 class ResourceManager
 {
 public:
-    
-    
+    /**
+     * Should NEVER be used. Only public because make_shared requires it.
+     */
+    ResourceManager();
+
     ~ResourceManager();
     
     /**
@@ -21,7 +25,7 @@ public:
     /**
      * Retrieves the current instance of the ResourceManager.
      */
-    static ResourceManager* GetInstance();
+    static std::shared_ptr<ResourceManager> GetInstance();
     
     /**
      * Loads a texture with the given fileName and textureID
@@ -39,22 +43,17 @@ public:
     unsigned int GetTextureUnitFromTextureID(int textureID);
 
 private:
-    /**
-     * Private contructor prevents multiple instances of the resource manager.
-     */
-    ResourceManager(){};
-    
     ResourceManager(ResourceManager const &other);
     ResourceManager operator=(ResourceManager other);
     
     /**
      * The private instance of the ResourceManager. 
      */
-    static ResourceManager* instance;
+    static std::shared_ptr<ResourceManager> instance;
     /**
      * List of Texutures
      */
-    vector<Texture*> textureList;
+    vector<std::shared_ptr<Texture>> textureList;
 };
 
 #endif

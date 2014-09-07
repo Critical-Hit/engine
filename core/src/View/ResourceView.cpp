@@ -15,7 +15,7 @@ void ResourceView::Initialize()
 
 }
 
-void ResourceView::Update(ResourceManager* resourceManager)
+void ResourceView::Update(std::shared_ptr<ResourceManager> resourceManager)
 {
 
 }
