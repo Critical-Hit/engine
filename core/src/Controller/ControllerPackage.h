@@ -26,8 +26,7 @@ public:
     /**
      * Destructor
      */
-	~ControllerPackage();
-
+    ~ControllerPackage();
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
