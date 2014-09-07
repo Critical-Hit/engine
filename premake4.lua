@@ -86,9 +86,6 @@ project "Core"
         "core/src/**.h",
         "core/src/**.cpp"
     }
-    flags {
-        "ExtraWarnings"
-    }
     includedirs {
         "core/include",
         "**/src",
