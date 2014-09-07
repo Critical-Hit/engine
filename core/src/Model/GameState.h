@@ -22,43 +22,42 @@ public:
     /**
      * Updates this State.
      */
-	virtual void Update() = 0;
-    
+    virtual void Update() = 0;
+
     /**
      * Pauses this State to be resumed later, saves the ControllerPackage.
      */
     virtual void Pause();
-    
+
     /**
      * Resumes this State after being paused.
      */
     virtual void Resume();
-    
+
     /**
      * Destroys this State because it won't be used again.
      */
     virtual void Destroy();
-    
+
 protected:
     /**
      * The GameStateManager managing this State.
      */
     std::shared_ptr<GameStateManager> manager;
 
-	/**
-	 * Pointers to the managers of the controller package
-	 */
+    /**
+     * Pointers to the managers of the controller package
+     */
     std::shared_ptr<GraphicsManager> graphicsManager;
     std::shared_ptr<InputManager> inputManager;
     std::shared_ptr<SoundManager> soundManager;
     std::shared_ptr<ResourceManager> resourceManager;
 
 private:
-	/**
-	 * ControllerPackages that the managers belong to
-	 */
+    /**
+     * ControllerPackages that the managers belong to
+     */
     std::shared_ptr<ControllerPackage> controllerPackage;
-    
 };
 
 #endif

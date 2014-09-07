@@ -15,21 +15,20 @@ class GameState;
 class GameStateManager : public std::enable_shared_from_this<GameStateManager>
 {
 public:
-	/**
-	 * Constructor that creates a new GameStateManager with a pointer to a ControllerPackage
-	 */
-	GameStateManager();
+    /**
+     * Constructor that creates a new GameStateManager with a pointer to a ControllerPackage
+     */
+    GameStateManager();
 
     /**
      * Adds and initializes the given state to the GameStateManager.
      */
     void Initialize(std::shared_ptr<GameState> state);
-    
     /**
      * Updates the current state.
      */
     void Update();
-    
+
     /**
      * Pauses the current state and starts the given state.
      */
@@ -49,7 +48,7 @@ private:
     // Private constructors to disallow access.
     GameStateManager(GameStateManager const &other);
     GameStateManager operator=(GameStateManager other);
-    
+
     /**
      * Contains the current stack of game states.
      */
