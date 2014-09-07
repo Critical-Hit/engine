@@ -13,12 +13,7 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::CopyFrom(InputManager* other)
-{
-    this->inputView = other->inputView; 
-}
-
-void InputManager::SetView(InputView* inputView)
+void InputManager::SetView(std::shared_ptr<InputView> inputView)
 {
     this->inputView = inputView;
 }
@@ -108,7 +103,7 @@ int InputManager::GetMouseY()
     return inputView->GetMouseY();
 }
 
-void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent* event) 
+void InputManager::OnKeyboardKeyPress(std::shared_ptr<KeyboardKeyPressEvent> event) 
 {
     if (this->keyboardKeyPressHandlers[event->GetKeyboardKey()])
     {
@@ -116,7 +111,7 @@ void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent* event)
     }
 }
 
-void InputManager::OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event) 
+void InputManager::OnKeyboardKeyRelease(std::shared_ptr<KeyboardKeyReleaseEvent> event) 
 {
     if (this->keyboardKeyReleaseHandlers[event->GetKeyboardKey()])
     {
@@ -124,7 +119,7 @@ void InputManager::OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event)
     }
 }
 
-void InputManager::OnMouseInput(MouseEvent* event)
+void InputManager::OnMouseInput(std::shared_ptr<MouseEvent> event)
 {
     if (this->mouseMotionHandler)
     {
@@ -132,7 +127,7 @@ void InputManager::OnMouseInput(MouseEvent* event)
     }
 }
 
-void InputManager::OnMouseButtonPress(MouseButtonPressEvent* event)
+void InputManager::OnMouseButtonPress(std::shared_ptr<MouseButtonPressEvent> event)
 {
     if (this->mouseButtonPressHandlers[event->GetMouseButton()])
     {
@@ -140,7 +135,7 @@ void InputManager::OnMouseButtonPress(MouseButtonPressEvent* event)
     }
 }
 
-void InputManager::OnMouseButtonRelease(MouseButtonReleaseEvent* event)
+void InputManager::OnMouseButtonRelease(std::shared_ptr<MouseButtonReleaseEvent> event)
 {
     if (this->mouseButtonReleaseHandlers[event->GetMouseButton()])
     {

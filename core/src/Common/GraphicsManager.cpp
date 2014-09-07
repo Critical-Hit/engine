@@ -25,7 +25,7 @@ void GraphicsManager::SetClearColor(Color clearColor)
     this->clearColor = clearColor;
 }
 
-void GraphicsManager::RegisterSprite(Sprite* sprite)
+void GraphicsManager::RegisterSprite(std::shared_ptr<Sprite> sprite)
 {
     this->registeredSpritesMutex.lock();
     int registeredCountBeforeAdd = (int)this->registeredSprites.size();
@@ -37,7 +37,7 @@ void GraphicsManager::RegisterSprite(Sprite* sprite)
     this->registeredSpritesMutex.unlock();
 }
 
-void GraphicsManager::UnRegisterSprite(Sprite* sprite)
+void GraphicsManager::UnRegisterSprite(std::shared_ptr<Sprite> sprite)
 {
     this->registeredSpritesMutex.lock();
     int registeredCountBeforeAdd = (int)this->registeredSprites.size();
@@ -54,6 +54,7 @@ int GraphicsManager::GetSpriteCount()
     return (int)this->registeredSprites.size();
 }
 
+//TODO: David needs to fix this
 Camera* GraphicsManager::GetCamera()
 {
     return &(this->camera);
@@ -65,6 +66,7 @@ void GraphicsManager::PrepareToAddSprites()
     this->spriteIterator = this->registeredSprites.begin();
 }
 
+//TODO: David needs to fix this
 bool GraphicsManager::AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex)
 {
     if (this->spriteIterator == this->registeredSprites.end())
@@ -72,7 +74,7 @@ bool GraphicsManager::AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuff
         this->registeredSpritesMutex.unlock();
         return false;
     }
-    Sprite* sprite = *(this->spriteIterator);
+    std::shared_ptr<Sprite> sprite = *(this->spriteIterator);
     sprite->PutGLVertexInfo(vertexBuffer); // 16 = 4 vertices * 4 coordinates
     sprite->PutGLColorInfo(colorBuffer); // 16 = 4 vertices * 4 channels
     sprite->PutGLIndexInfo(indexBuffer, dataStartIndex); // 6 = 2 triangles * 3 coordinates

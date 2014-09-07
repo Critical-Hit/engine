@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <thread>
+#include <memory>
 
 #include "GraphicsView.h"
 #include "InputView.h"

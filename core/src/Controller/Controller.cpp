@@ -25,19 +25,19 @@ static long long getTimeInMilliseconds()
 
 void Controller::gameLoop()
 {
-    GameStateManager manager;
+    std::shared_ptr<GameStateManager> manager = std::make_shared<GameStateManager>();
     
     // Wait for views to be created
     while(!this->viewsCreated)
     { }
     
-    manager.Initialize(new InitialState());
+    manager->Initialize(std::make_shared<InitialState>());
 
     while(!this->shouldExit)
     {
         long long startTime = getTimeInMilliseconds();
 
-        manager.Update();
+        manager->Update();
         
         while((getTimeInMilliseconds() - startTime) <= Controller::UPDATE_RATE)
         { }
@@ -46,15 +46,15 @@ void Controller::gameLoop()
 
 void Controller::viewLoop()
 {
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(640, 480), "Game Engine");
-    //window->setFramerateLimit(1 / this->FRAMERATE); // Do we want this instead of my version?
+    std::shared_ptr<sf::RenderWindow> window = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 480), "Game Engine");
+    window->setFramerateLimit(1 / this->FRAMERATE);
     
     GraphicsView graphicsView(window); 
     graphicsView.Initialize();
     InputView inputView(window);
     inputView.Initialize();
-    SoundView soundView;
-    soundView.Initialize();
+    std::shared_ptr<SoundView> soundView = std::make_shared<SoundView>();
+    soundView->Initialize();
     ResourceView resourceView;
     resourceView.Initialize();
 
@@ -83,7 +83,7 @@ void Controller::viewLoop()
  
         graphicsView.Update(ControllerPackage::GetActiveControllerPackage()->GetGraphicsManager());
         inputView.Update(ControllerPackage::GetActiveControllerPackage()->GetInputManager());
-        soundView.Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
+        soundView->Update(ControllerPackage::GetActiveControllerPackage()->GetSoundManager());
         resourceView.Update(ControllerPackage::GetActiveControllerPackage()->GetResourceManager());
         
         if(!this->viewsCreated)
