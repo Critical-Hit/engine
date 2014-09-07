@@ -196,7 +196,7 @@ private:
     InputManager operator=(InputManager other);
 
     // InputView which is polled for ondemand input.
-    std::shared_ptr<InputView> inputView;
+    std::weak_ptr<InputView> inputView;
     
     // Registered event handlers
     MouseMotionHandler mouseMotionHandler;
