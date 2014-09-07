@@ -20,12 +20,12 @@ void InputManager::SetView(std::shared_ptr<InputView> inputView)
 
 void InputManager::SetMouseInputMode(MouseInputMode mode)
 {
-    this->inputView->SetMouseInputMode(mode);
+    this->inputView.lock()->SetMouseInputMode(mode);
 }
 
 MouseInputMode InputManager::GetMouseInputMode()
 {
-    return this->inputView->GetMouseInputMode();
+    return this->inputView.lock()->GetMouseInputMode();
 }
 
 void InputManager::RegisterMouseMotionHandler(MouseMotionHandler handler)
@@ -85,22 +85,22 @@ bool InputManager::IsRegisteredEventHandler(KeyboardKey key)
 
 InputState InputManager::GetKeyState(KeyboardKey key)
 {
-    return inputView->GetKeyboardKeyState(key);
+    return inputView.lock()->GetKeyboardKeyState(key);
 }
 
 InputState InputManager::GetMouseButtonState(MouseButton button)
 {
-    return inputView->GetMouseButtonState(button);
+    return inputView.lock()->GetMouseButtonState(button);
 }
 
 int InputManager::GetMouseX()
 {
-    return inputView->GetMouseX();
+    return inputView.lock()->GetMouseX();
 }
 
 int InputManager::GetMouseY()
 {
-    return inputView->GetMouseY();
+    return inputView.lock()->GetMouseY();
 }
 
 void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent* event) 
