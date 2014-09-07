@@ -23,9 +23,9 @@ public:
      */
     ControllerPackage(std::shared_ptr<GraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager);
     
-	/**
-	 * Destructor
-	 */
+    /**
+     * Destructor
+     */
 	~ControllerPackage();
 
     /**
@@ -64,7 +64,7 @@ private:
     ControllerPackage(ControllerPackage const &other);
     ControllerPackage operator=(ControllerPackage other);
 
-	// The managers to be provided to the game manager
+    // The managers to be provided to the game manager
     std::shared_ptr<GraphicsManager> graphicsManager;
     std::shared_ptr<InputManager> inputManager;
     std::shared_ptr<SoundManager> soundManager;

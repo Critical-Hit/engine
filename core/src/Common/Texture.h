@@ -7,23 +7,22 @@
 class Texture
 {
 public:
-	Texture(int textureID, const char *fileName);
-	~Texture();
-    
+    Texture(int textureID, const char *fileName);
+    ~Texture();
+
     Texture(char* filePath);
-    
+
     unsigned int GetTextureUnit();
     int GetTextureID();
 
 
 private:
     Texture();
-	Texture operator=(Texture& other);
-	Texture(Texture& other);
-    
+    Texture operator=(Texture& other);
+    Texture(Texture& other);
+
     unsigned int textureUnit;
     int textureID;
 };
-
 
 #endif
