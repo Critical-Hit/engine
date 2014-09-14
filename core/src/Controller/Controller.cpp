@@ -47,7 +47,7 @@ void Controller::gameLoop()
 void Controller::viewLoop()
 {
     sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(640, 480), "Game Engine");
-    //window->setFramerateLimit(1 / this->FRAMERATE); // Do we want this instead of my version?
+    window->setFramerateLimit(1 / this->FRAMERATE);
     
     GraphicsView graphicsView(window); 
     graphicsView.Initialize();

@@ -10,7 +10,7 @@
 class SoundManager;
 
 /**
- * Provides a full set of logic for achieving sound effects.
+ * Provides a full set of logic for achieving sound effects. Basically just wraps SFML's audio functionality.
  */
 class SoundView
 {

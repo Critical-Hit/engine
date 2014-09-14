@@ -18,23 +18,23 @@ ControllerPackage::~ControllerPackage()
         delete this->resourceManager;
 }
 
-GraphicsManager* const ControllerPackage::GetGraphicsManager()
+GraphicsManager* ControllerPackage::GetGraphicsManager()
 {
 	return this->graphicsManager;
 }
 
 
-InputManager* const ControllerPackage::GetInputManager()
+InputManager* ControllerPackage::GetInputManager()
 {
 	return this->inputManager;
 }
 
-SoundManager* const ControllerPackage::GetSoundManager()
+SoundManager* ControllerPackage::GetSoundManager()
 {
 	return this->soundManager;
 }
 
-ResourceManager* const ControllerPackage::GetResourceManager()
+ResourceManager* ControllerPackage::GetResourceManager()
 {
     return this->resourceManager;
 }

@@ -8,6 +8,7 @@
 
 class InputManager;
 class SoundManager;
+
 /**
  * This class is used to gather together access to the various managers
  * used to control the engine's view, and is used by the model to effect
@@ -19,7 +20,7 @@ public:
     /**
      * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager);
+    ControllerPackage(GraphicsManager* graphicsManager, InputManager* inputManager, SoundManager* soundManager);
     
 	/**
 	 * Destructor
@@ -29,27 +30,22 @@ public:
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
-    GraphicsManager* const GetGraphicsManager();
+    GraphicsManager* GetGraphicsManager();
     
     /**
      * Returns a pointer to the game's InputManager.
      */
-    InputManager* const GetInputManager();
+    InputManager* GetInputManager();
 
     /**
      * Returns a pointer to the game's SoundManager.
      */
-    SoundManager* const GetSoundManager();
+    SoundManager* GetSoundManager();
     
     /**
      * Returns a pointer to the game's ResourceManager.
      */
-    ResourceManager* const GetResourceManager();
-
-	/**
-	 * Returns a clone of this ControllerPackage
-	 */
-	void CopyFrom(ControllerPackage* copy);
+    ResourceManager* GetResourceManager();
 
     /**
      * Activates this ControllerPackage so it will be used by
