@@ -101,7 +101,6 @@ public:
      * core graphics system, and thus it shouldn't be needed by users.
      */
     void PutGLVertexInfo(float* vertexBuffer);
-    //TODO: David needs to fix this
 
     /**
      * Puts OpenGL color information into the given array.
@@ -113,7 +112,6 @@ public:
      * core graphics system, and thus it shouldn't be needed by users.
      */
     void PutGLColorInfo(float* colorBuffer);
-    //TODO: David needs to fix this
 
     /**
      * Puts OpenGL index information into the given array.  It 
@@ -125,7 +123,6 @@ public:
      * core graphics system, and thus it shouldn't be needed by users.
      */
     void PutGLIndexInfo(unsigned short* indexBuffer, unsigned short dataStartIndex);
-    //TODO: David needs to fix this
 
 protected:
     float x;

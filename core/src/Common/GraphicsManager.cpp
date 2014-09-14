@@ -5,9 +5,9 @@
 #include "Color.h"
 #include "Sprite.h"
 
-GraphicsManager::GraphicsManager() : clearColor(0.0f, 0.0f, 0.0f, 1.0f), camera()
+GraphicsManager::GraphicsManager() : clearColor(0.0f, 0.0f, 0.0f, 1.0f)
 {
-    
+    this->camera = std::make_shared<Camera>();
 }
 
 GraphicsManager::~GraphicsManager()
@@ -54,10 +54,9 @@ int GraphicsManager::GetSpriteCount()
     return (int)this->registeredSprites.size();
 }
 
-//TODO: David needs to fix this
-Camera* GraphicsManager::GetCamera()
+std::shared_ptr<Camera> GraphicsManager::GetCamera()
 {
-    return &(this->camera);
+    return this->camera;
 }
 
 void GraphicsManager::PrepareToAddSprites()
@@ -66,7 +65,6 @@ void GraphicsManager::PrepareToAddSprites()
     this->spriteIterator = this->registeredSprites.begin();
 }
 
-//TODO: David needs to fix this
 bool GraphicsManager::AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex)
 {
     if (this->spriteIterator == this->registeredSprites.end())

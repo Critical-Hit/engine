@@ -5,7 +5,6 @@ Texture::Texture(int textureID, const char *fileName)
     this->textureID = textureID;
     this->textureUnit =  SOIL_load_OGL_texture
     (
-     //"../../meeseeks.png",
      fileName,
      SOIL_LOAD_AUTO,
      SOIL_CREATE_NEW_ID,

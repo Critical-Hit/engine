@@ -15,9 +15,10 @@ public:
      * @see MouseButtonEvent::MouseButtonEvent(int, int, MouseButton)
      */
     MouseButtonReleaseEvent(int x, int y, MouseButton button);
+
+    MouseButtonReleaseEvent(MouseButtonReleaseEvent const &other);
 private:
     // Private constructors to disallow access.
-    MouseButtonReleaseEvent(MouseButtonReleaseEvent const &other);
     MouseButtonReleaseEvent operator=(MouseButtonReleaseEvent other);
 };
 

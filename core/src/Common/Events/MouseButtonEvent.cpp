@@ -1,11 +1,12 @@
 #include "MouseButtonEvent.h"
 
-MouseButtonEvent::MouseButtonEvent(int absoluteX, int absoluteY, MouseButton button) : MouseEvent(absoluteX, absoluteY)
+MouseButtonEvent::MouseButtonEvent(int x, int y, MouseButton button) : MouseEvent(x, y), button(button)
 {
-    this->button = button;
+
 }
 
-MouseButton MouseButtonEvent::GetMouseButton()
+MouseButtonEvent::MouseButtonEvent(MouseButtonEvent const &other) : MouseEvent(other.x, other.y), button(other.button)
 {
-    return this->button;
+
 }
+

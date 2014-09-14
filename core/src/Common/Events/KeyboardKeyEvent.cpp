@@ -1,7 +1,12 @@
 #include "KeyboardKeyEvent.h"
 #include "KeyboardKey.h"
 
-KeyboardKey KeyboardKeyEvent::GetKeyboardKey()
+KeyboardKeyEvent::KeyboardKeyEvent(KeyboardKey key) : key(key) 
 {
-    return *(this->key);
 }
+
+KeyboardKeyEvent::KeyboardKeyEvent(KeyboardKeyEvent const &other) : key(other.key)
+{
+
+}
+

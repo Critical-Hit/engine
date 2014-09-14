@@ -33,15 +33,15 @@ unsigned int ResourceManager::GetTextureUnitFromTextureID(int textureID)
 {
     std::shared_ptr<Texture> tempTexture;
     unsigned int i;
-    for(i = 0; i < this->textureList.size(); i++)
+    for (i = 0; i < this->textureList.size(); i++)
     {
         tempTexture = this->textureList[i];
-        
-        if(tempTexture->GetTextureID() == textureID)
+
+        if (tempTexture->GetTextureID() == textureID)
         {
             return tempTexture->GetTextureUnit();
         }
     }
-    
+
     return 0;
 }

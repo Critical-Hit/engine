@@ -16,7 +16,7 @@
 #include "InitialState.h"
 #include "ControllerPackage.h"
 
-class Controller
+class Controller : public enable_shared_from_this
 {
 public:
     /**
@@ -63,6 +63,16 @@ private:
      * Boolean that represents whether the views have been created or not.
      */
     volatile bool viewsCreated;
+
+    void updateViews(GraphicsView* graphicsView, InputView* inputView, std::shared_ptr<SoundView>* soundView, ResourceView* resourceView);
+
+    /**
+     * Handle all pending SFML window events for the given window.
+     * READ SFML DOCUMENTATION ON WINDOW EVENTS BEFORE MODIFYING THIS CODE!!
+     *
+     * @param window SFML window to process events
+     */
+    void handleEvents(std::shared_ptr<sf::RenderWindow> window, InputView* view);
 };
 
 #endif

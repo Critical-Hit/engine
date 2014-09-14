@@ -1,17 +1,11 @@
 #include "MouseEvent.h"
 
-MouseEvent::MouseEvent (int x, int y)
+MouseEvent::MouseEvent (int x, int y) : x(x), y(y)
 {
-    this->x = x;
-    this->y = y;
+
 }
 
-int MouseEvent::GetX()
+MouseEvent::MouseEvent(MouseEvent const &other) : MouseEvent(other.x, other.y)
 {
-    return this->x;
-}
 
-int MouseEvent::GetY()
-{
-    return this->y;
 }

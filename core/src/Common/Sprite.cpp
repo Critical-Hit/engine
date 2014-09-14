@@ -84,7 +84,6 @@ void Sprite::validateDimensions()
     }
 }
 
-//TODO: David needs to fix this
 void Sprite::PutGLVertexInfo(float* vertexBuffer)
 {
     float left = x;
@@ -113,7 +112,6 @@ void Sprite::PutGLVertexInfo(float* vertexBuffer)
     vertexBuffer[15] = 1.0f;
 }
 
-//TODO: David needs to fix this
 void Sprite::PutGLColorInfo(float* colorBuffer)
 {
     float red = this->color.red;
@@ -142,7 +140,6 @@ void Sprite::PutGLColorInfo(float* colorBuffer)
     colorBuffer[15] = alpha;
 }
 
-//TODO: David needs to fix this
 void Sprite::PutGLIndexInfo(unsigned short* indexBuffer, unsigned short dataStartIndex)
 {
     // TopRight Triangle
