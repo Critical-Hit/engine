@@ -3,7 +3,6 @@
 void GameState::Initialize(GameStateManager* manager)
 {
     this->manager = manager;
-    //ResourceManager::Initialize();
     this->controllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), SoundManager::GetInstance());
     this->graphicsManager = this->controllerPackage->GetGraphicsManager();
     this->inputManager = this->controllerPackage->GetInputManager();
