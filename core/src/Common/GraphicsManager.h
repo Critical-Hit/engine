@@ -74,7 +74,7 @@ public:
     /**
      * Obtains a pointer to the camera.
      */
-    Camera* GetCamera();
+    std::shared_ptr<Camera> GetCamera();
 
     /**
      * Prepares to add all sprites with the AddSpriteToVCIBuffer method
@@ -93,7 +93,6 @@ public:
      * each sprite (16 * GetSpriteCount()).
      */
     bool AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
-    //TODO: Daved needs to fix this
 
 private:
     // Private constructors to disallow access.
@@ -101,7 +100,7 @@ private:
     GraphicsManager operator=(GraphicsManager other);
 
     Color clearColor;
-    Camera camera;
+    std::shared_ptr<Camera> camera;
     std::set<std::shared_ptr<Sprite>> registeredSprites;
     std::mutex registeredSpritesMutex;
     std::set<std::shared_ptr<Sprite>>::iterator spriteIterator;

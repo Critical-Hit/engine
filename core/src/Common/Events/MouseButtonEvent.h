@@ -19,16 +19,11 @@ public:
      */
     MouseButtonEvent(int absoluteX, int absoluteY, MouseButton button);
     
-    /**
-     * Get the mouse button which caused the event.
-     * @return Mouse button which caused the event
-     */
-    MouseButton GetMouseButton();
-protected:
-    MouseButton button;
+    MouseButtonEvent(MouseButtonEvent const &other);
+    
+    const MouseButton button;
 private:
     // Private constructors to disallow access.
-    MouseButtonEvent(MouseButtonEvent const &other);
     MouseButtonEvent operator=(MouseButtonEvent other);
 };
 

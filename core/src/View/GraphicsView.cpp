@@ -28,8 +28,7 @@ void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
     // Prepare the matrices
     glLoadIdentity();
 
-    //TODO: David needs to fix this
-    Camera* camera = graphicsManager->GetCamera();
+    std::shared_ptr<Camera> camera = graphicsManager->GetCamera();
     float left = camera->GetLeft();
     float right = camera->GetRight();
     float bottom = camera->GetBottom();

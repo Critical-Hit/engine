@@ -25,11 +25,14 @@ enum class MouseInputMode
 class InputManager
 {
 public:
-    typedef std::function<void (MouseEvent*)> MouseMotionHandler;
-    typedef std::function<void (MouseButtonPressEvent*)> MouseButtonPressHandler;
-    typedef std::function<void (MouseButtonReleaseEvent*)> MouseButtonReleaseHandler;
-    typedef std::function<void (KeyboardKeyPressEvent*)> KeyboardKeyPressHandler;
-    typedef std::function<void (KeyboardKeyReleaseEvent*)> KeyboardKeyReleaseHandler;
+    // Use traditional pointers here because C++ does not support shared function pointers
+    // How does this work if the object that owns the function is destroyed?
+    typedef std::function<void (MouseEvent)> MouseMotionHandler;
+    typedef std::function<void (MouseButtonPressEvent)> MouseButtonPressHandler;
+    typedef std::function<void (MouseButtonReleaseEvent)> MouseButtonReleaseHandler;
+    typedef std::function<void (KeyboardKeyPressEvent)> KeyboardKeyPressHandler;
+    typedef std::function<void (KeyboardKeyReleaseEvent)> KeyboardKeyReleaseHandler;
+
     /**
      * Default constructor that creates a new instance of a InputManager.
      */
@@ -164,31 +167,31 @@ public:
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnKeyboardKeyPress(KeyboardKeyPressEvent* event);
+    void OnKeyboardKeyPress(KeyboardKeyPressEvent event);
     
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event);
+    void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnMouseInput(MouseEvent* event);
+    void OnMouseInput(MouseEvent event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnMouseButtonPress(MouseButtonPressEvent* event);
+    void OnMouseButtonPress(MouseButtonPressEvent event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnMouseButtonRelease(MouseButtonReleaseEvent* event);
+    void OnMouseButtonRelease(MouseButtonReleaseEvent event);
     
 private:
     // Private constructors to disallow access.

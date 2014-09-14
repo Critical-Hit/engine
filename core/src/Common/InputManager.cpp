@@ -103,23 +103,23 @@ int InputManager::GetMouseY()
     return inputView.lock()->GetMouseY();
 }
 
-void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent* event) 
+void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent event) 
 {
-    if (this->keyboardKeyPressHandlers[event->GetKeyboardKey()])
+    if (this->keyboardKeyPressHandlers[event.key])
     {
-        this->keyboardKeyPressHandlers[event->GetKeyboardKey()](event);
+        this->keyboardKeyPressHandlers[event.key](event);
     }
 }
 
-void InputManager::OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event) 
+void InputManager::OnKeyboardKeyRelease(KeyboardKeyReleaseEvent event) 
 {
-    if (this->keyboardKeyReleaseHandlers[event->GetKeyboardKey()])
+    if (this->keyboardKeyReleaseHandlers[event.key])
     {
-        this->keyboardKeyReleaseHandlers[event->GetKeyboardKey()](event);
+        this->keyboardKeyReleaseHandlers[event.key](event);
     }
 }
 
-void InputManager::OnMouseInput(MouseEvent* event)
+void InputManager::OnMouseInput(MouseEvent event)
 {
     if (this->mouseMotionHandler)
     {
@@ -127,18 +127,18 @@ void InputManager::OnMouseInput(MouseEvent* event)
     }
 }
 
-void InputManager::OnMouseButtonPress(MouseButtonPressEvent* event)
+void InputManager::OnMouseButtonPress(MouseButtonPressEvent event)
 {
-    if (this->mouseButtonPressHandlers[event->GetMouseButton()])
+    if (this->mouseButtonPressHandlers[event.button])
     {
-        this->mouseButtonPressHandlers[event->GetMouseButton()](event);
+        this->mouseButtonPressHandlers[event.button](event);
     }
 }
 
-void InputManager::OnMouseButtonRelease(MouseButtonReleaseEvent* event)
+void InputManager::OnMouseButtonRelease(MouseButtonReleaseEvent event)
 {
-    if (this->mouseButtonReleaseHandlers[event->GetMouseButton()])
+    if (this->mouseButtonReleaseHandlers[event.button])
     {
-        this->mouseButtonReleaseHandlers[event->GetMouseButton()](event);
+        this->mouseButtonReleaseHandlers[event.button](event);
     }
 }

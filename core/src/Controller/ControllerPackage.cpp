@@ -1,16 +1,18 @@
 #include "ControllerPackage.h"
 
-std::shared_ptr<ControllerPackage> ControllerPackage::activeControllerPackage = nullptr;
+std::weak_ptr<ControllerPackage> ControllerPackage::activeControllerPackage;
 
 ControllerPackage::ControllerPackage(std::shared_ptr<GraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager)
 : graphicsManager(graphicsManager),
 inputManager(inputManager),
 soundManager(soundManager)
 {
+
 }
 
 ControllerPackage::~ControllerPackage()
 {
+
 }
 
 std::shared_ptr<GraphicsManager> ControllerPackage::GetGraphicsManager()
@@ -38,7 +40,7 @@ void ControllerPackage::Activate()
     ControllerPackage::activeControllerPackage = this->shared_from_this();
 }
 
-std::shared_ptr<ControllerPackage> ControllerPackage::GetActiveControllerPackage()
+std::weak_ptr<ControllerPackage> ControllerPackage::GetActiveControllerPackage()
 {
     return ControllerPackage::activeControllerPackage;
 }

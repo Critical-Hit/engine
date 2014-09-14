@@ -15,7 +15,7 @@ class SoundManager;
  * used to control the engine's view, and is used by the model to effect
  * graphics, get input, and play sounds.
  */
-class ControllerPackage : public std::enable_shared_from_this<ControllerPackage>
+class ControllerPackage 
 {
 public:
     /**
@@ -56,7 +56,7 @@ public:
     /**
      * Gets the active ControllerPackage
      */
-    static std::shared_ptr<ControllerPackage> GetActiveControllerPackage();
+    static std::weak_ptr<ControllerPackage> GetActiveControllerPackage();
     
 private:
     // Private constructors to disallow access.
@@ -69,7 +69,7 @@ private:
     std::shared_ptr<SoundManager> soundManager;
     std::shared_ptr<ResourceManager> resourceManager;
 
-    static std::shared_ptr<ControllerPackage> activeControllerPackage;
+    static std::weak_ptr<ControllerPackage> activeControllerPackage;
 };
 
 #endif

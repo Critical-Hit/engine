@@ -30,15 +30,15 @@ public:
     /**
      * Loads a texture with the given fileName and textureID
      *
-     * @PARAM textureID
-     * @PARAM fileName
+     * @param textureID
+     * @param fileName
      */
     void LoadTexture(int textureID, const char* fileName);
     
     /**
      * Gets the TextureUnit from the TextureID
      *
-     * @PARAM textureID
+     * @param textureID
      */
     unsigned int GetTextureUnitFromTextureID(int textureID);
 
@@ -50,8 +50,9 @@ private:
      * The private instance of the ResourceManager. 
      */
     static std::shared_ptr<ResourceManager> instance;
+
     /**
-     * List of Texutures
+     * List of textures
      */
     vector<std::shared_ptr<Texture>> textureList;
 };
