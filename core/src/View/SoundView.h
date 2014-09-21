@@ -85,6 +85,12 @@ private:
      * The map from ID to Sound objects
      */
     std::unordered_map<long, std::shared_ptr<sf::Sound>> soundMap;
+
+
+    /**
+     * Vector of sound buffer references
+     */
+    std::unordered_map<long, std::shared_ptr<sf::SoundBuffer>> soundBuffers;
 };
 
 #endif

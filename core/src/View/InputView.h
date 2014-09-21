@@ -28,7 +28,8 @@ public:
     
     /**
      * Updates the InputView.
-     * @param inputManager InputManager which will receive update information. This InputManager will also receive all input events until the next time this function is called.
+     * @param inputManager InputManager which will receive update information. 
+     * This InputManager will also receive all input events until the next time this function is called.
      */
     void Update(std::shared_ptr<InputManager> inputManager);
 
@@ -180,28 +181,28 @@ private:
      * @param key SFML key code
      * @return corresponding native engine code
      */
-    KeyboardKey nativeKeyboardKey(sf::Keyboard::Key key);
+    static KeyboardKey nativeKeyboardKey(sf::Keyboard::Key key);
 
     /**
      * Utility method to convert native engine key codes to SFML key codes.
      * @param keyCode native engine key code
      * @return corresponding SFML key code
      */
-    sf::Keyboard::Key sfmlKeyboardKey(KeyboardKey key);
+    static sf::Keyboard::Key sfmlKeyboardKey(KeyboardKey key);
 
     /**
      * Utility method to convert SFML mouse button codes to native engine mouse button codes.
      * @param button SFML mouse button code
      * @return corresponding native engine mouse button code
      */
-    MouseButton nativeMouseButton(sf::Mouse::Button button);
+    static MouseButton nativeMouseButton(sf::Mouse::Button button);
 
     /**
      * Utility method to convert native engine mouse button codes to SFML key codes.
      * @param keyCode native engine mouse button code
      * @return corresponding SFML mouse button code
      */
-    sf::Mouse::Button sfmlMouseButton(MouseButton button);
+    static sf::Mouse::Button sfmlMouseButton(MouseButton button);
 };
 
 #endif

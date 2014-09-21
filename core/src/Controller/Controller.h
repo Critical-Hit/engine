@@ -11,12 +11,11 @@
 #include "GraphicsView.h"
 #include "InputView.h"
 #include "SoundView.h"
-#include "ResourceView.h"
 #include "GameStateManager.h"
 #include "InitialState.h"
 #include "ControllerPackage.h"
 
-class Controller : public enable_shared_from_this
+class Controller : public enable_shared_from_this<Controller>
 {
 public:
     /**
@@ -64,7 +63,7 @@ private:
      */
     volatile bool viewsCreated;
 
-    void updateViews(GraphicsView* graphicsView, InputView* inputView, std::shared_ptr<SoundView>* soundView, ResourceView* resourceView);
+    void updateViews(GraphicsView* graphicsView, InputView* inputView, std::shared_ptr<SoundView>* soundView);
 
     /**
      * Handle all pending SFML window events for the given window.

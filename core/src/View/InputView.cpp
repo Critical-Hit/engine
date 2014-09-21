@@ -622,8 +622,8 @@ sf::Keyboard::Key InputView::sfmlKeyboardKey(KeyboardKey key)
         case KeyboardKey::KEYBOARD_RIGHT_SUPER:
             return sf::Keyboard::Key::RSystem;
         default:
-            //undefined behavior
-            assert(false);
+            // undefined behavior
+            return sf::Keyboard::Key::Unknown;
     }
 }
 

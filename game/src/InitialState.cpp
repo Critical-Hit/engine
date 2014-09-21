@@ -11,6 +11,7 @@ void InitialState::Initialize(std::shared_ptr<GameStateManager> manager)
 {
     GameState::Initialize(manager);
 
+    // Magic demo stuff
     this->sign = -1;
     this->increment = 0.016667f;
     this->graphicsManager->RegisterSprite(std::make_shared<Sprite>(-0.5, 0.5f, 0.5f, 0.5f, Color(1.0f, 0.0f, 0.0f, 1.0f)));
@@ -26,6 +27,7 @@ void InitialState::Initialize(std::shared_ptr<GameStateManager> manager)
 
 void InitialState::Update()
 {
+    // More magic demo stuff
     float clearColorValue = (graphicsManager->GetClearColor()).blue;
     // For now just alternate between a 0 and 1 color value to flash a color.
     if(clearColorValue <= 0.0f || clearColorValue >= 1.0f)

@@ -15,7 +15,7 @@ class SoundManager;
  * used to control the engine's view, and is used by the model to effect
  * graphics, get input, and play sounds.
  */
-class ControllerPackage 
+class ControllerPackage : public enable_shared_from_this<ControllerPackage>
 {
 public:
     /**
