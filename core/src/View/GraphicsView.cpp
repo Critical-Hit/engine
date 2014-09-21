@@ -2,8 +2,9 @@
 #include <string>
 #include "GraphicsView.h"
 #include "Sprite.h"
+#include "SFML/OpenGL.hpp"
 
-GraphicsView::GraphicsView(sf::Window* window)
+GraphicsView::GraphicsView(std::shared_ptr<sf::Window> window)
 {
     this->window = window;
 }
@@ -17,8 +18,16 @@ void GraphicsView::Initialize()
 
 }
 
-void GraphicsView::Update(GraphicsManager* graphicsManager)
+void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
 {
+    // Allocate buffers
+    float* vertexBuffer;
+    float* colorBuffer;
+    unsigned short* indexBuffer;
+    vertexBuffer = new float[4 * 4]; // 4 vertices; 4 coordinates per vertex
+    colorBuffer = new float[4 * 4]; // 4 vertices; 4 channels per vertex
+    indexBuffer = new unsigned short[2 * 3]; // 2 triangles; 3 indices per triangle
+    
     // Clear the screen
     Color clearColor = graphicsManager->GetClearColor();
     glClearColor(clearColor.red, clearColor.green, clearColor.blue, clearColor.alpha);
@@ -27,7 +36,7 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     
     // Prepare the matrices
     glLoadIdentity();
-    Camera* camera = graphicsManager->GetCamera();
+    std::shared_ptr<Camera> camera = graphicsManager->GetCamera();
     float left = camera->GetLeft();
     float right = camera->GetRight();
     float bottom = camera->GetBottom();
@@ -35,18 +44,12 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     glOrtho(left, right, bottom, top, -1.0f, 1000.0f);
     GraphicsView::CheckOpenGLError("after preparing matrices");
     
-    float* vertexBuffer;
-    float* colorBuffer;
-    unsigned short* indexBuffer;
-    vertexBuffer = new float[4 * 4]; // 4 vertices; 4 coordinates per vertex
-    colorBuffer = new float[4 * 4]; // 4 vertieces; 4 channels per vertex
-    indexBuffer = new unsigned short[2 * 3]; // 2 triangles; 3 indeces per triangle
-    
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(4, GL_FLOAT, 0, vertexBuffer);
     glEnableClientState(GL_COLOR_ARRAY);
     glColorPointer(4, GL_FLOAT, 0, colorBuffer);
     
+    // Draw sprites
     graphicsManager->PrepareToAddSprites();
     while(graphicsManager->AddSpriteToVCIBuffer(vertexBuffer, colorBuffer, indexBuffer, 0))
     {
@@ -55,8 +58,13 @@ void GraphicsView::Update(GraphicsManager* graphicsManager)
     GraphicsView::CheckOpenGLError("after drawing sprites");
     
     // Swap the buffers
-	this->window->display();
+    this->window->display();
     GraphicsView::CheckOpenGLError("after swapping buffers");
+    
+    // release buffer memory
+    delete[] vertexBuffer;
+    delete[] colorBuffer;
+    delete[] indexBuffer;
     
     GraphicsView::CheckOpenGLError("at end of Update()");
 }

@@ -2,6 +2,7 @@
 #define Game_InitialState_h
 
 #include "GameState.h"
+#include <memory>
 
 /**
  * The entry point used the GameState system. It should be modified to house
@@ -18,7 +19,7 @@ public:
     /**
      * Initializes the State.
      */
-    virtual void Initialize(GameStateManager* manager);
+    virtual void Initialize(std::shared_ptr<GameStateManager> manager);
     
     /**
      * Updates this State.
@@ -46,7 +47,7 @@ private:
     InitialState operator=(InitialState other);
 
     /**
-     * Test variables for the initial state.
+     * Variables for the default demo.
      */
     int sign;
     float increment;

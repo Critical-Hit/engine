@@ -15,10 +15,11 @@ public:
      * Event constructor.
      * @param key Keyboard key which caused the event.
      */
-    KeyboardKeyReleaseEvent(KeyboardKey* key);
+    KeyboardKeyReleaseEvent(KeyboardKey key);
+    
+    KeyboardKeyReleaseEvent(KeyboardKeyReleaseEvent const &other);
 private:
     // Private constructors to disallow access.
-    KeyboardKeyReleaseEvent(KeyboardKeyReleaseEvent const &other);
     KeyboardKeyReleaseEvent operator=(KeyboardKeyReleaseEvent other);
 };
 

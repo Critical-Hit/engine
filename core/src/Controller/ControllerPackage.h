@@ -1,6 +1,8 @@
 #ifndef Core_ControllerPackage_h
 #define Core_ControllerPackage_h
 
+#include <memory>
+
 #include "GraphicsManager.h"
 #include "InputManager.h"
 #include "SoundManager.h"
@@ -14,38 +16,37 @@ class SoundManager;
  * used to control the engine's view, and is used by the model to effect
  * graphics, get input, and play sounds.
  */
-class ControllerPackage
+class ControllerPackage : public enable_shared_from_this<ControllerPackage>
 {
 public:
     /**
      * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(GraphicsManager* graphicsManager, InputManager* inputManager, SoundManager* soundManager);
+    ControllerPackage(std::shared_ptr<GraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager);
     
-	/**
-	 * Destructor
-	 */
-	~ControllerPackage();
-
+    /**
+     * Destructor
+     */
+    ~ControllerPackage();
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
-    GraphicsManager* GetGraphicsManager();
+    std::shared_ptr<GraphicsManager> GetGraphicsManager();
     
     /**
      * Returns a pointer to the game's InputManager.
      */
-    InputManager* GetInputManager();
+    std::shared_ptr<InputManager> GetInputManager();
 
     /**
      * Returns a pointer to the game's SoundManager.
      */
-    SoundManager* GetSoundManager();
+    std::shared_ptr<SoundManager> GetSoundManager();
     
     /**
      * Returns a pointer to the game's ResourceManager.
      */
-    ResourceManager* GetResourceManager();
+    std::shared_ptr<ResourceManager> GetResourceManager();
 
     /**
      * Activates this ControllerPackage so it will be used by
@@ -56,20 +57,20 @@ public:
     /**
      * Gets the active ControllerPackage
      */
-    static ControllerPackage* GetActiveControllerPackage();
+    static std::weak_ptr<ControllerPackage> GetActiveControllerPackage();
     
 private:
     // Private constructors to disallow access.
     ControllerPackage(ControllerPackage const &other);
     ControllerPackage operator=(ControllerPackage other);
 
-	// The managers to be provided to the game manager
-	GraphicsManager* graphicsManager;
-	InputManager* inputManager;
-    SoundManager* soundManager;
-    ResourceManager* resourceManager;
+    // The managers to be provided to the game manager
+    std::shared_ptr<GraphicsManager> graphicsManager;
+    std::shared_ptr<InputManager> inputManager;
+    std::shared_ptr<SoundManager> soundManager;
+    std::shared_ptr<ResourceManager> resourceManager;
 
-    static ControllerPackage* activeControllerPackage;
+    static std::weak_ptr<ControllerPackage> activeControllerPackage;
 };
 
 #endif

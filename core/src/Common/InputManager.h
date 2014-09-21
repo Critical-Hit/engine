@@ -5,6 +5,7 @@
 #include "MouseButton.h"
 #include <map>
 #include <functional>
+#include <memory>
 
 class InputView;
 class KeyboardKeyPressEvent;
@@ -24,11 +25,14 @@ enum class MouseInputMode
 class InputManager
 {
 public:
-    typedef std::function<void (MouseEvent*)> MouseMotionHandler;
-    typedef std::function<void (MouseButtonPressEvent*)> MouseButtonPressHandler;
-    typedef std::function<void (MouseButtonReleaseEvent*)> MouseButtonReleaseHandler;
-    typedef std::function<void (KeyboardKeyPressEvent*)> KeyboardKeyPressHandler;
-    typedef std::function<void (KeyboardKeyReleaseEvent*)> KeyboardKeyReleaseHandler;
+    // Use traditional pointers here because C++ does not support shared function pointers
+    // How does this work if the object that owns the function is destroyed?
+    typedef std::function<void (MouseEvent)> MouseMotionHandler;
+    typedef std::function<void (MouseButtonPressEvent)> MouseButtonPressHandler;
+    typedef std::function<void (MouseButtonReleaseEvent)> MouseButtonReleaseHandler;
+    typedef std::function<void (KeyboardKeyPressEvent)> KeyboardKeyPressHandler;
+    typedef std::function<void (KeyboardKeyReleaseEvent)> KeyboardKeyReleaseHandler;
+
     /**
      * Default constructor that creates a new instance of a InputManager.
      */
@@ -43,7 +47,7 @@ public:
      * Only one InputView may be associated with an InputManager at a time.
      * @param inputView InputView to associated with this InputManager
      */
-    void SetView(InputView* inputView);
+    void SetView(std::shared_ptr<InputView> inputView);
 
     /**
      * Set the mouse cursor behavior.
@@ -163,45 +167,39 @@ public:
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnKeyboardKeyPress(KeyboardKeyPressEvent* event);
+    void OnKeyboardKeyPress(KeyboardKeyPressEvent event);
     
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent* event);
+    void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnMouseInput(MouseEvent* event);
+    void OnMouseInput(MouseEvent event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnMouseButtonPress(MouseButtonPressEvent* event);
+    void OnMouseButtonPress(MouseButtonPressEvent event);
 
     /**
      * Distributes event to registered event handlers. Should be called only by InputView.
      * @param event event to distribute.
      */
-    void OnMouseButtonRelease(MouseButtonReleaseEvent* event);
+    void OnMouseButtonRelease(MouseButtonReleaseEvent event);
     
-    /**
-    * Sets all variables of this instance to match the other instance.
-    * @param other InputManager to copy attributes from.
-    */
-    void CopyFrom(InputManager* other);
-
 private:
     // Private constructors to disallow access.
     InputManager(InputManager const &other);
     InputManager operator=(InputManager other);
 
     // InputView which is polled for ondemand input.
-    InputView* inputView;
+    std::weak_ptr<InputView> inputView;
     
     // Registered event handlers
     MouseMotionHandler mouseMotionHandler;

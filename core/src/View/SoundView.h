@@ -6,13 +6,14 @@
 #include <unordered_map>
 #include <SFML/Audio.hpp>
 #include <string>
+#include <memory>
 
 class SoundManager;
 
 /**
  * Provides a full set of logic for achieving sound effects. Basically just wraps SFML's audio functionality.
  */
-class SoundView
+class SoundView : public std::enable_shared_from_this<SoundView>
 {
 public:
     /**
@@ -28,7 +29,7 @@ public:
     /**
      * Updates this SoundView with the given SoundManager
      */
-    void Update(SoundManager* soundManager);
+    void Update(std::shared_ptr<SoundManager> soundManager);
     
     /**
      * Loads and stores a sound from the given filename and the given ID
@@ -78,12 +79,18 @@ private:
     /**
      * The map from ID to Music objects
      */
-    std::unordered_map<long, sf::Music*> musicMap;
+    std::unordered_map<long, std::shared_ptr<sf::Music>> musicMap;
     
     /**
      * The map from ID to Sound objects
      */
-    std::unordered_map<long, sf::Sound*> soundMap;
+    std::unordered_map<long, std::shared_ptr<sf::Sound>> soundMap;
+
+
+    /**
+     * Vector of sound buffer references
+     */
+    std::unordered_map<long, std::shared_ptr<sf::SoundBuffer>> soundBuffers;
 };
 
 #endif
