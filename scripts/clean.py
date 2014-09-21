@@ -13,9 +13,11 @@ def remove_file(filename):
     for f in glob.glob(filename):
         os.remove(f)
 
+
 def remove_folder(folder):
     for f in glob.glob(folder):
         shutil.rmtree(f)
+
 
 def main():
     print("Cleaning Directory...")

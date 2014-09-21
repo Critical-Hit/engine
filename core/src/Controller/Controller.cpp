@@ -55,15 +55,13 @@ void Controller::viewLoop()
     inputView.Initialize();
     std::shared_ptr<SoundView> soundView = std::make_shared<SoundView>();
     soundView->Initialize();
-    ResourceView resourceView;
-    resourceView.Initialize();
 
     // Actual loop
     while(!this->shouldExit)
     {
         long long startTime = getTimeInMilliseconds();
 
-        this->updateViews(&graphicsView, &inputView, &soundView, &resourceView);
+        this->updateViews(&graphicsView, &inputView, &soundView);
         this->handleEvents(window, &inputView);
 
         if(!this->viewsCreated)
@@ -76,7 +74,7 @@ void Controller::viewLoop()
     }
 }
 
-void Controller::updateViews(GraphicsView* graphicsView, InputView* inputView, std::shared_ptr<SoundView>* soundView, ResourceView* resourceView)
+void Controller::updateViews(GraphicsView* graphicsView, InputView* inputView, std::shared_ptr<SoundView>* soundView)
 {
     std::weak_ptr<ControllerPackage> weakControllerPackage = ControllerPackage::GetActiveControllerPackage();
     std::shared_ptr<ControllerPackage> controllerPackage = weakControllerPackage.lock();
@@ -89,7 +87,6 @@ void Controller::updateViews(GraphicsView* graphicsView, InputView* inputView, s
     graphicsView->Update(controllerPackage->GetGraphicsManager());
     inputView->Update(controllerPackage->GetInputManager());
     (*soundView)->Update(controllerPackage->GetSoundManager());
-    resourceView->Update(controllerPackage->GetResourceManager());
 }
 
 void Controller::handleEvents(std::shared_ptr<sf::RenderWindow> window, InputView* inputView) {

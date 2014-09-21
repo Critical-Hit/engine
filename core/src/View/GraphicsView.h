@@ -15,8 +15,7 @@ class string;
 /**
  * Provides a full set of logic for displaying graphics.
  * 
- * Currently, this is simply clearing to a particular color.
- */
+ **/
 class GraphicsView
 {
 public:
@@ -46,7 +45,7 @@ private:
     GraphicsView operator=(GraphicsView other);
 
     /**
-     * The GLFW Window to draw to.
+     * The SMFL Window to draw to.
      */
     std::shared_ptr<sf::Window> window;
 

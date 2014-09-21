@@ -47,7 +47,7 @@ private:
     InitialState operator=(InitialState other);
 
     /**
-     * Test variables for the initial state.
+     * Variables for the default demo.
      */
     int sign;
     float increment;
