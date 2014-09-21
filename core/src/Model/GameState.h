@@ -1,6 +1,7 @@
 #ifndef Core_GameState_h
 #define Core_GameState_h
 
+#include <memory>
 #include "GameStateManager.h"
 class GameStateManager;
 
@@ -21,48 +22,47 @@ public:
     /**
      * Initializes the GameState with the given GameStateManager.
      */
-    virtual void Initialize(GameStateManager* manager);
+    virtual void Initialize(std::shared_ptr<GameStateManager> manager);
     
     /**
      * Updates this State.
      */
-	virtual void Update() = 0;
-    
+    virtual void Update() = 0;
+
     /**
      * Pauses this State to be resumed later, saves the ControllerPackage.
      */
     virtual void Pause();
-    
+
     /**
      * Resumes this State after being paused.
      */
     virtual void Resume();
-    
+
     /**
      * Destroys this State because it won't be used again.
      */
     virtual void Destroy();
-    
+
 protected:
     /**
      * The GameStateManager managing this State.
      */
-    GameStateManager* manager;
+    std::shared_ptr<GameStateManager> manager;
 
-	/**
-	 * Pointers to the managers of the controller package
-	 */
-	GraphicsManager* graphicsManager;
-	InputManager* inputManager;
-	SoundManager* soundManager;
-    ResourceManager* resourceManager;
+    /**
+     * Pointers to the managers of the controller package
+     */
+    std::shared_ptr<GraphicsManager> graphicsManager;
+    std::shared_ptr<InputManager> inputManager;
+    std::shared_ptr<SoundManager> soundManager;
+    std::shared_ptr<ResourceManager> resourceManager;
 
 private:
-	/**
-	 * ControllerPackages that the managers belong to
-	 */
-	ControllerPackage* controllerPackage;
-    
+    /**
+     * ControllerPackages that the managers belong to
+     */
+    std::shared_ptr<ControllerPackage> controllerPackage;
 };
 
 #endif

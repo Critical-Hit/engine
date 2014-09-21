@@ -2,7 +2,12 @@
 
 
 // Global static pointer used to ensure a single instance of the class.
-ResourceManager* ResourceManager::instance = NULL;
+std::shared_ptr<ResourceManager> ResourceManager::instance = nullptr;
+
+ResourceManager::ResourceManager()
+{
+
+}
 
 ResourceManager::~ResourceManager()
 {
@@ -11,32 +16,32 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::Initialize()
 {
-    ResourceManager::instance = new ResourceManager();
+    ResourceManager::instance = std::make_shared<ResourceManager>();
 }
 
-ResourceManager* ResourceManager::GetInstance()
+std::shared_ptr<ResourceManager> ResourceManager::GetInstance()
 {
     return ResourceManager::instance;
 }
 
 void ResourceManager::LoadTexture(int textureID, const char *fileName)
 {    
-    this->textureList.push_back(new Texture(textureID, fileName));
+    this->textureList.push_back(std::make_shared<Texture>(textureID, fileName));
 }
 
 unsigned int ResourceManager::GetTextureUnitFromTextureID(int textureID)
 {
-    Texture* tempTexture;
+    std::shared_ptr<Texture> tempTexture;
     unsigned int i;
-    for(i = 0; i < this->textureList.size(); i++)
+    for (i = 0; i < this->textureList.size(); i++)
     {
         tempTexture = this->textureList[i];
-        
-        if(tempTexture->GetTextureID() == textureID)
+
+        if (tempTexture->GetTextureID() == textureID)
         {
             return tempTexture->GetTextureUnit();
         }
     }
-    
+
     return 0;
 }

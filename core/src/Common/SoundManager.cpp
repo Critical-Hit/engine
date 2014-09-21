@@ -1,23 +1,23 @@
 #include "SoundManager.h"
 #include <assert.h>
 
-SoundManager* SoundManager::instance = nullptr;
+std::shared_ptr<SoundManager> SoundManager::instance = nullptr;
 
 SoundManager::SoundManager()
 {
     this->nextId = 0;
 }
 
-SoundManager* SoundManager::GetInstance()
+std::shared_ptr<SoundManager> SoundManager::GetInstance()
 {
     if(SoundManager::instance == nullptr)
     {
-        SoundManager::instance = new SoundManager();
+        SoundManager::instance = std::make_shared<SoundManager>();
     }
     return SoundManager::instance;
 }
 
-void SoundManager::SetView(SoundView* soundView)
+void SoundManager::SetView(std::shared_ptr<SoundView> soundView)
 {
     this->soundView = soundView;
 }

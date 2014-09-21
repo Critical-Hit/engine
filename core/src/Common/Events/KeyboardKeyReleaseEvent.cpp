@@ -1,6 +1,11 @@
 #include "KeyboardKeyReleaseEvent.h"
 
-KeyboardKeyReleaseEvent::KeyboardKeyReleaseEvent(KeyboardKey* key)
+KeyboardKeyReleaseEvent::KeyboardKeyReleaseEvent(KeyboardKey key) : KeyboardKeyEvent(key)
 {
-    this->key = key;
+
+}
+
+KeyboardKeyReleaseEvent::KeyboardKeyReleaseEvent(KeyboardKeyReleaseEvent const &other) : KeyboardKeyEvent(other.key)
+{
+
 }

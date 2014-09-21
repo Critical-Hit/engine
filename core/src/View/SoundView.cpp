@@ -10,47 +10,48 @@ void SoundView::Initialize()
     
 }
 
-void SoundView::Update(SoundManager* soundManager)
+void SoundView::Update(std::shared_ptr<SoundManager> soundManager)
 {
     if(!soundManager->IsViewSet())
     {
-        soundManager->SetView(this);
+        soundManager->SetView(this->shared_from_this());
     }
 }
 
 bool SoundView::LoadSound(long id, std::string filename)
 {
-    sf::SoundBuffer* buff = new sf::SoundBuffer();
+    std::shared_ptr<sf::SoundBuffer> buff = make_shared<sf::SoundBuffer>();
     if(!buff->loadFromFile(filename))
+    {
         return false;
-    sf::Sound* sound = new sf::Sound();
+    }
+    std::shared_ptr<sf::Sound> sound = make_shared<sf::Sound>();
     sound->setBuffer(*buff);
     this->soundMap[id] = sound;
+    this->soundBuffers[id] = buff;
     return true;
 }
 
 bool SoundView::LoadMusic(long id, std::string filename)
 {
-    sf::Music* music = new sf::Music();
+    std::shared_ptr<sf::Music> music = make_shared<sf::Music>();
     if(!music->openFromFile(filename))
+    {
         return false;
+    }
     this->musicMap[id] = music;
     return true;
 }
 
 void SoundView::UnloadSound(long id)
 {
-    sf::Sound* sound = this->soundMap[id];
     this->soundMap.erase(id);
-    delete sound->getBuffer();
-    delete sound;
+    this->soundBuffers.erase(id);
 }
 
 void SoundView::UnloadMusic(long id)
 {
-    sf::Music* music = this->musicMap[id];
     this->musicMap.erase(id);
-    delete music;
 }
 
 void SoundView::PlaySound(long id)

@@ -1,50 +1,46 @@
 #include "ControllerPackage.h"
 
-ControllerPackage* ControllerPackage::activeControllerPackage = nullptr;
+std::weak_ptr<ControllerPackage> ControllerPackage::activeControllerPackage;
 
-ControllerPackage::ControllerPackage(GraphicsManager* const graphicsManager, InputManager* const inputManager, SoundManager* const soundManager)
+ControllerPackage::ControllerPackage(std::shared_ptr<GraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager)
 : graphicsManager(graphicsManager),
 inputManager(inputManager),
 soundManager(soundManager)
 {
-	
+
 }
 
 ControllerPackage::~ControllerPackage()
 {
-	delete this->graphicsManager;
-	delete this->inputManager;
-	delete this->soundManager;
-        delete this->resourceManager;
+
 }
 
-GraphicsManager* ControllerPackage::GetGraphicsManager()
+std::shared_ptr<GraphicsManager> ControllerPackage::GetGraphicsManager()
 {
-	return this->graphicsManager;
+    return this->graphicsManager;
 }
 
-
-InputManager* ControllerPackage::GetInputManager()
+std::shared_ptr<InputManager> ControllerPackage::GetInputManager()
 {
-	return this->inputManager;
+    return this->inputManager;
 }
 
-SoundManager* ControllerPackage::GetSoundManager()
+std::shared_ptr<SoundManager> ControllerPackage::GetSoundManager()
 {
-	return this->soundManager;
+    return this->soundManager;
 }
 
-ResourceManager* ControllerPackage::GetResourceManager()
+std::shared_ptr<ResourceManager> ControllerPackage::GetResourceManager()
 {
     return this->resourceManager;
 }
 
 void ControllerPackage::Activate()
 {
-    ControllerPackage::activeControllerPackage = this;
+    ControllerPackage::activeControllerPackage = this->shared_from_this();
 }
 
-ControllerPackage* ControllerPackage::GetActiveControllerPackage()
+std::weak_ptr<ControllerPackage> ControllerPackage::GetActiveControllerPackage()
 {
     return ControllerPackage::activeControllerPackage;
 }

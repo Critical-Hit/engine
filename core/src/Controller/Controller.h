@@ -5,11 +5,11 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <thread>
+#include <memory>
 
 #include "GraphicsView.h"
 #include "InputView.h"
 #include "SoundView.h"
-#include "ResourceView.h"
 #include "GameStateManager.h"
 #include "InitialState.h"
 #include "ControllerPackage.h"
@@ -18,7 +18,7 @@
  * The class that creates, starts, and updates the Model and Views. Simply call the Start method to create all the objects
  * and start them updating.
  */
-class Controller
+class Controller : public enable_shared_from_this<Controller>
 {
 public:
     /**
@@ -49,12 +49,12 @@ private:
     /**
      * How quickly the game logic updates. 1 over the number of updates per second.
      */
-    const double UPDATE_RATE = (1 / 60.0) * 1000;
+    const unsigned int UPDATE_RATE = (int)((1.0 / 60.0) * 1000.0);
     
     /**
      * How quickly the graphics are updated. 1 over the number of frames per second.
      */
-    const double FRAMERATE = (1 / 60.0) * 1000;
+    const unsigned int FRAMERATE = (int)((1.0 / 60.0) * 1000.0);
 
     /**
      * Boolean that represents whether the game should exit or not.
@@ -65,6 +65,16 @@ private:
      * Boolean that represents whether the views have been created or not.
      */
     volatile bool viewsCreated;
+
+    void updateViews(GraphicsView* graphicsView, InputView* inputView, std::shared_ptr<SoundView>* soundView);
+
+    /**
+     * Handle all pending SFML window events for the given window.
+     * READ SFML DOCUMENTATION ON WINDOW EVENTS BEFORE MODIFYING THIS CODE!!
+     *
+     * @param window SFML window to process events
+     */
+    void handleEvents(std::shared_ptr<sf::RenderWindow> window, InputView* view);
 };
 
 #endif

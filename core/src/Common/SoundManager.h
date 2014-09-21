@@ -2,6 +2,7 @@
 #define Core_SoundManager_h
 
 #include <string>
+#include <memory>
 #include "SoundView.h"
 
 class SoundView;
@@ -16,14 +17,18 @@ class SoundManager
 {
 public:
     /**
+     * Should NEVER be used. Only public because make_shared requires it.
+     */
+    SoundManager();
+    /**
      * Returns the instance of the SoundManager Singleton
      */
-    static SoundManager* GetInstance();
+    static std::shared_ptr<SoundManager> GetInstance();
     
     /**
      * Sets the view for this manager to use
      */
-    void SetView(SoundView* soundView);
+    void SetView(std::shared_ptr<SoundView> soundView);
     
     /**
      * Returns whether or not this manager has a SoundView set
@@ -73,7 +78,6 @@ public:
     
 private:
     // Private constructors to disallow access.
-    SoundManager();
     SoundManager(SoundManager const& other);
     SoundManager operator=(SoundManager other);
     
@@ -85,12 +89,12 @@ private:
     /**
      * The SoundView to use to play sounds/music
      */
-    SoundView* soundView;
+    std::shared_ptr<SoundView> soundView;
     
     /**
      * Static instance for Singleton
      */
-    static SoundManager* instance;
+    static std::shared_ptr<SoundManager> instance;
     
     /**
      * Asserts that the SoundView has been set

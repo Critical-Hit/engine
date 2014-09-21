@@ -19,14 +19,14 @@ Color::Color(const Color& other) : red(other.red), green(other.green), blue(othe
 
 Color Color::operator=(const Color& other)
 {
-	if (this != &other)
-	{
-		this->red = other.red;
-		this->green = other.green;
-		this->blue = other.blue;
-		this->alpha = other.alpha;
-	}
-	return *this;
+    if (this != &other)
+    {
+        this->red = other.red;
+        this->green = other.green;
+        this->blue = other.blue;
+        this->alpha = other.alpha;
+    }
+    return *this;
 }
 
 Color::~Color()
@@ -36,25 +36,25 @@ Color::~Color()
 
 std::string Color::ToString()
 {
-	return "R: " + std::to_string(this->red) + " G: " + std::to_string(this->green) + " B: " + std::to_string(this->blue) + " A: " + std::to_string(this->alpha);
+    return "R: " + std::to_string(this->red) + " G: " + std::to_string(this->green) + " B: " + std::to_string(this->blue) + " A: " + std::to_string(this->alpha);
 }
 
 void Color::validateChannels()
 {
-	if (this->red <= 0.0f)
-	{
-		throw new std::invalid_argument("A color value cannot be negative.");
-	}
-	if (this->green <= 0.0f)
-	{
-		throw new std::invalid_argument("A color value cannot be negative.");
-	}
-	if (this->blue <= 0.0f)
-	{
-		throw new std::invalid_argument("A color value cannot be negative.");
-	}
-	if (this->alpha <= 0.0f)
-	{
-		throw new std::invalid_argument("A color value cannot be negative.");
-	}
+    if (this->red <= 0.0f)
+    {
+        throw new std::invalid_argument("A color value cannot be negative.");
+    }
+    if (this->green <= 0.0f)
+    {
+        throw new std::invalid_argument("A color value cannot be negative.");
+    }
+    if (this->blue <= 0.0f)
+    {
+        throw new std::invalid_argument("A color value cannot be negative.");
+    }
+    if (this->alpha <= 0.0f)
+    {
+        throw new std::invalid_argument("A color value cannot be negative.");
+    }
 }

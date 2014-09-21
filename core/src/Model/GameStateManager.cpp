@@ -2,11 +2,11 @@
 
 GameStateManager::GameStateManager()
 {
-    ControllerPackage* tempControllerPackage = new ControllerPackage(new GraphicsManager(), new InputManager(), SoundManager::GetInstance());
+    std::shared_ptr<ControllerPackage> tempControllerPackage = std::make_shared<ControllerPackage>(std::make_shared<GraphicsManager>(), std::make_shared<InputManager>(), SoundManager::GetInstance());
     tempControllerPackage->Activate();
 }
 
-void GameStateManager::Initialize(GameState* state)
+void GameStateManager::Initialize(std::shared_ptr<GameState> state)
 {
     this->PushState(state);
 }
@@ -16,19 +16,19 @@ void GameStateManager::Update()
     gameStates.top()->Update();
 }
 
-void GameStateManager::PushState(GameState* state)
+void GameStateManager::PushState(std::shared_ptr<GameState> state)
 {
     if(!gameStates.empty())
     {
         gameStates.top()->Pause();
     }
     gameStates.push(state);
-    gameStates.top()->Initialize(this);
+    gameStates.top()->Initialize(this->shared_from_this());
 }
 
-GameState* GameStateManager::PopState()
+std::shared_ptr<GameState> GameStateManager::PopState()
 {
-    GameState* top = gameStates.top();
+    std::shared_ptr<GameState> top = gameStates.top();
     top->Pause();
     top->Destroy();
     gameStates.pop();
@@ -39,7 +39,7 @@ GameState* GameStateManager::PopState()
     return top;
 }
 
-void GameStateManager::SwapState(GameState* state)
+void GameStateManager::SwapState(std::shared_ptr<GameState> state)
 {
     this->PopState();
     this->PushState(state);

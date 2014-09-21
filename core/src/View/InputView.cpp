@@ -16,7 +16,7 @@
 
 sf::Vector2i MOUSE_ORIGIN = sf::Vector2i(0, 0);
 
-InputView::InputView(sf::Window* window)
+InputView::InputView(std::shared_ptr<sf::Window> window)
 {
     this->window = window;
     this->inputManager = nullptr;
@@ -27,7 +27,7 @@ void InputView::Initialize()
     this->SetMouseInputMode(MouseInputMode::SHOW);
 }
 
-void InputView::Update(InputManager* inputManager)
+void InputView::Update(std::shared_ptr<InputManager> inputManager)
 {
     this->inputManager = inputManager;
 }
@@ -97,8 +97,8 @@ void InputView::onSfmlKeyPressed(sf::Event::KeyEvent event)
         KeyboardKey key = InputView::nativeKeyboardKey(event.code);
         if (inputManager->IsRegisteredEventHandler(key))
         {
-            KeyboardKeyPressEvent nativeEvent(&key);
-            this->inputManager->OnKeyboardKeyPress(&nativeEvent);
+            KeyboardKeyPressEvent nativeEvent(key);
+            this->inputManager->OnKeyboardKeyPress(nativeEvent);
         }
     }
 }
@@ -110,8 +110,8 @@ void InputView::onSfmlKeyReleased(sf::Event::KeyEvent event)
         KeyboardKey key = InputView::nativeKeyboardKey(event.code);
         if (inputManager->IsRegisteredEventHandler(key))
         {
-            KeyboardKeyReleaseEvent event(&key);
-            this->inputManager->OnKeyboardKeyRelease(&event);
+            KeyboardKeyReleaseEvent event (key);
+            this->inputManager->OnKeyboardKeyRelease(event);
         }
     }
 }
@@ -127,7 +127,7 @@ void InputView::onSfmlMouseButtonPressed(sf::Event::MouseButtonEvent event)
     {
         MouseButton button = InputView::nativeMouseButton(event.button);
         MouseButtonPressEvent nativeEvent(event.x, event.y, button);
-        this->inputManager->OnMouseButtonPress(&nativeEvent);
+        this->inputManager->OnMouseButtonPress(nativeEvent);
     }
 }
 
@@ -137,7 +137,7 @@ void InputView::onSfmlMouseButtonReleased(sf::Event::MouseButtonEvent event)
     {
         MouseButton button = InputView::nativeMouseButton(event.button);
         MouseButtonReleaseEvent nativeEvent(event.x, event.y, button);
-        this->inputManager->OnMouseButtonRelease(&nativeEvent);
+        this->inputManager->OnMouseButtonRelease(nativeEvent);
     }
 }
 
@@ -146,7 +146,7 @@ void InputView::onSfmlMouseMoved(sf::Event::MouseMoveEvent event)
     if (inputManager != nullptr)
     {
         MouseEvent nativeEvent(event.x, event.y);
-        this->inputManager->OnMouseInput(&nativeEvent);
+        this->inputManager->OnMouseInput(nativeEvent);
 
         // Dirty, evil hack to lock the cursor. SFML is working on a native cursor locking
         // feature beyond SFML 2.2, but for now we have to reset the cursor position manually.
@@ -622,8 +622,8 @@ sf::Keyboard::Key InputView::sfmlKeyboardKey(KeyboardKey key)
         case KeyboardKey::KEYBOARD_RIGHT_SUPER:
             return sf::Keyboard::Key::RSystem;
         default:
-            //undefined behavior
-            assert(false);
+            // undefined behavior
+            return sf::Keyboard::Key::Unknown;
     }
 }
 
