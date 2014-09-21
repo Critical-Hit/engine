@@ -18,7 +18,7 @@ Add C:\premake4\bin to your PATH user environment variable:
 1. Type "environment variables" into the Start Menu search menu to access Environment Variables.  
 1. If Path already exists in User variables, edit it and add "C:\premake4\bin;" to the front.  If Path doesn't exist, create a new variable with "Path" for the name and "C:\premake4\bin" for the value.
 
-Install [python 3.0+](https://www.python.org/downloads/) and add "C:\PythonXX" to your PATH user environment variable (see above). You will need to rename "python.exe" to "python3.exe" before use.
+Install [python 3.0+](https://www.python.org/downloads/) and add "C:\PythonXX" to your PATH user environment variable (see above).
 
 OpenGL is statically linked in Visual Studio and SFML is statically linked in the project source, so installing them separately is not required.
 

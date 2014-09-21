@@ -1,7 +1,6 @@
 #ifndef Core_Controller_h
 #define Core_Controller_h
 
-#include <GLFW/glfw3.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <algorithm>
@@ -15,6 +14,10 @@
 #include "InitialState.h"
 #include "ControllerPackage.h"
 
+/**
+ * The class that creates, starts, and updates the Model and Views. Simply call the Start method to create all the objects
+ * and start them updating.
+ */
 class Controller : public enable_shared_from_this<Controller>
 {
 public:
