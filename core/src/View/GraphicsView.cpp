@@ -2,7 +2,7 @@
 #include <string>
 #include "GraphicsView.h"
 #include "Sprite.h"
-#include "SFML\OpenGL.hpp"
+#include "SFML/OpenGL.hpp"
 
 GraphicsView::GraphicsView(std::shared_ptr<sf::Window> window)
 {
