@@ -1,7 +1,6 @@
 #ifndef Core_GraphicsView_h
 #define Core_GraphicsView_h
 
-#include <GLFW/glfw3.h>
 #include <SFML/Window.hpp>
 #include <functional>
 #include <memory>
