@@ -10,6 +10,7 @@
 
 class InputManager;
 class SoundManager;
+
 /**
  * This class is used to gather together access to the various managers
  * used to control the engine's view, and is used by the model to effect

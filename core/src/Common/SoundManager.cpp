@@ -29,7 +29,7 @@ bool SoundManager::IsViewSet()
 
 long SoundManager::LoadSound(std::string filename)
 {
-    assert(this->soundView != nullptr && "Loaded Sound before view set");
+    this->assertSoundView();
     
     long id = nextId++;
     if(!this->soundView->LoadSound(id, filename))
@@ -41,7 +41,7 @@ long SoundManager::LoadSound(std::string filename)
 
 long SoundManager::LoadMusic(std::string filename)
 {
-    assert(this->soundView != nullptr && "Loaded Music before view set");
+    this->assertSoundView();
     
     long id = nextId++;
     if(!this->soundView->LoadMusic(id, filename))
@@ -53,42 +53,47 @@ long SoundManager::LoadMusic(std::string filename)
 
 void SoundManager::UnloadSound(long id)
 {
-    assert(this->soundView != nullptr && "Unload Sound before view set");
+    this->assertSoundView();
     
     this->soundView->UnloadSound(id);
 }
 
 void SoundManager::UnloadMusic(long id)
 {
-    assert(this->soundView != nullptr && "Unload Music before view set");
+    this->assertSoundView();
     
     this->soundView->UnloadMusic(id);
 }
 
 void SoundManager::PlaySound(long id)
 {
-    assert(this->soundView != nullptr && "Played Sound before view set");
+    this->assertSoundView();
     
     this->soundView->PlaySound(id);
 }
 
 void SoundManager::PlayMusic(long id)
 {
-    assert(this->soundView != nullptr && "Played Music before view set");
+    this->assertSoundView();
     
     this->soundView->PlayMusic(id);
 }
 
 void SoundManager::PauseMusic(long id)
 {
-    assert(this->soundView != nullptr && "Paused Music before view set");
+    this->assertSoundView();
     
     this->soundView->PauseMusic(id);
 }
 
 void SoundManager::ResumeMusic(long id)
 {
-    assert(this->soundView != nullptr && "Resumed Music before view set");
+    this->assertSoundView();
     
     this->soundView->ResumeMusic(id);
+}
+
+void SoundManager::assertSoundView()
+{
+    assert(this->soundView != nullptr && "SoundManager method called before it's SoundView was set.");
 }

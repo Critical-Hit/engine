@@ -10,7 +10,9 @@ class GameState;
 
 /**
  * Manages a stack of GameStates, allowing smooth transitioning between states,
- * including saving old states that remain "underneath" the current state. 
+ * including saving old states that remain "underneath" the current state. Allows
+ * pushing a state on top of the current, so that it can be resumed when the pushed
+ * state is popped, or swapping states if there is no need to return to a state later.
  */
 class GameStateManager : public std::enable_shared_from_this<GameStateManager>
 {

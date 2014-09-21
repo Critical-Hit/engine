@@ -1,5 +1,5 @@
-#ifndef Core_InitialState_h
-#define Core_InitialState_h
+#ifndef Game_InitialState_h
+#define Game_InitialState_h
 
 #include "GameState.h"
 #include <memory>

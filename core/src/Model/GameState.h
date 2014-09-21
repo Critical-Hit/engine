@@ -6,7 +6,12 @@
 class GameStateManager;
 
 /**
- * Contains logic for managing underlying functions used by the GameStateManager
+ * Base class of all GameStates. Game logic goes inside your subclasses of GameState. 
+ * Initialize is where you set up all logic at the start of the state, Update is where 
+ * you define your game logic that updates every iteration of the game loop. The other 
+ * methods are to interact well with the GameStateManager.
+ *
+ * GameState contains logic for managing underlying functions used by the GameStateManager
  * for management of states.  When these virtual methods are overriden, the base
  * should ALWAYS be called at the beginning of the method.
  *

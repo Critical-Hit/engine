@@ -7,6 +7,12 @@
 
 class SoundView;
 
+/**
+ * Manages all sound effects and music for the engine.
+ *
+ * Use: Load a sound or music file in the manager calling the load methods, then you can call play on it
+ * using the returned ID. When the sound effect or music will not be used again call the corresponding unload method.
+ */
 class SoundManager
 {
 public:
@@ -14,9 +20,8 @@ public:
      * Should NEVER be used. Only public because make_shared requires it.
      */
     SoundManager();
-
     /**
-     * Returns the instance of the Singleton
+     * Returns the instance of the SoundManager Singleton
      */
     static std::shared_ptr<SoundManager> GetInstance();
     
@@ -26,7 +31,7 @@ public:
     void SetView(std::shared_ptr<SoundView> soundView);
     
     /**
-     * Returns whether or not this manager has a view set
+     * Returns whether or not this manager has a SoundView set
      */
     bool IsViewSet();
     
@@ -90,6 +95,11 @@ private:
      * Static instance for Singleton
      */
     static std::shared_ptr<SoundManager> instance;
+    
+    /**
+     * Asserts that the SoundView has been set
+     */
+    void assertSoundView();
 };
 
 #endif
