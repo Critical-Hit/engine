@@ -9,6 +9,9 @@
 #include "MouseButtonPressEvent.h"
 #include "MouseButtonReleaseEvent.h"
 #include "MouseButton.h"
+#include "JoystickButtonPressEvent.h"
+#include "JoystickButtonReleaseEvent.h"
+#include "JoystickAxisEvent.h"
 #include "KeyboardKey.h"
 #include <assert.h>
 #include <set>
@@ -52,6 +55,11 @@ MouseInputMode InputView::GetMouseInputMode()
 
 void InputView::OnSfmlEvent(sf::Event event)
 {
+    // We should guarantee that an InputManager is available
+    if (inputManager == nullptr) 
+    {
+        return;
+    }
     if (event.type == sf::Event::KeyPressed)
     {
         onSfmlKeyPressed(event.key);
@@ -92,27 +100,22 @@ void InputView::OnSfmlEvent(sf::Event event)
 
 void InputView::onSfmlKeyPressed(sf::Event::KeyEvent event)
 {
-    if (inputManager != nullptr) 
+    KeyboardKey key = InputView::nativeKeyboardKey(event.code);
+    if (inputManager->IsRegisteredEventHandler(key))
     {
-        KeyboardKey key = InputView::nativeKeyboardKey(event.code);
-        if (inputManager->IsRegisteredEventHandler(key))
-        {
-            KeyboardKeyPressEvent nativeEvent(key);
-            this->inputManager->OnKeyboardKeyPress(nativeEvent);
-        }
+        KeyboardKeyPressEvent nativeEvent(key);
+        this->inputManager->OnKeyboardKeyPress(nativeEvent);
     }
 }
 
 void InputView::onSfmlKeyReleased(sf::Event::KeyEvent event)
 {
-    if (inputManager != nullptr) 
+
+    KeyboardKey key = InputView::nativeKeyboardKey(event.code);
+    if (inputManager->IsRegisteredEventHandler(key))
     {
-        KeyboardKey key = InputView::nativeKeyboardKey(event.code);
-        if (inputManager->IsRegisteredEventHandler(key))
-        {
-            KeyboardKeyReleaseEvent event (key);
-            this->inputManager->OnKeyboardKeyRelease(event);
-        }
+        KeyboardKeyReleaseEvent nativeEvent (key);
+        this->inputManager->OnKeyboardKeyRelease(nativeEvent);
     }
 }
 
@@ -123,53 +126,50 @@ void InputView::onSfmlMouseWheelMoved(sf::Event::MouseWheelEvent event)
 
 void InputView::onSfmlMouseButtonPressed(sf::Event::MouseButtonEvent event)
 {
-    if (inputManager != nullptr) 
-    {
-        MouseButton button = InputView::nativeMouseButton(event.button);
-        MouseButtonPressEvent nativeEvent(event.x, event.y, button);
-        this->inputManager->OnMouseButtonPress(nativeEvent);
-    }
+
+    MouseButton button = InputView::nativeMouseButton(event.button);
+    MouseButtonPressEvent nativeEvent(event.x, event.y, button);
+    this->inputManager->OnMouseButtonPress(nativeEvent);
 }
 
 void InputView::onSfmlMouseButtonReleased(sf::Event::MouseButtonEvent event)
 {
-    if (inputManager != nullptr)
-    {
-        MouseButton button = InputView::nativeMouseButton(event.button);
-        MouseButtonReleaseEvent nativeEvent(event.x, event.y, button);
-        this->inputManager->OnMouseButtonRelease(nativeEvent);
-    }
+
+    MouseButton button = InputView::nativeMouseButton(event.button);
+    MouseButtonReleaseEvent nativeEvent(event.x, event.y, button);
+    this->inputManager->OnMouseButtonRelease(nativeEvent);
 }
 
 void InputView::onSfmlMouseMoved(sf::Event::MouseMoveEvent event)
 {
-    if (inputManager != nullptr)
-    {
-        MouseEvent nativeEvent(event.x, event.y);
-        this->inputManager->OnMouseInput(nativeEvent);
+    MouseEvent nativeEvent(event.x, event.y);
+    this->inputManager->OnMouseInput(nativeEvent);
 
-        // Dirty, evil hack to lock the cursor. SFML is working on a native cursor locking
-        // feature beyond SFML 2.2, but for now we have to reset the cursor position manually.
-        if (this->mouseInputMode == MouseInputMode::HIDE_AND_LOCK) 
-        {
-            sf::Mouse::setPosition(MOUSE_ORIGIN, *(this->window));
-        }
+    // Dirty, evil hack to lock the cursor. SFML is working on a native cursor locking
+    // feature beyond SFML 2.2, but for now we have to reset the cursor position manually.
+    if (this->mouseInputMode == MouseInputMode::HIDE_AND_LOCK) 
+    {
+        sf::Mouse::setPosition(MOUSE_ORIGIN, *(this->window));
     }
 }
 
 void InputView::onSfmlJoystickButtonPressed(sf::Event::JoystickButtonEvent event)
 {
-    // TODO: Joystick input
+    JoystickButtonPressEvent nativeEvent(event.joystickId, event.button);
+    this->inputManager->OnJoystickButtonPress(nativeEvent);
 }
 
 void InputView::onSfmlJoystickButtonReleased(sf::Event::JoystickButtonEvent event)
 {
-    // TODO: Joystick input
+    JoystickButtonReleaseEvent nativeEvent(event.joystickId, event.button);
+    this->inputManager->OnJoystickButtonRelease(nativeEvent);
 }
 
 void InputView::onSfmlJoystickMoved(sf::Event::JoystickMoveEvent event)
 {
-    // TODO: Joystick input
+    JoystickAxis axis = InputView::nativeJoystickAxis(event.axis);
+    JoystickAxisEvent nativeEvent(event.joystickId, axis, event.position);
+    this->inputManager->OnJoystickAxisInput(nativeEvent);
 }
 
 void InputView::onSfmlJoystickConnected(sf::Event::JoystickConnectEvent event)
@@ -222,6 +222,23 @@ int InputView::GetMouseY()
 {
     sf::Vector2i position = sf::Mouse::getPosition();
     return position.y;
+}
+
+InputState InputView::GetJoystickButtonState(unsigned int joystick, unsigned int button)
+{
+    if (sf::Joystick::isButtonPressed(joystick, button)) 
+    {
+        return InputState::PRESSED;
+    }
+    else
+    {
+        return InputState::RELEASED;
+    }
+}
+
+float InputView::GetJoystickAxisValue(unsigned int joystick, JoystickAxis axis)
+{
+    return sf::Joystick::getAxisPosition(joystick, InputView::sfmlJoystickAxis(axis));
 }
 
 KeyboardKey InputView::nativeKeyboardKey(sf::Keyboard::Key key)
@@ -663,6 +680,62 @@ sf::Mouse::Button InputView::sfmlMouseButton(MouseButton button)
             return sf::Mouse::XButton2;
         default:
             // undefined behavior
+            assert(false);
+    }
+}
+
+JoystickAxis InputView::nativeJoystickAxis(sf::Joystick::Axis axis)
+{
+    switch(axis)
+    {
+        case sf::Joystick::X:
+            return JoystickAxis::X;
+        case sf::Joystick::Y:
+            return JoystickAxis::Y;
+        case sf::Joystick::Z:
+            return JoystickAxis::Z;
+        case sf::Joystick::R:
+            return JoystickAxis::RX;
+        // TODO: confirm that U => RY
+        case sf::Joystick::U:
+            return JoystickAxis::RY;
+        // TODO: confirm that V => RZ
+        case sf::Joystick::V:
+            return JoystickAxis::RZ;
+        case sf::Joystick::PovX:
+            return JoystickAxis::POV_X;
+        case sf::Joystick::PovY:
+            return JoystickAxis::POV_Y;
+        default:
+            // Should never be hit
+            assert(false);
+    }
+}
+
+sf::Joystick::Axis InputView::sfmlJoystickAxis(JoystickAxis axis)
+{
+    switch(axis)
+    {
+        case JoystickAxis::X:
+            return sf::Joystick::X;
+        case JoystickAxis::Y:
+            return sf::Joystick::Y;
+        case JoystickAxis::Z:
+            return sf::Joystick::Z;
+        case JoystickAxis::RX:
+            return sf::Joystick::R;
+        // TODO: confirm that U => RY
+        case JoystickAxis::RY:
+            return sf::Joystick::U;
+        // TODO: confirm that V => RZ
+        case JoystickAxis::RZ:
+            return sf::Joystick::V;
+        case JoystickAxis::POV_X:
+            return sf::Joystick::PovX;
+        case JoystickAxis::POV_Y:
+            return sf::Joystick::PovY;
+        default:
+            // Should never be hit
             assert(false);
     }
 }

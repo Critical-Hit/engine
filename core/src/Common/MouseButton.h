@@ -4,7 +4,8 @@
 /**
  * Enumeration of mouse buttons
  */
-enum class MouseButton {
+enum class MouseButton 
+{
     MOUSE_1 = 1,
     MOUSE_2 = 2,
     MOUSE_3 = 3,

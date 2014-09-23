@@ -10,6 +10,8 @@ enum class InputState;
 enum class MouseInputMode;
 enum class KeyboardKey;
 enum class MouseButton;
+enum class JoystickAxis;
+
 /**
  * Provides a full set of logic for accessing input.
  */
@@ -52,6 +54,22 @@ public:
      * @return the current x coordinate of the mouse cursor, relative to the game window.
      */
     int GetMouseX();
+
+    /**
+     * Poll the current state of a joystick button.
+     * @param joystick The id of the joystick to poll.
+     * @param button The id of the button to poll.
+     * @return The current state of the joystick button.
+     */
+    InputState GetJoystickButtonState(unsigned int joystick, unsigned int button);
+
+    /**
+     * Poll the current value of a joystick axis.
+     * @param joystick The id of the joystick to poll.
+     * @param button the id of the button to poll.
+     * @return The current value of the joystick axis. -100.0 is the minimum value, 0.0 is the center and 100.0 is the maximum value.
+     */
+    float GetJoystickAxisValue(unsigned int joystick, JoystickAxis axis);
 
     /**
      * Poll the current vertical coordinate of the mouse cursor.
@@ -135,21 +153,18 @@ private:
     void onSfmlMouseMoved(sf::Event::MouseMoveEvent event);
 
     /**
-     * NOT IMPLEMENTED
      * Helper method which handles SFML joystick button press events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickButtonPressed(sf::Event::JoystickButtonEvent event);
 
     /**
-     * NOT IMPLEMENTED
      * Helper method which handles SFML joystick button release events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
     void onSfmlJoystickButtonReleased(sf::Event::JoystickButtonEvent event);
 
     /**
-     * NOT IMPLEMENTED
      * Helper method which handles SFML joystick axis motion events. Fires a native engine event to the current InputManger.
      * @param event An SFML event to handle.
      */
@@ -203,6 +218,20 @@ private:
      * @return corresponding SFML mouse button code
      */
     static sf::Mouse::Button sfmlMouseButton(MouseButton button);
+
+    /**
+     * Utiltiy method to convert SFML joystick axis codes to native engine joystick axis codes.
+     * @param axis SFML joystick axis code
+     * @return corresponding native engine joystick axis code
+     */
+    static JoystickAxis nativeJoystickAxis(sf::Joystick::Axis);
+
+    /**
+     * Utility method to convert native engine joystick axis codes to SFML joystick axis codes.
+     * @param axis native engine joystick axis code
+     * @return corresponding SFML joystick axis code
+     */
+    static sf::Joystick::Axis sfmlJoystickAxis(JoystickAxis axis);
 };
 
 #endif

@@ -4,6 +4,9 @@
 #include "KeyboardKeyReleaseEvent.h"
 #include "MouseButtonPressEvent.h"
 #include "MouseButtonReleaseEvent.h"
+#include "JoystickButtonPressEvent.h"
+#include "JoystickButtonReleaseEvent.h"
+#include "JoystickAxisEvent.h"
 
 InputManager::InputManager()
 {
@@ -53,6 +56,21 @@ void InputManager::RegisterKeyboardKeyReleaseHandler(KeyboardKey key, KeyboardKe
     this->keyboardKeyReleaseHandlers[key] = handler;
 }
 
+void InputManager::RegisterJoystickButtonPressHandler(unsigned int joystick, unsigned int button, JoystickButtonPressHandler handler)
+{
+    this->joystickButtonPressHandlers[joystick][button] = handler;
+}
+
+void InputManager::RegisterJoystickButtonReleaseHandler(unsigned int joystick, unsigned int button, JoystickButtonReleaseHandler handler)
+{
+    this->joystickButtonReleaseHandlers[joystick][button] = handler;
+}
+
+void InputManager::RegisterJoystickMotionHandler(unsigned int joystick, JoystickAxis axis, JoystickMotionHandler handler)
+{
+    this->joystickMotionHandlers[joystick][axis] = handler;
+}
+
 void InputManager::DeregisterMouseMotionHandler()
 {
     this->mouseMotionHandler = nullptr;
@@ -76,6 +94,21 @@ void InputManager::DeregisterKeyboardKeyPressHandler(KeyboardKey key)
 void InputManager::DeregisterKeyboardKeyReleaseHandler(KeyboardKey key)
 {
     this->keyboardKeyReleaseHandlers.erase(key);
+}
+
+void InputManager::DeregisterJoystickButtonPressHandler(unsigned int joystick, unsigned int button)
+{
+    this->joystickButtonPressHandlers[joystick][button] = nullptr;
+}
+
+void InputManager::DeregisterJoystickButtonReleaseHandler(unsigned int joystick, unsigned int button)
+{
+    this->joystickButtonReleaseHandlers[joystick][button] = nullptr;
+}
+
+void InputManager::DeregisterJoystickMotionHandler(unsigned int joystick, JoystickAxis axis)
+{
+    this->joystickMotionHandlers[joystick][axis] = nullptr;
 }
 
 bool InputManager::IsRegisteredEventHandler(KeyboardKey key)
@@ -103,19 +136,32 @@ int InputManager::GetMouseY()
     return inputView.lock()->GetMouseY();
 }
 
+InputState InputManager::GetJoystickButtonState(unsigned int joystick, unsigned int button)
+{
+    return inputView.lock()->GetJoystickButtonState(joystick, button);
+}
+
+
+float InputManager::GetJoystickAxisValue(unsigned int joystick, JoystickAxis axis)
+{
+    return inputView.lock()->GetJoystickAxisValue(joystick, axis);
+}
+
 void InputManager::OnKeyboardKeyPress(KeyboardKeyPressEvent event) 
 {
-    if (this->keyboardKeyPressHandlers[event.key])
+    KeyboardKeyPressHandler handler = this->keyboardKeyPressHandlers[event.key];
+    if (handler)
     {
-        this->keyboardKeyPressHandlers[event.key](event);
+        handler(event);
     }
 }
 
 void InputManager::OnKeyboardKeyRelease(KeyboardKeyReleaseEvent event) 
 {
-    if (this->keyboardKeyReleaseHandlers[event.key])
+    KeyboardKeyReleaseHandler handler = this->keyboardKeyReleaseHandlers[event.key];
+    if (handler)
     {
-        this->keyboardKeyReleaseHandlers[event.key](event);
+        handler(event);
     }
 }
 
@@ -129,16 +175,46 @@ void InputManager::OnMouseInput(MouseEvent event)
 
 void InputManager::OnMouseButtonPress(MouseButtonPressEvent event)
 {
-    if (this->mouseButtonPressHandlers[event.button])
+    MouseButtonPressHandler handler = this->mouseButtonPressHandlers[event.button];
+    if (handler)
     {
-        this->mouseButtonPressHandlers[event.button](event);
+        handler(event);
     }
 }
 
 void InputManager::OnMouseButtonRelease(MouseButtonReleaseEvent event)
 {
-    if (this->mouseButtonReleaseHandlers[event.button])
+    MouseButtonReleaseHandler handler = this->mouseButtonReleaseHandlers[event.button];
+    if (handler)
     {
-        this->mouseButtonReleaseHandlers[event.button](event);
+        handler(event);
+    }
+}
+
+
+void InputManager::OnJoystickButtonPress(JoystickButtonPressEvent event)
+{
+    JoystickButtonPressHandler handler = this->joystickButtonPressHandlers[event.joystick][event.button];
+    if (handler)
+    {
+        handler(event);
+    }
+}
+
+void InputManager::OnJoystickButtonRelease(JoystickButtonReleaseEvent event)
+{
+    JoystickButtonReleaseHandler handler = this->joystickButtonReleaseHandlers[event.joystick][event.button];
+    if (handler)
+    {
+        handler(event);
+    }
+}
+
+void InputManager::OnJoystickAxisInput(JoystickAxisEvent event)
+{
+    JoystickMotionHandler handler = this->joystickMotionHandlers[event.joystick][event.axis]; 
+    if (handler)
+    {
+        handler(event);
     }
 }
