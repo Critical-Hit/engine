@@ -2,7 +2,7 @@
 
 std::weak_ptr<ControllerPackage> ControllerPackage::activeControllerPackage;
 
-ControllerPackage::ControllerPackage(std::shared_ptr<GraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager)
+ControllerPackage::ControllerPackage(std::shared_ptr<Model::IGraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager)
 : graphicsManager(graphicsManager),
 inputManager(inputManager),
 soundManager(soundManager)
@@ -15,7 +15,7 @@ ControllerPackage::~ControllerPackage()
 
 }
 
-std::shared_ptr<GraphicsManager> ControllerPackage::GetGraphicsManager()
+std::shared_ptr<Model::IGraphicsManager> ControllerPackage::GetGraphicsManager()
 {
     return this->graphicsManager;
 }

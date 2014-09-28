@@ -18,7 +18,7 @@ void GraphicsView::Initialize()
 
 }
 
-void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
+void GraphicsView::Update(std::shared_ptr<View::IGraphicsManager> graphicsManager)
 {
     // Allocate buffers
     float* vertexBuffer;

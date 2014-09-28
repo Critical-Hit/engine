@@ -2,11 +2,10 @@
 #define Core_ControllerPackage_h
 
 #include <memory>
-
-#include "GraphicsManager.h"
 #include "InputManager.h"
 #include "SoundManager.h"
 #include "ResourceManager.h"
+#include "IGraphicsManager.h"
 
 class InputManager;
 class SoundManager;
@@ -22,7 +21,7 @@ public:
     /**
      * Constructor that creates a new instance of a ControllerPackage given managers.
      */
-    ControllerPackage(std::shared_ptr<GraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager);
+    ControllerPackage(std::shared_ptr<Model::IGraphicsManager> graphicsManager, std::shared_ptr<InputManager> inputManager, std::shared_ptr<SoundManager> soundManager);
     
     /**
      * Destructor
@@ -31,7 +30,7 @@ public:
     /**
      * Returns a pointer to the game's GraphicsManager.
      */
-    std::shared_ptr<GraphicsManager> GetGraphicsManager();
+    std::shared_ptr<Model::IGraphicsManager> GetGraphicsManager();
     
     /**
      * Returns a pointer to the game's InputManager.
@@ -65,7 +64,7 @@ private:
     ControllerPackage operator=(ControllerPackage other);
 
     // The managers to be provided to the game manager
-    std::shared_ptr<GraphicsManager> graphicsManager;
+    std::shared_ptr<Model::IGraphicsManager> graphicsManager;
     std::shared_ptr<InputManager> inputManager;
     std::shared_ptr<SoundManager> soundManager;
     std::shared_ptr<ResourceManager> resourceManager;

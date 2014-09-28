@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "ControllerPackage.h"
-#include "GraphicsManager.h"
+#include "IGraphicsManagerView.h"
 #include "Texture.h"
 
 class string;
@@ -36,7 +36,7 @@ public:
     /**
      * Updates the GraphicsView.
      */
-    void Update(std::shared_ptr<GraphicsManager> graphicsManager);
+    void Update(std::shared_ptr<View::IGraphicsManager> graphicsManager);
 
 private:
     // Private constructors to disallow access.

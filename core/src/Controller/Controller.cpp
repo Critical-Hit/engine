@@ -1,7 +1,9 @@
 #include "Controller.h"
-#include "GraphicsManager.h"
 #include "InputManager.h"
 #include "SoundManager.h"
+#include "IGraphicsManagerView.h"
+#include "IGraphicsManager.h"
+#include "ManagerConverters.h"
 
 Controller::Controller()
 {
@@ -49,7 +51,7 @@ void Controller::viewLoop()
     std::shared_ptr<sf::RenderWindow> window = std::make_shared<sf::RenderWindow>(sf::VideoMode(640, 480), "Game Engine");
     window->setFramerateLimit(1 / this->FRAMERATE);
 
-    GraphicsView graphicsView(window); 
+    GraphicsView graphicsView(window);
     graphicsView.Initialize();
     InputView inputView(window);
     inputView.Initialize();
@@ -84,7 +86,7 @@ void Controller::updateViews(GraphicsView* graphicsView, InputView* inputView, s
         return;
     }
 
-    graphicsView->Update(controllerPackage->GetGraphicsManager());
+    graphicsView->Update(Rawr::ConvertGraphicsManagerForView(controllerPackage->GetGraphicsManager()));
     inputView->Update(controllerPackage->GetInputManager());
     (*soundView)->Update(controllerPackage->GetSoundManager());
 }

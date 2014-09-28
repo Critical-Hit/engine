@@ -23,19 +23,18 @@ void InitialState::Initialize(std::shared_ptr<GameStateManager> manager)
     this->graphicsManager->RegisterSprite(std::make_shared<Sprite>(0.5, 1.0f, 0.5f, 0.5f, Color(0.0f, 1.0f, 0.0f, 1.0f)));
     this->graphicsManager->RegisterSprite(std::make_shared<Sprite>(-1.0, -0.5f, 0.5f, 0.5f, Color(0.0f, 0.0f, 1.0f, 1.0f)));
     this->graphicsManager->RegisterSprite(std::make_shared<Sprite>(0.5, -0.5f, 0.5f, 0.5f, Color(1.0f, 1.0f, 0.0f, 1.0f)));
+    this->currentColor = 0.0;
 }
 
 void InitialState::Update()
 {
-    // More magic demo stuff
-    float clearColorValue = (graphicsManager->GetClearColor()).blue;
     // For now just alternate between a 0 and 1 color value to flash a color.
-    if(clearColorValue <= 0.0f || clearColorValue >= 1.0f)
+    if(this->currentColor <= 0.0f || this->currentColor >= 1.0f)
     {
         sign *= -1;
     }
-    clearColorValue = (this->sign * this->increment) + clearColorValue;
-    Color newClearColor(0.0f, clearColorValue, clearColorValue, 1.0f);
+    this->currentColor += (this->sign * this->increment);
+    Color newClearColor(0.0f, this->currentColor, this->currentColor, 1.0f);
     this->graphicsManager->SetClearColor(newClearColor);
     this->graphicsManager->GetCamera()->MoveBy(increment * sign, 0.0f);
 }

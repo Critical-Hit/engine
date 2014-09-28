@@ -51,6 +51,7 @@ private:
      */
     int sign;
     float increment;
+    float currentColor;
 };
 
 #endif

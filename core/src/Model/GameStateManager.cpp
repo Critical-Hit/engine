@@ -1,8 +1,9 @@
 #include "GameStateManager.h"
+#include "IGraphicsManager.h"
 
 GameStateManager::GameStateManager()
 {
-    std::shared_ptr<ControllerPackage> tempControllerPackage = std::make_shared<ControllerPackage>(std::make_shared<GraphicsManager>(), std::make_shared<InputManager>(), SoundManager::GetInstance());
+    std::shared_ptr<ControllerPackage> tempControllerPackage = std::make_shared<ControllerPackage>(Model::CreateIGraphicsManager(), std::make_shared<InputManager>(), SoundManager::GetInstance());
     tempControllerPackage->Activate();
 }
 
