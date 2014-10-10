@@ -1,15 +1,15 @@
-Game Engine
+Critical Hit Game Engine
 ======
 
-Modular game engine built using [OpenGL](https://www.opengl.org/) and [SFML](http://www.sfml-dev.org/).
+C++ game engine built using [OpenGL](https://www.opengl.org/) and [SFML](http://www.sfml-dev.org/) and available under a permissive licence.
 
 #Build Instructions
 
-Use [premake4](http://industriousone.com/premake) to generate a project file or Makefile and build with your OS-specific tool.
+Use [premake4](http://industriousone.com/premake) to generate a project file or Makefile and build with your OS-specific tool. We also use [Python 3](http://www.python.org) for some support scripts.
 
 ##Windows
 
-Install [Visual Studio Express 2013 for Windows Desktop](http://www.visualstudio.com/downloads/download-visual-studio-vs). Visual Studio Profesional/Premium/Ultimate 2013 will also work.
+Install [Visual Studio Express 2013 for Windows Desktop](http://www.visualstudio.com/downloads/download-visual-studio-vs). Visual Studio Professional/Premium/Ultimate 2013 will also work.
 
 Download [Premake 4.3](http://industriousone.com/premake/download) and extract premake4.exe to C:\premake4\bin. 
 
@@ -18,7 +18,7 @@ Add C:\premake4\bin to your PATH user environment variable:
 1. Type "environment variables" into the Start Menu search menu to access Environment Variables.  
 1. If Path already exists in User variables, edit it and add "C:\premake4\bin;" to the front.  If Path doesn't exist, create a new variable with "Path" for the name and "C:\premake4\bin" for the value.
 
-Install [python 3.0+](https://www.python.org/downloads/) and add "C:\PythonXX" to your PATH user environment variable (see above).
+Install [Python 3.0+](https://www.python.org/downloads/windows) and add "C:\PythonXX" to your PATH user environment variable (see above).
 
 OpenGL is statically linked in Visual Studio and SFML is statically linked in the project source, so installing them separately is not required.
 
@@ -55,7 +55,7 @@ You will have to log out and in again to apply this change.
 You will then have to install SFML. See [SFML's Download page](http://sfml-dev.org/download/sfml/2.1) for more information.
 
 ###Python
-Python3 may already be installed, you can check with python3 --version, if it is not installed you can use homebrew or download it from [here](https://www.python.org/download/mac).
+Python3 may already be installed. You can check with `python3 --version`. If it is not installed you can install it using Homebrew or download it from [here](https://www.python.org/download/mac).
 
 ###Build Tool
 
@@ -77,7 +77,7 @@ Open a terminal and navigate to the directory containing premake4.lua. Type `pre
 
 Use your distribution's package manager to install the build dependencies:
 
-* GCC >= 4.8
+* GCC or Clang 
 * Make
 * Premake >= 4.3
 * SFML 2.1
