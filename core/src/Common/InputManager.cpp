@@ -1,9 +1,82 @@
-#include "InputManager.h"
+#include "IInputManager.h"
+#include "IInputManagerView.h"
 #include "InputView.h"
+#include "ManagerCast.h"
 #include "KeyboardKeyPressEvent.h"
 #include "KeyboardKeyReleaseEvent.h"
 #include "MouseButtonPressEvent.h"
 #include "MouseButtonReleaseEvent.h"
+#include <map>
+#include <memory>
+
+class InputManager : public View::IInputManager, public Model::IInputManager
+{
+public:
+    InputManager();
+
+    ~InputManager();
+
+    void SetView(std::shared_ptr<InputView> inputView);
+
+    void SetMouseInputMode(MouseInputMode mode);
+
+    MouseInputMode GetMouseInputMode();
+
+    void RegisterMouseMotionHandler(MouseMotionHandler handler);
+
+    void RegisterMouseButtonPressHandler(MouseButton button, MouseButtonPressHandler handler);
+
+    void RegisterMouseButtonReleaseHandler(MouseButton button, MouseButtonReleaseHandler handler);
+
+    void RegisterKeyboardKeyPressHandler(KeyboardKey key, KeyboardKeyPressHandler handler);
+
+    void RegisterKeyboardKeyReleaseHandler(KeyboardKey key, KeyboardKeyReleaseHandler handler);
+
+    void DeregisterMouseMotionHandler();   
+
+    void DeregisterMouseButtonPressHandler(MouseButton button);
+
+    void DeregisterMouseButtonReleaseHandler(MouseButton button);
+
+    void DeregisterKeyboardKeyPressHandler(KeyboardKey key);
+
+    void DeregisterKeyboardKeyReleaseHandler(KeyboardKey key);
+
+    bool IsRegisteredEventHandler(KeyboardKey key);
+
+    InputState GetKeyState(KeyboardKey key);
+
+    InputState GetMouseButtonState(MouseButton button);
+
+    int GetMouseX();
+
+    int GetMouseY();
+
+    void OnKeyboardKeyPress(KeyboardKeyPressEvent event);
+
+    void OnKeyboardKeyRelease(KeyboardKeyReleaseEvent event);
+
+    void OnMouseInput(MouseEvent event);
+
+    void OnMouseButtonPress(MouseButtonPressEvent event);
+
+    void OnMouseButtonRelease(MouseButtonReleaseEvent event);
+
+private:
+    // Private constructors to disallow access.
+    InputManager(InputManager const &other);
+    InputManager operator=(InputManager other);
+
+    // InputView which is polled for ondemand input.
+    std::weak_ptr<InputView> inputView;
+
+    // Registered event handlers
+    MouseMotionHandler mouseMotionHandler;
+    std::map<MouseButton, MouseButtonPressHandler> mouseButtonPressHandlers;
+    std::map<MouseButton, MouseButtonReleaseHandler> mouseButtonReleaseHandlers;
+    std::map<KeyboardKey, KeyboardKeyPressHandler> keyboardKeyPressHandlers;
+    std::map<KeyboardKey, KeyboardKeyReleaseHandler> keyboardKeyReleaseHandlers;
+};
 
 InputManager::InputManager()
 {
@@ -142,3 +215,21 @@ void InputManager::OnMouseButtonRelease(MouseButtonReleaseEvent event)
         this->mouseButtonReleaseHandlers[event.button](event);
     }
 }
+
+// Hidden class pattern methods
+
+std::shared_ptr<Model::IInputManager> Model::CreateIInputManager()
+{
+    return std::dynamic_pointer_cast<Model::IInputManager, InputManager>(std::make_shared<InputManager>());
+}
+
+std::shared_ptr<View::IInputManager> View::CreateIInputManager()
+{
+    return std::dynamic_pointer_cast<View::IInputManager, InputManager>(std::make_shared<InputManager>());
+}
+
+std::shared_ptr<View::IInputManager> ManagerCast::CastInputManagerToInputManagerView(std::shared_ptr<Model::IInputManager> manager)
+{
+    return std::dynamic_pointer_cast<View::IInputManager, Model::IInputManager>(manager);
+}
+

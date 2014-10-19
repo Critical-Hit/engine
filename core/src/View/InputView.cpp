@@ -1,7 +1,7 @@
 #include "InputView.h"
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Window/Mouse.hpp"
-#include "InputManager.h"
+#include "IInputManagerView.h"
 #include "InputState.h"
 #include "KeyboardKeyPressEvent.h"
 #include "KeyboardKeyReleaseEvent.h"
@@ -27,7 +27,7 @@ void InputView::Initialize()
     this->SetMouseInputMode(MouseInputMode::SHOW);
 }
 
-void InputView::Update(std::shared_ptr<InputManager> inputManager)
+void InputView::Update(std::shared_ptr<View::IInputManager> inputManager)
 {
     this->inputManager = inputManager;
 }

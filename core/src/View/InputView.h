@@ -4,6 +4,8 @@
 #include "SFML/Window.hpp"
 #include <set>
 #include <memory>
+#include "IInputManagerView.h"
+#include "MouseInputMode.h"
 
 class InputManager;
 enum class InputState;
@@ -31,7 +33,7 @@ public:
      * @param inputManager InputManager which will receive update information. 
      * This InputManager will also receive all input events until the next time this function is called.
      */
-    void Update(std::shared_ptr<InputManager> inputManager);
+    void Update(std::shared_ptr<View::IInputManager> inputManager);
 
     /**
      * Poll the current state of a key. 
@@ -92,7 +94,7 @@ private:
     std::shared_ptr<sf::Window> window;
 
     // InputManager which receives input events.
-    std::shared_ptr<InputManager> inputManager;
+    std::shared_ptr<View::IInputManager> inputManager;
 
     // Mouse input mode state
     MouseInputMode mouseInputMode;
