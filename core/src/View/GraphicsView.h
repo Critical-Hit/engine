@@ -8,8 +8,10 @@
 #include "ControllerPackage.h"
 #include "GraphicsManager.h"
 #include "Texture.h"
+#include "SFML/OpenGL.hpp"
 
 class string;
+enum class SpriteRenderMode;
 
 /**
  * Provides a full set of logic for displaying graphics.
@@ -52,6 +54,8 @@ private:
      * Utility function for checking OpenGL errors
      */
     void CheckOpenGLError(std::string location);
+
+    GLuint testTextureId;
 };
 
 #endif

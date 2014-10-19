@@ -4,6 +4,13 @@
 #include <assert.h>
 #include "Color.h"
 
+// Enum representing the two different ways sprites can render
+enum class SpriteRenderMode
+{
+    SolidColor,
+    Textured
+};
+
 /**
  * Sprites are a 2D rectangle that can be drawn on the scren.
  * They have a position, width, height, and a color.  In the
@@ -28,6 +35,13 @@ public:
      * Width and height must both be greater than zero.
      */
     Sprite(float width, float height, Color color);
+
+    /**
+    * Basic constructor for the sprite class that uses a texture
+    *
+    * Width and height must both be greater than zero.
+    */
+    Sprite(float x, float y, float width, float height);
 
     /**
      * Moves the sprite to the given location
@@ -67,6 +81,12 @@ public:
     void ChangeColor(Color color);
 
     /**
+     * Sets the sprite to use the given texture.  The entire texture
+     * will be spread across the sprite.
+     */
+    void SetTextured();
+
+    /**
      * Obtains x
      */
     float GetX();
@@ -90,6 +110,11 @@ public:
      * Obtains the sprite's color
      */
     Color GetColor();
+
+    /**
+     * Obtains the sprites render mode
+     */
+    SpriteRenderMode GetRenderMode();
 
     /**
      * Puts OpenGL vertex information into the given array.
@@ -140,6 +165,7 @@ private:
     static const int vertexCount = 6;
     Sprite operator=(Sprite& other);
     Sprite(Sprite& other);
+    SpriteRenderMode renderMode;
 };
 
 #endif

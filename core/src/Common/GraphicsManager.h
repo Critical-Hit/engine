@@ -9,6 +9,7 @@
 #include "Camera.h"
 
 class Sprite;
+enum class SpriteRenderMode;
 
 /**
  * Manages all graphical work provided by the engine.  Current functionality:
@@ -94,6 +95,11 @@ public:
      */
     bool AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuffer, unsigned short* indexBuffer, unsigned short dataStartIndex);
 
+    /**
+     * Returns the render mode for the last sprite to be used in AddSpriteToVCIBuffer
+     */
+    SpriteRenderMode GetCurrentRenderMode();
+
 private:
     // Private constructors to disallow access.
     GraphicsManager(GraphicsManager const &other);
@@ -104,6 +110,7 @@ private:
     std::set<std::shared_ptr<Sprite>> registeredSprites;
     std::mutex registeredSpritesMutex;
     std::set<std::shared_ptr<Sprite>>::iterator spriteIterator;
+    SpriteRenderMode currentRenderingMode;
 };
 
 #endif
