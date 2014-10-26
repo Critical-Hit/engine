@@ -56,6 +56,7 @@ private:
     void CheckOpenGLError(std::string location);
 
     GLuint testTextureId;
+    std::shared_ptr<ResourceManager> resourceManager;
 };
 
 #endif

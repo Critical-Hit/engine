@@ -74,6 +74,7 @@ bool GraphicsManager::AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuff
     }
     std::shared_ptr<Sprite> sprite = *(this->spriteIterator);
     this->currentRenderingMode = sprite->GetRenderMode();
+    this->currentTextureId = sprite->GetTextureId();
     sprite->PutGLVertexInfo(vertexBuffer); // 16 = 4 vertices * 4 coordinates
     sprite->PutGLColorInfo(colorBuffer); // 16 = 4 vertices * 4 channels
     sprite->PutGLIndexInfo(indexBuffer, dataStartIndex); // 6 = 2 triangles * 3 coordinates
@@ -84,4 +85,9 @@ bool GraphicsManager::AddSpriteToVCIBuffer(float* vertexBuffer, float* colorBuff
 SpriteRenderMode GraphicsManager::GetCurrentRenderMode()
 {
     return this->currentRenderingMode;
+}
+
+Common::TextureId GraphicsManager::GetCurrentTextureId()
+{
+    return this->currentTextureId;
 }

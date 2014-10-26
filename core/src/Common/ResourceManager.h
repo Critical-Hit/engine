@@ -2,6 +2,7 @@
 #define Core_ResourceManager_h
 
 #include "Texture.h"
+#include "TextureId.h"
 #include <vector>
 #include <memory>
 
@@ -33,14 +34,14 @@ public:
      * @param textureID
      * @param fileName
      */
-    void LoadTexture(int textureID, const char* fileName);
+    void LoadTexture(Common::TextureId textureID);
     
     /**
      * Gets the TextureUnit from the TextureID
      *
      * @param textureID
      */
-    unsigned int GetTextureUnitFromTextureID(int textureID);
+    unsigned int GetTextureUnitFromTextureID(Common::TextureId textureID);
 
 private:
     ResourceManager(ResourceManager const &other);

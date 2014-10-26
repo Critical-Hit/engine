@@ -6,6 +6,7 @@
 GraphicsView::GraphicsView(std::shared_ptr<sf::Window> window)
 {
     this->window = window;
+    this->resourceManager = ResourceManager::GetInstance();
 }
 
 GraphicsView::~GraphicsView()
@@ -73,7 +74,7 @@ void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
         if (graphicsManager->GetCurrentRenderMode() == SpriteRenderMode::Textured)
         {
             glDisableClientState(GL_COLOR_ARRAY);
-            glBindTexture(GL_TEXTURE_2D, this->testTextureId);
+            glBindTexture(GL_TEXTURE_2D, this->resourceManager->GetTextureUnitFromTextureID(graphicsManager->GetCurrentTextureId()));
         }
         else
         {

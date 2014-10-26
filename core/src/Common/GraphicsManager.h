@@ -5,6 +5,7 @@
 #include <iterator>
 #include <mutex>
 #include <memory>
+#include "TextureId.h"
 #include "Color.h"
 #include "Camera.h"
 
@@ -100,6 +101,11 @@ public:
      */
     SpriteRenderMode GetCurrentRenderMode();
 
+    /**
+     * Returns the texture id for hte last sprite to be used in AddSpriteToVCIBuffer
+     */
+    Common::TextureId GetCurrentTextureId();
+
 private:
     // Private constructors to disallow access.
     GraphicsManager(GraphicsManager const &other);
@@ -111,6 +117,7 @@ private:
     std::mutex registeredSpritesMutex;
     std::set<std::shared_ptr<Sprite>>::iterator spriteIterator;
     SpriteRenderMode currentRenderingMode;
+    Common::TextureId currentTextureId;
 };
 
 #endif
