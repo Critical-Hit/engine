@@ -5,6 +5,7 @@ Texture::Texture(Common::TextureId textureId)
 {
     sf::Image image;
     image.loadFromFile(View::TextureIdUtils::GetTexturePath(textureId));
+    sf::Vector2u imageSize = image.getSize();
     
     GLuint textureUnit;
     glGenTextures(1, &textureUnit);
@@ -13,7 +14,7 @@ Texture::Texture(Common::TextureId textureId)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageSize.x, imageSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
     this->textureUnit = textureUnit;
 
     if(this->textureUnit == 0)

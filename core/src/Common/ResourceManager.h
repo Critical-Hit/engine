@@ -43,6 +43,12 @@ public:
      */
     unsigned int GetTextureUnitFromTextureID(Common::TextureId textureID);
 
+    /**
+     * Resolves any resource work that needs to be done on the
+     * graphics thread.
+     */
+    void ResolveResources();
+
 private:
     ResourceManager(ResourceManager const &other);
     ResourceManager operator=(ResourceManager other);
@@ -52,10 +58,8 @@ private:
      */
     static std::shared_ptr<ResourceManager> instance;
 
-    /**
-     * List of textures
-     */
     vector<std::shared_ptr<Texture>> textureList;
+    vector<Common::TextureId> texturesToLoad;
 };
 
 #endif

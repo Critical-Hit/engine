@@ -19,7 +19,7 @@ void GraphicsView::Initialize()
     GLubyte textureArray[] =
     {
         255, 0, 0, 255, 0, 255, 0, 255,
-        0, 0, 255, 0, 255, 255, 0, 255
+        0, 0, 255, 0, 255, 255, 0, 255,
     };
     GLuint textureId;
     glGenTextures(1, &textureId);
@@ -34,6 +34,9 @@ void GraphicsView::Initialize()
 
 void GraphicsView::Update(std::shared_ptr<GraphicsManager> graphicsManager)
 {
+    // Resolve Resources
+    this->resourceManager->ResolveResources();
+
     // Allocate buffers
     float* vertexBuffer = new float[4 * 4]; // 4 vertices; 4 coordinates per vertex
     float* colorBuffer = new float[4 * 4]; // 4 vertices; 4 channels per vertex
