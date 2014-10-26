@@ -1,6 +1,6 @@
-python_executable = "python3"
+pythonExecutable = "python3"
 if os.get() == "windows" then
-   python_executable = "python" 
+   pythonExecutable = "python" 
 end
 
 solution "Engine"
@@ -98,7 +98,7 @@ project "Core"
     	    "soil2-mac" 
         }
     prebuildcommands {
-        python_executable .. "scripts/generateTextureIds.py"
+        pythonExecutable .. " scripts/GenerateTextureIds.py"
     }
 
 project "Game"
@@ -138,5 +138,5 @@ for i = 1,table.getn(moduleNames) do
 end
 
 if _ACTION == "clean" then
-    os.execute(python_executable .. " scripts/clean.py")
+    os.execute(pythonExecutable .. " scripts/Clean.py")
 end
