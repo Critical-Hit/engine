@@ -9,11 +9,11 @@ Use [premake4](http://industriousone.com/premake) to generate a project file or 
 
 ##Windows
 
-Install [Visual Studio Express 2013 for Windows Desktop](http://www.visualstudio.com/downloads/download-visual-studio-vs). Visual Studio Professional/Premium/Ultimate 2013 will also work.
+Install [Visual Studio Community 2013](http://www.visualstudio.com/downloads/download-visual-studio-vs).
 
-Download [Premake 4.3](http://industriousone.com/premake/download) and extract premake4.exe to C:\premake4\bin. 
+Download [Premake 4.3](http://industriousone.com/premake/download) and extract premake4.exe to `C:\premake4\bin`. 
 
-Add C:\premake4\bin to your PATH user environment variable:
+Add `C:\premake4\bin` to your PATH user environment variable:
 
 1. Type "environment variables" into the Start Menu search menu to access Environment Variables.  
 1. If Path already exists in User variables, edit it and add "C:\premake4\bin;" to the front.  If Path doesn't exist, create a new variable with "Path" for the name and "C:\premake4\bin" for the value.
