@@ -1,3 +1,8 @@
+pythonExecutable = "python3"
+if os.get() == "windows" then
+   pythonExecutable = "python" 
+end
+
 solution "Engine"
     -- Specify debug and release builds
     configurations {"Debug", "Release"}
@@ -104,6 +109,9 @@ project "Core"
             "sfml-window",
     	    "soil2-mac" 
         }
+    prebuildcommands {
+        pythonExecutable .. " scripts/GenerateTextureIds.py"
+    }
 
 -- Game
 project "Game"
@@ -142,9 +150,5 @@ for i = 1,table.getn(moduleNames) do
 end
 
 if _ACTION == "clean" then
-    if os.get() == "windows" then
-        os.execute("python scripts/clean.py")
-    else
-        os.execute("python3 scripts/clean.py")
-    end
+    os.execute(pythonExecutable .. " scripts/Clean.py")
 end

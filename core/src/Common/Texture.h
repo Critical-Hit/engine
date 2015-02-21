@@ -2,19 +2,21 @@
 #define Core_Texture_h
 
 #include <functional>
+#include "SFML/OpenGL.hpp"
+#include "SFML/Graphics.hpp"
 #include "ImageLoader/SOIL2.h"
+#include "TextureId.h"
 
 class Texture
 {
 public:
-    Texture(int textureID, const char *fileName);
+    Texture(Common::TextureId textureId);
     ~Texture();
 
     Texture(char* filePath);
 
     unsigned int GetTextureUnit();
-    int GetTextureID();
-
+    Common::TextureId GetTextureId();
 
 private:
     Texture();
@@ -22,7 +24,7 @@ private:
     Texture(Texture& other);
 
     unsigned int textureUnit;
-    int textureID;
+    Common::TextureId textureId;
 };
 
 #endif

@@ -1,12 +1,22 @@
 #include <stdexcept>
 #include "Sprite.h"
 
-Sprite::Sprite(float x, float y, float width, float height, Color color) : x(x), y(y), width(width), height(height), color(color)
+Sprite::Sprite(float x, float y, float width, float height, Color color) : x(x), y(y), width(width), height(height), color(color), renderMode(SpriteRenderMode::SolidColor)
 {
     this->validateDimensions();
 }
 
-Sprite::Sprite(float width, float height, Color color) : x(0.0f), y(0.0f), width(width), height(height), color(color)
+Sprite::Sprite(float width, float height, Color color) : x(0.0f), y(0.0f), width(width), height(height), color(color), renderMode(SpriteRenderMode::SolidColor)
+{
+    this->validateDimensions();
+}
+
+Sprite::Sprite(float x, float y, float width, float height, Common::TextureId textureId) : x(x), y(y), width(width), height(height), color(0.0, 0.0, 0.0, 0.0), textureId(textureId), renderMode(SpriteRenderMode::Textured)
+{
+    this->validateDimensions();
+}
+
+Sprite::Sprite(float width, float height, Common::TextureId textureId) : x(0.0f), y(0.0f), width(width), height(height), color(0.0, 0.0, 0.0, 0.0), textureId(textureId), renderMode(SpriteRenderMode::Textured)
 {
     this->validateDimensions();
 }
@@ -42,9 +52,16 @@ void Sprite::ChangeDimensions(float width, float height)
     this->validateDimensions();
 }
 
-void Sprite::ChangeColor(Color color)
+void Sprite::SetColor(Color color)
 {
+    this->renderMode = SpriteRenderMode::SolidColor;
     this->color = color;
+}
+
+void Sprite::SetTextureId(Common::TextureId textureId)
+{
+    this->textureId = textureId;
+    this->renderMode = SpriteRenderMode::Textured;
 }
 
 float Sprite::GetX()
@@ -70,6 +87,16 @@ float Sprite::GetHeight()
 Color Sprite::GetColor()
 {
     return this->color;
+}
+
+Common::TextureId Sprite::GetTextureId()
+{
+    return this->textureId;
+}
+
+SpriteRenderMode Sprite::GetRenderMode()
+{
+    return this->renderMode;
 }
 
 void Sprite::validateDimensions()

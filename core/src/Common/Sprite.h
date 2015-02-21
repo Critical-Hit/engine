@@ -3,6 +3,14 @@
 
 #include <assert.h>
 #include "Color.h"
+#include "TextureId.h"
+
+// Enum representing the two different ways sprites can render
+enum class SpriteRenderMode
+{
+    SolidColor,
+    Textured
+};
 
 /**
  * Sprites are a 2D rectangle that can be drawn on the scren.
@@ -16,18 +24,32 @@ class Sprite
 {
 public:
     /**
-     * Basic constructor for the sprite class
+     * Basic constructor for a colored sprite
      *
      * Width and height must both be greater than zero.
      */
     Sprite(float x, float y, float width, float height, Color color);
 
     /**
-     * Basic constructor for the sprite class, setting x and y to 0.
+     * Basic constructor for a colored sprite, setting x and y to 0.
      *
      * Width and height must both be greater than zero.
      */
     Sprite(float width, float height, Color color);
+
+    /**
+    * Basic constructor for a textured sprite
+    *
+    * Width and height must both be greater than zero.
+    */
+    Sprite(float x, float y, float width, float height, Common::TextureId textureId);
+
+    /**
+    * Basic constructor for a textured sprite, setting x and y to 0.
+    *
+    * Width and height must both be greater than zero.
+    */
+    Sprite(float width, float height, Common::TextureId color);
 
     /**
      * Moves the sprite to the given location
@@ -62,9 +84,16 @@ public:
     void ChangeDimensions(float width, float height);
 
     /**
-     * Changes the color of the sprite
+     * Sets the color of the sprite; removing the texture
+     * if the sprite was previously textured.
      */
-    void ChangeColor(Color color);
+    void SetColor(Color color);
+
+    /**
+     * Sets the texture to use for the sprite; removes color if
+     * the sprite was previously colored.
+     */
+    void SetTextureId(Common::TextureId textureId);
 
     /**
      * Obtains x
@@ -90,6 +119,16 @@ public:
      * Obtains the sprite's color
      */
     Color GetColor();
+
+    /**
+     * Obtains the sprite's texture id
+     */
+    Common::TextureId GetTextureId();
+
+    /**
+     * Obtains the sprites render mode
+     */
+    SpriteRenderMode GetRenderMode();
 
     /**
      * Puts OpenGL vertex information into the given array.
@@ -130,6 +169,7 @@ protected:
     float width;
     float height;
     Color color;
+    Common::TextureId textureId;
 
     /**
      * Validates that width and height are greater than zero.
@@ -140,6 +180,7 @@ private:
     static const int vertexCount = 6;
     Sprite operator=(Sprite& other);
     Sprite(Sprite& other);
+    SpriteRenderMode renderMode;
 };
 
 #endif

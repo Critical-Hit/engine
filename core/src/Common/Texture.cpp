@@ -1,24 +1,27 @@
 #include "Texture.h"
+#include "TextureIdUtils.h"
 
-Texture::Texture(int textureID, const char *fileName)
+Texture::Texture(Common::TextureId textureId)
 {
-    this->textureID = textureID;
-    this->textureUnit =  SOIL_load_OGL_texture
-    (
-     fileName,
-     SOIL_LOAD_AUTO,
-     SOIL_CREATE_NEW_ID,
-     SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-     );
+    sf::Image image;
+    image.loadFromFile(View::TextureIdUtils::GetTexturePath(textureId));
+    sf::Vector2u imageSize = image.getSize();
     
+    GLuint textureUnit;
+    glGenTextures(1, &textureUnit);
+    glBindTexture(GL_TEXTURE_2D, textureUnit);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageSize.x, imageSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
+    this->textureUnit = textureUnit;
+
     if(this->textureUnit == 0)
     {
-        printf("Error loading Image.\n");
+        throw new std::logic_error("Error loading texture file.");
     }
-    else
-    {
-        this->textureID = textureID;
-    }
+    this->textureId = textureId;
 }
 
 Texture::~Texture()
@@ -31,7 +34,7 @@ unsigned int Texture::GetTextureUnit()
     return this->textureUnit;
 }
 
-int Texture::GetTextureID()
+Common::TextureId Texture::GetTextureId()
 {
-    return this->textureID;
+    return this->textureId;
 }
